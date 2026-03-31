@@ -1,7 +1,7 @@
 # Portfolio Plan - Ravishanker Product Designer
 
 ## Project Overview
-A sophisticated, animation-rich portfolio website showcasing work as a Product Designer. The portfolio emphasizes pure CSS animations, elegant transitions, and a clean, professional aesthetic with dark/light mode support. This is a pure HTML/CSS portfolio and there should be no JavaScript code or usage across any of the screens or interactions.
+A sophisticated, animation-rich portfolio website showcasing work as a Product Designer. The portfolio emphasizes pure CSS animations, elegant transitions, and a clean, professional aesthetic with dark/light mode support.
 
 ---
 
@@ -12,7 +12,8 @@ A sophisticated, animation-rich portfolio website showcasing work as a Product D
 
 #### Layout Structure
 - [ ] Black background (#000000) with orange accent text (#ff5b00)
-- [ ] 2% left/right margins, 2% top/bottom padding
+- [ ] No padding on viewport container
+- [ ] 4% top margin, 4% left margin for internal content positioning
 - [ ] Overflow hidden for full viewport control
 
 #### Header Section
@@ -53,7 +54,8 @@ A sophisticated, animation-rich portfolio website showcasing work as a Product D
 
 #### Layout Structure
 - [ ] Black background (#000000) with white text (#ffffff)
-- [ ] Left-aligned content with 4% left margin
+- [ ] No padding on viewport container
+- [ ] 4% top margin, 4% left margin for internal content positioning
 - [ ] Page flip-down animation on load (1.2s, rotateX -90deg → 0deg)
 
 #### Company List
@@ -107,10 +109,16 @@ A sophisticated, animation-rich portfolio website showcasing work as a Product D
 
 ---
 
-## Carousel Version (carousel-embedded.html)
+## Carousel Integration (Built into index.html)
 
 ### Purpose
-Combined single-file experience with smooth transitions between index and companies pages.
+Index.html serves as the main entry point with integrated carousel functionality for smooth transitions between index and companies content within a single file.
+
+### Implementation Approach
+- [ ] Build carousel structure directly into index.html
+- [ ] Include both index and companies page content in the same HTML file
+- [ ] Use CSS for slide management and transitions
+- [ ] Link index.css for all styling (no separate carousel CSS file needed)
 
 ### Carousel Mechanics
 - [ ] Implement 4-state radio machine for directional navigation:
@@ -137,18 +145,21 @@ Combined single-file experience with smooth transitions between index and compan
 - [ ] Slide 2 scales up to 106% then slides left
 - [ ] Slide 1 slides in from right
 
-### Content Integration Options
+### Content Integration
 
-#### Option A: iframe Method (Simpler)
-- [ ] Embed index.html and companies.html via iframes
-- [ ] Pros: Clean separation, no CSS conflicts
-- [ ] Cons: iframe overhead, potential interaction issues
+#### Single-File Structure (Recommended)
+- [ ] Include both index and companies content in index.html
+- [ ] Wrap each section in slide containers (.slide-1, .slide-2)
+- [ ] Namespace all CSS with .slide-1 and .slide-2 prefixes in index.css
+- [ ] Ensure proper slide isolation (no style bleeding between slides)
+- [ ] Keep companies.html as separate standalone page for direct access
 
-#### Option B: Direct Embedding (Recommended)
-- [ ] Copy all HTML content directly into carousel structure
-- [ ] Namespace all CSS with .slide-1 and .slide-2 prefixes
-- [ ] Ensure mode overlay only affects slide-1
-- [ ] Fix white screen issue by hiding overlay when slide-2 active
+#### Advantages
+- ✅ Single file loads all content
+- ✅ No iframe overhead
+- ✅ Smoother transitions
+- ✅ Easier state management
+- ✅ Better performance
 
 ### Navigation
 - [ ] Click anywhere on Slide 1 → advance to Slide 2
@@ -183,9 +194,10 @@ Brand Colors:
 
 ### Spacing System
 ```
-Margins: 2% standard, 4% for emphasized areas
-Padding: 2% vertical, 0-2% horizontal
-Gaps: 0.5rem (locations), 1.5rem (companies), 3rem (larger spacing)
+Container Padding: 0% (no padding on viewport containers)
+Internal Margins: 4% top, 4% left (for content positioning)
+Content Gaps: 0.5rem (locations), 1.5rem (companies), 3rem (larger spacing)
+Alignment: Left-aligned with consistent 4% left margin
 ```
 
 ### Animation Timing
@@ -210,8 +222,11 @@ Easing:
 - [ ] Add ARIA labels and roles for accessibility
 - [ ] Include skip links for keyboard navigation
 - [ ] Ensure all interactive elements are keyboard accessible
+- [ ] **Separate HTML and CSS into individual files** (no inline styles in HTML)
+- [ ] Link external CSS file in `<head>` section
 
 ### CSS
+- [ ] **Create separate CSS file** (e.g., styles.css, index.css, companies.css)
 - [ ] Pure CSS animations (avoid JavaScript where possible)
 - [ ] Use CSS Grid/Flexbox for layouts
 - [ ] Implement CSS custom properties for theme values (optional enhancement)
@@ -220,6 +235,7 @@ Easing:
 - [ ] Ensure proper z-index layering
 - [ ] Add transform-style: preserve-3d for 3D effects
 - [ ] Set appropriate perspective values (1000px)
+- [ ] **No inline styles** - all styling must be in external CSS files
 
 ### JavaScript
 - [ ] Minimize usage - only where absolutely necessary
@@ -247,25 +263,70 @@ Easing:
 
 ```
 portfolio/
-├── index.html                      # Main landing page
-├── companies.html                  # Work experience page
+├── index.html                      # Main file with integrated carousel (index + companies)
+├── index.css                       # All styles for index.html (including carousel)
+├── companies.html                  # Standalone companies page (optional direct access)
+├── companies.css                   # Styles for standalone companies page
 ├── links.html                      # External links page
-├── carousel-embedded.html          # Combined carousel experience
-├── carousel-embedded-original.html # Clean iframe version
-├── carousel-reference.html         # Pure CSS carousel demo
+├── links.css                       # Styles for links page
 └── portfolio-plan.md              # This document
+
+Notes:
+- index.html contains both index and companies content as slides
+- companies.html remains as standalone page for direct navigation
+- All carousel logic and styling is in index.html/index.css
 ```
+
+---
+
+## File Organization & Best Practices
+
+### Separation of Concerns
+- [ ] **HTML files** contain only structure and content
+- [ ] **CSS files** contain all styling and animations
+- [ ] **JavaScript files** contain behavior (minimal usage)
+- [ ] No inline styles (`style=""` attribute) in HTML
+- [ ] No `<style>` tags in HTML files
+
+### Linking CSS Files
+```html
+<!-- In index.html -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ravishanker - Product Designer</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+```
+
+### CSS File Naming Conventions
+- **Main file**: `index.css` (includes carousel, slide-1, and slide-2 styles)
+- **Standalone pages**: `companies.css`, `links.css`
+- **Alternative approach**: `styles.css` (if using shared global styles)
+
+### Advantages of Separate Files
+- ✅ Better code organization and maintainability
+- ✅ Easier debugging and updates
+- ✅ Browser caching of CSS files
+- ✅ Cleaner HTML structure
+- ✅ Reusable styles across pages
+- ✅ Better version control and collaboration
 
 ---
 
 ## Development Workflow
 
-### Phase 1: Core Pages
-1. [ ] Build index.html with basic layout
-2. [ ] Add location carousel animations
-3. [ ] Create companies.html with company list
-4. [ ] Add brand color hovers
-5. [ ] Build links.html
+### Phase 1: Core Pages with Integrated Carousel
+1. [ ] Build index.html with carousel structure (radio button state machine)
+2. [ ] Add Slide 1: index content (name, title, locations)
+3. [ ] Add Slide 2: companies content within same file
+4. [ ] Create index.css with all styles (including carousel transitions)
+5. [ ] Implement location carousel animations
+6. [ ] Add brand color hovers for companies
+7. [ ] Build companies.html as standalone page (optional direct access)
+8. [ ] Create companies.css for standalone version
+9. [ ] Build links.html
+10. [ ] Create links.css with all links page styles
 
 ### Phase 2: Interactions
 1. [ ] Implement back buttons on all pages
@@ -273,14 +334,14 @@ portfolio/
 3. [ ] Test all animations and transitions
 4. [ ] Verify accessibility features
 
-### Phase 3: Carousel Integration
-1. [ ] Create carousel structure with radio buttons
-2. [ ] Implement slide transitions
-3. [ ] Integrate index and companies content
-4. [ ] Namespace all CSS to prevent conflicts
-5. [ ] Test navigation flow
+### Phase 3: Polish & Refinement
+1. [ ] Fine-tune carousel slide transitions
+2. [ ] Verify CSS namespacing prevents conflicts between slides
+3. [ ] Test navigation flow (forward/backward)
+4. [ ] Optimize animation performance
+5. [ ] Test all responsive breakpoints
 
-### Phase 4: Polish & Testing
+### Phase 4: Final Testing & Deployment
 1. [ ] Test across breakpoints
 2. [ ] Verify all animations are smooth
 3. [ ] Check accessibility compliance
@@ -297,6 +358,7 @@ portfolio/
 - **Default HTML tags**: Prefer semantic HTML over divs
 - **Responsive required**: Must work on desktop (3840×2160, 1920×1080, 1440×720) and mobile (portrait)
 - **Pure CSS animations**: Leverage modern CSS features for all interactions
+- **Separate HTML and CSS files**: No inline styles or `<style>` tags in HTML
 
 ### Design Principles
 - **Consistency**: Same text styling across pages where appropriate
@@ -432,16 +494,35 @@ portfolio/
 - Consistent black background throughout
 - Streamlined color system
 
+### v2.4 - Code Organization
+- Added requirement for separate HTML and CSS files
+- Established file naming conventions
+- Documented file structure best practices
+
+### v2.5 - Integrated Carousel Architecture
+- Carousel integrated directly into index.html (not separate file)
+- Removed container padding (2%) in favor of internal margins (4% top, 4% left)
+- Single index.css file contains all carousel and slide styles
+- Simplified file structure
+
 ---
 
 ## Maintenance Notes
 
 ### Adding New Pages
-1. Create standalone HTML file
-2. Match typography and spacing system
-3. Add to carousel if needed (new radio states)
-4. Update navigation links
-5. Test all transitions
+1. Create standalone HTML file (e.g., links.html)
+2. Create corresponding CSS file (e.g., links.css)
+3. Match typography and spacing system (4% top/left margins)
+4. To add to carousel: create new slide in index.html with new radio states
+5. Update navigation links
+6. Test all transitions
+
+### Modifying Carousel Slides
+1. All carousel changes happen in index.html
+2. Style changes go in index.css
+3. Use .slide-1, .slide-2 namespace prefixes
+4. Test slide isolation (no style bleeding)
+5. Verify transitions work both directions
 
 ### Modifying Animations
 1. Check animation timing (fast/medium/slow categories)
@@ -499,5 +580,5 @@ portfolio/
 
 ---
 
-*Last Updated: March 25, 2026*  
-*Version: 2.3*
+*Last Updated: March 30, 2026*  
+*Version: 2.5*
