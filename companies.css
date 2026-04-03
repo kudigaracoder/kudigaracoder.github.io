@@ -1,0 +1,185 @@
+/* companies.css — standalone companies page */
+
+:root{
+  --bg:#000000;
+  --accent:#ff5b00;
+  --white:#ffffff;
+
+  --title-size:180px;
+}
+
+@media (max-width: 768px){
+  :root{ --title-size:72px; }
+}
+@media (max-width: 480px){
+  :root{ --title-size:42px; }
+}
+
+*{ box-sizing:border-box; }
+html,body{ height:100%; }
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--white);
+  font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  overflow:hidden;
+}
+
+:focus-visible{
+  outline:2px solid var(--accent);
+  outline-offset:3px;
+}
+
+.skip-link{
+  position:absolute;
+  left:1rem;
+  top:1rem;
+  transform: translateY(-150%);
+  background:#fff;
+  color:#000;
+  padding:.6rem .9rem;
+  border-radius:.25rem;
+  text-decoration:none;
+  z-index:999;
+}
+.skip-link:focus{ transform: translateY(0); }
+
+.viewport{
+  min-height:100vh;
+  position:relative;
+  overflow:hidden;
+}
+
+.content{
+  margin-top:4%;
+  margin-left:4%;
+}
+
+/* Back button quarter circle */
+.back-btn{
+  position:absolute;
+  left:0;
+  top:-75px;
+  width:120px;
+  height:120px;
+  background:#fff;
+  border-radius:50%;
+  clip-path: polygon(50% 50%, 100% 50%, 100% 100%, 50% 100%);
+  text-decoration:none;
+  cursor:pointer;
+  z-index:10;
+}
+.back-btn__arrow{
+  position:absolute;
+  left:90px;
+  top:90px;
+  transform: translate(-50%, -50%);
+  color:#000;
+  font-size:40px;
+  line-height:1;
+  transition: transform .3s ease;
+}
+.back-btn:hover .back-btn__arrow{
+  transform: translate(-50%, -50%) scale(1.06);
+}
+
+/* Flip-down on load */
+.company-main{
+  transform-origin: top center;
+  animation: flip-down 1.2s cubic-bezier(0.4, 0, 0.2, 1) both;
+  will-change: transform, opacity;
+}
+@keyframes flip-down{
+  from{ transform: rotateX(-90deg); opacity:0; }
+  to{ transform: rotateX(0deg); opacity:1; }
+}
+
+.company-list{
+  display:flex;
+  flex-direction:column;
+  gap:1.5rem;
+}
+
+.company-link{
+  font-size:var(--title-size);
+  font-weight:700;
+  letter-spacing:-10px;
+  line-height:0.9;
+  text-decoration:none;
+  color:#fff;
+  transition: color .3s ease, transform .5s ease, opacity .5s ease;
+  will-change: transform, opacity, color;
+}
+
+.company-link--goldman:hover{ color:#7297C5; }
+.company-link--rga:hover{ color:#ffffff; }
+.company-link--sva:hover{ color:#FF3716; }
+.company-link--torry:hover{ color:#254695; }
+
+/* Optional pure CSS Goldman overlay */
+.goldman-overlay{
+  position:absolute;
+  inset:0;
+  background:#7297C5;
+  color:#000;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:10%;
+  opacity:0;
+  pointer-events:none;
+  transform: rotateX(90deg);
+  transition: opacity .35s ease, transform .6s ease;
+}
+
+.goldman-overlay__content{
+  width:min(900px, 100%);
+  text-align:left;
+}
+
+.goldman-overlay__headline{
+  font-size: clamp(2.2rem, 6vw, 4rem);
+  font-weight:700;
+  letter-spacing:-.04em;
+  margin:0 0 1rem 0;
+}
+
+.goldman-overlay__body{
+  margin:0;
+  font-size:1.1rem;
+  line-height:1.4;
+}
+
+.goldman-overlay__close{
+  display:inline-block;
+  margin-top:1.25rem;
+  color:#000;
+  font-weight:700;
+  text-decoration:none;
+  background:rgba(255,255,255,.65);
+  padding:.5rem .8rem;
+  border-radius:.4rem;
+}
+.goldman-overlay__close:focus-visible{
+  outline:2px solid #000;
+  outline-offset:3px;
+}
+
+#goldman:target{
+  opacity:1;
+  pointer-events:auto;
+  transform: rotateX(0deg);
+}
+
+#goldman:target ~ .content .company-link{
+  opacity:0.12;
+}
+#goldman:target ~ .content .company-link--goldman{
+  opacity:0;
+  transform: rotateX(-90deg);
+}
+
+@media (prefers-reduced-motion: reduce){
+  .company-main{ animation:none; }
+  .back-btn__arrow{ transition:none; }
+}

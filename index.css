@@ -1,0 +1,285 @@
+/* index.css — main styles for portfolio/index.html (includes integrated carousel) */
+
+:root{
+  --bg:#000000;
+  --accent:#ff5b00;
+  --white:#ffffff;
+
+  --name-size:200px;
+  --title-size:180px;
+}
+
+@media (max-width: 768px){
+  :root{ --name-size:80px; --title-size:72px; }
+}
+@media (max-width: 480px){
+  :root{ --name-size:48px; --title-size:42px; }
+}
+
+*{ box-sizing:border-box; }
+html,body{ height:100%; }
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--white);
+  font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  overflow:hidden;
+}
+
+:focus-visible{
+  outline:2px solid var(--accent);
+  outline-offset:3px;
+}
+
+.skip-link{
+  position:absolute;
+  left:1rem;
+  top:1rem;
+  transform: translateY(-150%);
+  background:#fff;
+  color:#000;
+  padding:.6rem .9rem;
+  border-radius:.25rem;
+  text-decoration:none;
+  z-index:999;
+}
+.skip-link:focus{ transform: translateY(0); }
+
+/* Viewport container: no padding; internal positioning uses 4% top/left margins */
+.viewport{
+  min-height:100vh;
+  position:relative;
+  overflow:hidden;
+}
+
+.content{
+  margin-top:4%;
+  margin-left:4%;
+}
+
+/* Typography blocks */
+.brand{
+  position:relative;
+  margin:0;
+  user-select:none;
+}
+
+.brand__name{
+  color:var(--accent);
+  font-size:var(--name-size);
+  font-weight:700;
+  letter-spacing:-10px;
+  line-height:1;
+}
+
+.product-designer-link{
+  display:inline-block;
+  margin-top:.8rem;
+  color:var(--white);
+  font-size:var(--title-size);
+  font-weight:700;
+  letter-spacing:-10px;
+  line-height:0.9;
+  text-shadow:none;
+  cursor:pointer;
+  transition: opacity .3s ease;
+}
+.product-designer-link:hover{ opacity:.85; }
+.product-designer-link span{ display:block; }
+
+/* Location carousel */
+.locations-outer{
+  margin-top:3rem;
+  position:relative;
+  width:100%;
+  height:var(--title-size);
+  perspective:1000px;
+}
+.locations{
+  position:relative;
+  width:100%;
+  height:var(--title-size);
+  transform-style:preserve-3d;
+}
+.location{
+  position:absolute;
+  top:0;
+  left:0;
+  font-size:var(--title-size);
+  font-weight:700;
+  letter-spacing:-10px;
+  line-height:0.9;
+  transform-origin:0 50%;
+  will-change: transform, opacity;
+}
+
+.location--coimbatore{ animation: loc-coimbatore 10s cubic-bezier(0.77, 0, 0.175, 1) forwards; }
+.location--bengaluru{ animation: loc-bengaluru 10s cubic-bezier(0.77, 0, 0.175, 1) forwards; }
+.location--nyc{ animation: loc-nyc 10s cubic-bezier(0.77, 0, 0.175, 1) forwards; }
+
+@keyframes loc-coimbatore{
+  0%{ transform: rotateX(90deg); opacity:0; }
+  10%{ transform: rotateX(0deg); opacity:1; }
+  30%{ transform: rotateX(0deg); opacity:1; }
+  40%{ transform: rotateX(-90deg); opacity:0; }
+  100%{ transform: rotateX(-90deg); opacity:0; }
+}
+@keyframes loc-bengaluru{
+  0%{ transform: rotateX(90deg); opacity:0; }
+  30%{ transform: rotateX(90deg); opacity:0; }
+  40%{ transform: rotateX(0deg); opacity:1; }
+  50%{ transform: rotateX(0deg); opacity:1; }
+  60%{ transform: rotateX(-90deg); opacity:0; }
+  100%{ transform: rotateX(-90deg); opacity:0; }
+}
+@keyframes loc-nyc{
+  0%{ transform: rotateX(90deg); opacity:0; }
+  50%{ transform: rotateX(90deg); opacity:0; }
+  60%{ transform: rotateX(0deg); opacity:1; }
+  100%{ transform: rotateX(0deg); opacity:1; }
+}
+
+/* ---- Integrated carousel (radio state machine) ---- */
+.carousel input[type="radio"]{
+  display:none;
+}
+
+.slides{
+  position:absolute;
+  inset:0;
+}
+
+.slide{
+  position:absolute;
+  inset:0;
+  background:#000;
+  overflow:hidden;
+  transition:
+    transform 5s cubic-bezier(0.77, 0, 0.175, 1),
+    opacity 4s ease 0.5s;
+}
+
+.slide-1 .content{ position:relative; z-index:2; }
+.slide-2 .content{ position:relative; z-index:2; }
+
+/* Back button (quarter circle) */
+.back-btn{
+  position:absolute;
+  left:0;
+  top:-75px;
+  width:120px;
+  height:120px;
+  background:#fff;
+  border-radius:50%;
+  clip-path: polygon(50% 50%, 100% 50%, 100% 100%, 50% 100%);
+  z-index:3;
+  cursor:pointer;
+}
+.back-btn__arrow{
+  position:absolute;
+  left:90px;
+  top:90px;
+  transform: translate(-50%, -50%);
+  color:#000;
+  font-size:40px;
+  line-height:1;
+}
+
+.back-btn:hover .back-btn__arrow{
+  transform: translate(-50%, -50%) scale(1.06);
+}
+
+/* Companies list inside slide 2 */
+.company-main{
+  margin-top:0;
+  transform-origin: top center;
+  will-change: transform, opacity;
+  animation: companies-flip-down 1.2s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+@keyframes companies-flip-down{
+  from{ transform: rotateX(-90deg); opacity:0; }
+  to{ transform: rotateX(0deg); opacity:1; }
+}
+.company-list{
+  display:flex;
+  flex-direction:column;
+  gap:1.5rem;
+}
+.company{
+  font-size:var(--title-size);
+  font-weight:700;
+  letter-spacing:-10px;
+  line-height:0.9;
+  color:#fff;
+}
+.company--goldman:hover{ color:#7297C5; }
+.company--rga:hover{ color:#ffffff; }
+.company--sva:hover{ color:#FF3716; }
+.company--torry:hover{ color:#254695; }
+
+/* Transitions (5s) */
+@keyframes s1-forward-out{
+  0%{ transform: translateX(0%) scale(1); opacity:1; }
+  20%{ transform: translateX(0%) scale(0.9); opacity:1; }
+  60%{ transform: translateX(-110%) scale(0.9); opacity:1; }
+  100%{ transform: translateX(-110%) scale(0.9); opacity:0; }
+}
+@keyframes s2-forward-in{
+  0%{ transform: translateX(110%) scale(0.9); opacity:0; }
+  20%{ transform: translateX(110%) scale(0.9); opacity:0; }
+  60%{ transform: translateX(0%) scale(0.9); opacity:1; }
+  100%{ transform: translateX(0%) scale(1); opacity:1; }
+}
+/* Default positioning per state */
+#s1_fwd:checked ~ .slides .slide-1{
+  transform: translateX(0%) scale(1);
+  opacity:1;
+}
+#s1_fwd:checked ~ .slides .slide-2{
+  transform: translateX(110%) scale(0.9);
+  opacity:0;
+}
+#s2_fwd:checked ~ .slides .slide-2,
+#s2_bwd:checked ~ .slides .slide-2{
+  transform: translateX(0%) scale(1);
+  opacity:1;
+}
+#s2_fwd:checked ~ .slides .slide-1,
+#s2_bwd:checked ~ .slides .slide-1{
+  transform: translateX(8%) scale(0.88);
+  opacity:0;
+}
+
+/* Backward keyframe animations (mirrors forward: scale-down then slide) */
+@keyframes s2-backward-out{
+  0%  { transform: translateX(0%)   scale(1);   opacity:1; }
+  20% { transform: translateX(0%)   scale(0.9); opacity:1; }
+  60% { transform: translateX(110%) scale(0.9); opacity:1; }
+  100%{ transform: translateX(110%) scale(0.9); opacity:0; }
+}
+@keyframes s1-backward-in{
+  0%  { transform: translateX(-110%) scale(0.9); opacity:0; }
+  20% { transform: translateX(-110%) scale(0.9); opacity:0; }
+  60% { transform: translateX(0%)    scale(0.9); opacity:1; }
+  100%{ transform: translateX(0%)    scale(1);   opacity:1; }
+}
+
+/* Animate on state */
+#s2_fwd:checked ~ .slides .slide-1{ animation: s1-forward-out  5s cubic-bezier(0.77, 0, 0.175, 1) both; }
+#s2_fwd:checked ~ .slides .slide-2{ animation: s2-forward-in   5s cubic-bezier(0.77, 0, 0.175, 1) both; }
+#s1_bwd:checked ~ .slides .slide-2{ animation: s2-backward-out 5s cubic-bezier(0.77, 0, 0.175, 1) both; }
+#s1_bwd:checked ~ .slides .slide-1{ animation: s1-backward-in  5s cubic-bezier(0.77, 0, 0.175, 1) both; }
+
+@media (prefers-reduced-motion: reduce){
+  .location--coimbatore,
+  .location--bengaluru,
+  .location--nyc,
+  #s2_fwd:checked ~ .slides .slide-1,
+  #s2_fwd:checked ~ .slides .slide-2,
+  #s1_bwd:checked ~ .slides .slide-2,
+  #s1_bwd:checked ~ .slides .slide-1{
+    animation:none !important;
+    transition:none !important;
+  }
+}
+

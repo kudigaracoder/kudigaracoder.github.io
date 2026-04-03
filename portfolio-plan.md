@@ -20,7 +20,8 @@ A sophisticated, animation-rich portfolio website showcasing work as a Product D
 - [ ] Display "Ravishanker" at 200px, Inter 700 weight, -10px letter-spacing
 - [ ] Add "About me" hover effect (white text, 45% opacity, appears on name hover)
 - [ ] Position "Product Designer" below name (180px, split across two lines)
-- [ ] Link "Product Designer" to companies.html
+- [ ] **Make "Product Designer" text clickable** - navigates to Slide 2 (Companies)
+- [ ] Add hover state to "Product Designer" to indicate interactivity
 - [ ] Remove drop shadows from "Product Designer" text
 
 #### Location Carousel Animation
@@ -46,6 +47,9 @@ A sophisticated, animation-rich portfolio website showcasing work as a Product D
 - [ ] Include ARIA labels for all interactive elements
 - [ ] Ensure keyboard navigation works for all interactive elements
 - [ ] Test screen reader compatibility
+- [ ] Interactive elements clearly announced ("Product Designer link", "Back button")
+- [ ] Focus indicators visible on all clickable elements
+- [ ] Proper tab order through interactive elements
 
 ---
 
@@ -74,7 +78,9 @@ A sophisticated, animation-rich portfolio website showcasing work as a Product D
 - [ ] Create 120px × 120px white circle at position (0, -75)
 - [ ] Clip as quarter circle showing only bottom-right portion
 - [ ] Display black arrow (←) centered in visible quarter
-- [ ] Make clickable label that triggers carousel navigation back to index
+- [ ] **Make clickable to navigate back to Slide 1 (Index)**
+- [ ] Add hover state to indicate interactivity
+- [ ] Ensure proper z-index layering above other content
 
 #### Goldman Sachs Interaction (Optional Enhancement)
 - [ ] Implement flip animation (rotateX 0deg → -90deg) on click
@@ -122,28 +128,74 @@ Index.html serves as the main entry point with integrated carousel functionality
 
 ### Carousel Mechanics
 - [ ] Implement 4-state radio machine for directional navigation:
-  - s1_fwd: Slide 1 active (arrived forward)
+  - s1_fwd: Slide 1 active (arrived forward) - **DEFAULT/INITIAL STATE**
   - s2_fwd: Slide 2 active (arrived forward)
   - s1_bwd: Slide 1 active (arrived backward)
   - s2_bwd: Slide 2 active (arrived backward)
+- [ ] **Set s1_fwd as checked on page load** - Index page shows first, NOT companies
 - [ ] Use pure CSS (no JavaScript for carousel navigation)
 - [ ] Hide all radio inputs with display: none
+- [ ] **Navigation triggered by specific interactive elements only** (not background clicks)
+- [ ] Label elements wrap interactive text/buttons to trigger radio state changes
 
 ### Transition Animations
 
 #### Forward Transition (Index → Companies)
-- [ ] Duration: 5 seconds (or 2 seconds for faster variant)
-- [ ] Animation sequence:
-  1. Slide 1 scales down to 90% (0-20% of animation)
-  2. Slide 1 slides left to -110% (20-60% of animation)
-  3. Slide 2 slides in from right 110% → 0 (0-60% of animation)
-  4. Slide 2 scales up 90% → 100% (60-100% of animation)
+- [ ] Duration: 5 seconds total
+- [ ] Animation sequence with timing breakdown:
+  1. **0-20% (0-1s)**: Slide 1 scales down from 100% to 90%
+  2. **20-60% (1-3s)**: Slide 1 slides left from 0 to -110%
+  3. **0-20% (0-1s)**: Slide 2 waits at 110% off-screen (no movement)
+  4. **20-60% (1-3s)**: Slide 2 slides in from 110% to 0
+  5. **60-100% (3-5s)**: Slide 2 scales up from 90% to 100%
 - [ ] Easing: cubic-bezier(0.77, 0, 0.175, 1)
+- [ ] Keyframe percentages: 0%, 20%, 60%, 100%
 
 #### Backward Transition (Companies → Index)
-- [ ] Same duration and easing as forward
-- [ ] Slide 2 scales up to 106% then slides left
-- [ ] Slide 1 slides in from right
+- [ ] Duration: 5 seconds total (same as forward)
+- [ ] **NO keyframe animations** - uses direct CSS transitions
+- [ ] Animation sequence:
+  1. **Slide 2 (Companies)**: Scales from 100% to 106% AND slides from 0 to -110% (simultaneously)
+  2. **Slide 1 (Index)**: Slides in from 8% offset to 0 AND scales from 88% to 100% (simultaneously)
+- [ ] Same easing: cubic-bezier(0.77, 0, 0.175, 1)
+- [ ] Transform and opacity transitions: 5s transform, 4s opacity with 0.5s delay
+- [ ] **Different from forward**: Forward uses staged keyframes, backward is simultaneous
+
+#### Timing Details (Actual Implementation)
+```css
+/* Base slide transition */
+transition:
+    transform 5s cubic-bezier(0.77, 0, 0.175, 1),
+    opacity 4s ease 0.5s;
+
+/* FORWARD animation - uses keyframes for staged transitions */
+@keyframes scaleOutLeft {
+    0%   { transform: scale(1) translateX(0); }      /* Start */
+    20%  { transform: scale(0.9) translateX(0); }    /* Scale complete */
+    60%  { transform: scale(0.9) translateX(-110%); } /* Slide complete */
+    100% { transform: scale(0.9) translateX(-110%); } /* Hold */
+}
+
+@keyframes slideInThenScale {
+    0%   { transform: scale(0.9) translateX(110%); }  /* Start off-screen */
+    20%  { transform: scale(0.9) translateX(110%); }  /* Wait */
+    60%  { transform: scale(0.9) translateX(0); }     /* Slide in */
+    100% { transform: scale(1) translateX(0); }       /* Scale up */
+}
+
+/* BACKWARD transition - direct CSS transitions (simultaneous) */
+#s1_bwd:checked ~ .slide-2 {
+    transform: scale(1.06) translateX(-110%);  /* Scale up AND slide left */
+    transition: transform 5s cubic-bezier(0.77, 0, 0.175, 1);
+    z-index: 3;
+}
+
+#s1_bwd:checked ~ .slide-1 {
+    transform: scale(1) translateX(0);  /* From scale(0.88) translateX(8%) */
+    transition: transform 5s cubic-bezier(0.77, 0, 0.175, 1);
+    z-index: 2;
+}
+```
 
 ### Content Integration
 
@@ -162,9 +214,39 @@ Index.html serves as the main entry point with integrated carousel functionality
 - ✅ Better performance
 
 ### Navigation
-- [ ] Click anywhere on Slide 1 → advance to Slide 2
-- [ ] Click back button on Slide 2 → return to Slide 1
-- [ ] Click anywhere else on Slide 2 → return to Slide 1
+
+#### Interaction Points (Title-Based)
+- [ ] Click on "Product Designer" text → Navigate to Slide 2 (Companies page)
+- [ ] Click on back button in Companies → Navigate to Slide 1 (Index page)
+- [ ] **Interactions are on titles/buttons only** - clicking backgrounds does NOT trigger navigation
+- [ ] Use label elements wrapping text for clickable areas
+- [ ] Ensure proper cursor styles (pointer on interactive elements)
+
+#### Navigation States
+- [ ] Forward navigation: Triggered by clicking "Product Designer"
+- [ ] Backward navigation: Triggered by clicking back button
+- [ ] No background click-through navigation
+- [ ] Clear visual affordances (hover states on interactive elements)
+
+#### Implementation Notes
+```html
+<!-- Radio button state machine -->
+<input type="radio" name="slide" id="s1_fwd" class="carousel-radio" checked>
+<input type="radio" name="slide" id="s2_fwd" class="carousel-radio">
+<input type="radio" name="slide" id="s1_bwd" class="carousel-radio">
+<input type="radio" name="slide" id="s2_bwd" class="carousel-radio">
+
+<!-- Navigation triggers -->
+<label for="s2_fwd" class="product-designer-link">
+    Product Designer
+</label>
+
+<label for="s1_bwd" class="back-button">
+    <!-- Back button content -->
+</label>
+```
+
+**CRITICAL: s1_fwd MUST have the `checked` attribute to show Index page on launch**
 
 ---
 
@@ -204,11 +286,12 @@ Alignment: Left-aligned with consistent 4% left margin
 ```
 Fast: 0.3s (hovers, simple transitions)
 Medium: 0.8s-1s (fades, simple animations)
-Slow: 2s-5s (carousel transitions, location carousel)
+Slow: 5s (carousel slide transitions)
+Location Carousel: 10s total (each location displays for ~3s)
 
 Easing:
 - Smooth: cubic-bezier(0.4, 0, 0.2, 1)
-- Custom: cubic-bezier(0.77, 0, 0.175, 1)
+- Carousel: cubic-bezier(0.77, 0, 0.175, 1)
 - Ease-in-out: for symmetric animations
 ```
 
@@ -379,11 +462,15 @@ Notes:
 ## Testing Checklist
 
 ### Functionality
+- [ ] **Index page (Slide 1) displays on initial page load** - NOT companies page
 - [ ] All page transitions work smoothly
 - [ ] Location carousel loops through all three cities
-- [ ] Back buttons navigate correctly
-- [ ] All hover effects trigger properly
+- [ ] "Product Designer" text click navigates to Companies (Slide 2)
+- [ ] Back button click navigates to Index (Slide 1)
+- [ ] Background clicks do NOT trigger navigation
+- [ ] All hover effects trigger properly on interactive elements
 - [ ] Carousel navigation works bidirectionally
+- [ ] Cursor changes to pointer on interactive elements
 
 ### Visual
 - [ ] Text is readable at all sizes
@@ -438,6 +525,10 @@ Notes:
 ---
 
 ## Resources & References
+
+### Portfolio Reference
+- Ravishanker Portfolio: https://ravishanker.weflow.io
+- Reference for design style, animations, and interactions
 
 ### Fonts
 - Inter: https://fonts.google.com/specimen/Inter
