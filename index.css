@@ -54,7 +54,7 @@ body{
 
 .content{
   margin-top:4%;
-  margin-left:4%;
+  margin-left:2%;
 }
 
 /* Typography blocks */
@@ -165,20 +165,20 @@ body{
 /* Back button (quarter circle) */
 .back-btn{
   position:absolute;
-  left:0;
-  top:-75px;
-  width:120px;
-  height:120px;
+  left:-80px;
+  top:-80px;
+  width:160px;
+  height:160px;
   background:#fff;
   border-radius:50%;
   clip-path: polygon(50% 50%, 100% 50%, 100% 100%, 50% 100%);
-  z-index:3;
+  z-index:9999;
   cursor:pointer;
 }
 .back-btn__arrow{
   position:absolute;
-  left:90px;
-  top:90px;
+  left:120px;
+  top:120px;
   transform: translate(-50%, -50%);
   color:#000;
   font-size:40px;
