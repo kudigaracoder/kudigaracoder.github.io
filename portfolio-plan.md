@@ -137,7 +137,6 @@ Company hovers:
 
 ## Hard Constraints
 
-- **No JavaScript** unless CSS cannot achieve the effect (only exception: `#back` hash detection for cross-page backward animation)
 - **No inline styles** — all styling in external `.css` files
 - **No `<style>` tags** in HTML
 - Semantic HTML5 (`header`, `main`, `nav`, `section`)
