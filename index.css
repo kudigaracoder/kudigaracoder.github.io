@@ -1,12 +1,17 @@
 /* index.css — main styles for portfolio/index.html (includes integrated carousel) */
 
 :root{
-  --bg:#000000;
+  --bg:#ffffff;
   --accent:#ff5b00;
-  --white:#ffffff;
+  --toggle-bg:#000000;
 
   --name-size:200px;
   --title-size:180px;
+}
+
+body[data-theme="dark"]{
+  --bg:#000000;
+  --toggle-bg:#ffffff;
 }
 
 @media (max-width: 768px){
@@ -21,7 +26,7 @@ html,body{ height:100%; }
 body{
   margin:0;
   background:var(--bg);
-  color:var(--white);
+  color:var(--accent);
   font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
   overflow:hidden;
 }
@@ -75,7 +80,6 @@ body{
 .product-designer-link{
   display:inline-block;
   margin-top:.8rem;
-  color:var(--white);
   font-size:var(--title-size);
   font-weight:700;
   letter-spacing:-10px;
@@ -152,7 +156,7 @@ body{
 .slide{
   position:absolute;
   inset:0;
-  background:#000;
+  background:var(--bg);
   overflow:hidden;
   transition:
     transform 5s cubic-bezier(0.77, 0, 0.175, 1),
@@ -189,6 +193,31 @@ body{
   transform: translate(-50%, -50%) scale(1.06);
 }
 
+/* Theme toggle (quarter circle, top-right) */
+.theme-toggle{
+  position:absolute;
+  right:-60px;
+  top:-60px;
+  width:120px;
+  height:120px;
+  background:var(--toggle-bg);
+  border-radius:50%;
+  clip-path: polygon(0% 50%, 50% 50%, 50% 100%, 0% 100%);
+  z-index:9999;
+  cursor:pointer;
+  border:none;
+  padding:0;
+}
+.theme-toggle__icon{
+  position:absolute;
+  right:22px;
+  bottom:22px;
+  color:var(--bg);
+  font-size:20px;
+  line-height:1;
+  user-select:none;
+}
+
 /* Companies list inside slide 2 */
 .company-main{
   margin-top:0;
@@ -210,7 +239,7 @@ body{
   font-weight:700;
   letter-spacing:-10px;
   line-height:0.9;
-  color:#fff;
+  color:var(--accent);
 }
 .company--goldman:hover{ color:#7297C5; }
 .company--rga:hover{ color:#ffffff; }
@@ -282,4 +311,3 @@ body{
     transition:none !important;
   }
 }
-
