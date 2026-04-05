@@ -65,12 +65,16 @@ body{
 }
 
 .brand__name{
+  display:inline-block;
   color:var(--accent);
   font-size:var(--name-size);
   font-weight:700;
   letter-spacing:-10px;
   line-height:1;
+  cursor:pointer;
+  transition: opacity .3s ease;
 }
+.brand__name:hover{ opacity:.85; }
 
 .product-designer-link{
   display:inline-block;
@@ -147,6 +151,7 @@ body{
 .slides{
   position:absolute;
   inset:0;
+  perspective:1200px;
 }
 
 .slide{
@@ -270,6 +275,111 @@ body{
 #s1_bwd:checked ~ .slides .slide-2{ animation: s2-backward-out 5s cubic-bezier(0.77, 0, 0.175, 1) both; }
 #s1_bwd:checked ~ .slides .slide-1{ animation: s1-backward-in  5s cubic-bezier(0.77, 0, 0.175, 1) both; }
 
+/* Links list inside slide 3 */
+.links-main{
+  margin-top:0;
+  transform-origin: top center;
+  will-change: transform, opacity;
+  animation: links-flip-down 1.2s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+@keyframes links-flip-down{
+  from{ transform: rotateX(-90deg); opacity:0; }
+  to{ transform: rotateX(0deg); opacity:1; }
+}
+.links-list{
+  display:flex;
+  flex-direction:column;
+  gap:1.5rem;
+}
+.link-item{
+  font-size:var(--title-size);
+  font-weight:700;
+  letter-spacing:-10px;
+  line-height:0.9;
+  color:#fff;
+  text-decoration:none;
+  transition: color .2s ease;
+}
+.link-item:hover{ color:var(--accent); }
+
+/* ---- S1↔S3 flip (rotateX, 2s) ---- */
+
+/* Resting: slide-3 hidden in non-flip states */
+#s1_fwd:checked ~ .slides .slide-3,
+#s1_bwd:checked ~ .slides .slide-3,
+#s2_fwd:checked ~ .slides .slide-3,
+#s2_bwd:checked ~ .slides .slide-3{
+  transform: rotateX(90deg);
+  opacity:0;
+  pointer-events:none;
+}
+
+/* Hide slide-2 when flip states are active */
+#s3_fwd:checked ~ .slides .slide-2,
+#s1_from3_bwd:checked ~ .slides .slide-2{
+  transform: translateX(110%) scale(0.9);
+  opacity:0;
+  pointer-events:none;
+}
+
+/* s3_fwd resting positions */
+#s3_fwd:checked ~ .slides .slide-3{
+  transform: rotateX(0deg);
+  opacity:1;
+}
+#s3_fwd:checked ~ .slides .slide-1{
+  transform: rotateX(-90deg);
+  opacity:0;
+  pointer-events:none;
+}
+
+/* s1_from3_bwd resting positions */
+#s1_from3_bwd:checked ~ .slides .slide-1{
+  transform: rotateX(0deg);
+  opacity:1;
+}
+#s1_from3_bwd:checked ~ .slides .slide-3{
+  transform: rotateX(90deg);
+  opacity:0;
+  pointer-events:none;
+}
+
+/* transform-origin scoped to flip states only */
+#s3_fwd:checked ~ .slides .slide-1,
+#s3_fwd:checked ~ .slides .slide-3,
+#s1_from3_bwd:checked ~ .slides .slide-3,
+#s1_from3_bwd:checked ~ .slides .slide-1{
+  transform-origin: 0 25%;
+}
+
+/* S1↔S3 keyframes */
+@keyframes s1-flip-out{
+  0%  { transform: rotateX(0deg);   opacity:1; }
+  40% { transform: rotateX(-90deg); opacity:0; }
+  100%{ transform: rotateX(-90deg); opacity:0; }
+}
+@keyframes s3-flip-in{
+  0%  { transform: rotateX(90deg);  opacity:0; }
+  60% { transform: rotateX(90deg);  opacity:0; }
+  100%{ transform: rotateX(0deg);   opacity:1; }
+}
+@keyframes s3-flip-out{
+  0%  { transform: rotateX(0deg);   opacity:1; }
+  40% { transform: rotateX(90deg);  opacity:0; }
+  100%{ transform: rotateX(90deg);  opacity:0; }
+}
+@keyframes s1-from3-flip-in{
+  0%  { transform: rotateX(-90deg); opacity:0; }
+  60% { transform: rotateX(-90deg); opacity:0; }
+  100%{ transform: rotateX(0deg);   opacity:1; }
+}
+
+/* Animate on state */
+#s3_fwd:checked ~ .slides .slide-1{ animation: s1-flip-out       2s cubic-bezier(0.77, 0, 0.175, 1) both; }
+#s3_fwd:checked ~ .slides .slide-3{ animation: s3-flip-in        2s cubic-bezier(0.77, 0, 0.175, 1) both; }
+#s1_from3_bwd:checked ~ .slides .slide-3{ animation: s3-flip-out       2s cubic-bezier(0.77, 0, 0.175, 1) both; }
+#s1_from3_bwd:checked ~ .slides .slide-1{ animation: s1-from3-flip-in  2s cubic-bezier(0.77, 0, 0.175, 1) both; }
+
 @media (prefers-reduced-motion: reduce){
   .location--coimbatore,
   .location--bengaluru,
@@ -277,7 +387,11 @@ body{
   #s2_fwd:checked ~ .slides .slide-1,
   #s2_fwd:checked ~ .slides .slide-2,
   #s1_bwd:checked ~ .slides .slide-2,
-  #s1_bwd:checked ~ .slides .slide-1{
+  #s1_bwd:checked ~ .slides .slide-1,
+  #s3_fwd:checked ~ .slides .slide-1,
+  #s3_fwd:checked ~ .slides .slide-3,
+  #s1_from3_bwd:checked ~ .slides .slide-3,
+  #s1_from3_bwd:checked ~ .slides .slide-1{
     animation:none !important;
     transition:none !important;
   }

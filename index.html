@@ -19,6 +19,8 @@
     <input type="radio" name="carousel" id="s2_fwd" aria-label="Slide 2 forward state" />
     <input type="radio" name="carousel" id="s1_bwd" aria-label="Slide 1 backward state" />
     <input type="radio" name="carousel" id="s2_bwd" aria-label="Slide 2 backward state" />
+    <input type="radio" name="carousel" id="s3_fwd" aria-label="Slide 3 forward state" />
+    <input type="radio" name="carousel" id="s1_from3_bwd" aria-label="Slide 1 backward from slide 3 state" />
 
     <div class="slides" id="slides">
       <!-- Slide 1: Index -->
@@ -26,7 +28,7 @@
         <div class="content">
           <header aria-label="Header">
             <h1 class="brand" aria-label="Ravishanker">
-              <span class="brand__name">Ravishanker</span>
+              <label for="s3_fwd" class="brand__name" aria-label="Go to links slide">Ravishanker</label>
             </h1>
 
             <label for="s2_fwd" class="product-designer-link" aria-label="Go to companies slide">
@@ -60,6 +62,21 @@
               <div class="company company--rga" aria-label="R/GA">R/GA</div>
               <div class="company company--sva" aria-label="SVA">SVA</div>
               <div class="company company--torry" aria-label="Torry Harris">Torry Harris</div>
+            </nav>
+          </main>
+        </div>
+      </section>
+      <!-- Slide 3: Links -->
+      <section class="slide slide-3" aria-label="Links slide">
+        <label for="s1_from3_bwd" class="back-btn" aria-label="Back to index">
+          <span class="back-btn__arrow" aria-hidden="true">←</span>
+        </label>
+
+        <div class="content">
+          <main class="links-main" aria-label="Links">
+            <nav class="links-list" aria-label="External links">
+              <a href="./resume.pdf" download class="link-item" aria-label="Download Resume">Resume</a>
+              <a href="#" target="_blank" rel="noreferrer" class="link-item" aria-label="LinkedIn">LinkedIn</a>
             </nav>
           </main>
         </div>
