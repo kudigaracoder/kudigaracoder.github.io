@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Ravishanker Product Designer portfolio" />
+  <title>Ravishanker - Product Designer</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./index.css" />
+</head>
+<body>
+  <a href="#slides" class="skip-link">Skip to content</a>
+
+  <div class="viewport carousel" aria-label="Portfolio carousel">
+    <input type="radio" name="carousel" id="s1_fwd" checked aria-label="Slide 1 forward state" />
+    <input type="radio" name="carousel" id="s2_fwd" aria-label="Slide 2 forward state" />
+    <input type="radio" name="carousel" id="s1_bwd" aria-label="Slide 1 backward state" />
+    <input type="radio" name="carousel" id="s2_bwd" aria-label="Slide 2 backward state" />
+
+    <div class="slides" id="slides">
+      <!-- Slide 1: Index -->
+      <section class="slide slide-1" aria-label="Index slide">
+        <div class="content">
+          <header aria-label="Header">
+            <h1 class="brand" aria-label="Ravishanker">
+              <span class="brand__name">Ravishanker</span>
+            </h1>
+
+            <label for="s2_fwd" class="product-designer-link" aria-label="Go to companies slide">
+              <span>Product</span>
+              <span>Designer</span>
+            </label>
+          </header>
+
+          <main aria-label="Locations">
+            <section class="locations-outer" aria-label="Location carousel">
+              <div class="locations" aria-hidden="true">
+                <div class="location location--coimbatore">Coimbatore</div>
+                <div class="location location--bengaluru">Bengaluru</div>
+                <div class="location location--nyc">New York City</div>
+              </div>
+            </section>
+          </main>
+        </div>
+      </section>
+
+      <!-- Slide 2: Companies -->
+      <section class="slide slide-2" aria-label="Companies slide">
+        <label for="s1_bwd" class="back-btn" aria-label="Back to index">
+          <span class="back-btn__arrow" aria-hidden="true">←</span>
+        </label>
+
+        <div class="content">
+          <main class="company-main" aria-label="Company showcase">
+            <nav class="company-list" aria-label="Work experience companies">
+              <div class="company company--goldman" aria-label="Goldman Sachs">Goldman Sachs</div>
+              <div class="company company--rga" aria-label="R/GA">R/GA</div>
+              <div class="company company--sva" aria-label="SVA">SVA</div>
+              <div class="company company--torry" aria-label="Torry Harris">Torry Harris</div>
+            </nav>
+          </main>
+        </div>
+      </section>
+    </div>
+  </div>
+  <script>
+    if (location.hash === '#back') {
+      var s2bwd = document.getElementById('s2_bwd');
+      var s1bwd = document.getElementById('s1_bwd');
+      s2bwd.checked = true;
+      requestAnimationFrame(function() {
+        requestAnimationFrame(function() {
+          s1bwd.checked = true;
+        });
+      });
+    }
+  </script>
+</body>
+</html>
+
