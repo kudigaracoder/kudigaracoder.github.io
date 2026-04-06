@@ -239,12 +239,11 @@ body{
   font-weight:700;
   letter-spacing:-10px;
   line-height:0.9;
-  color:var(--accent);
 }
-.company--goldman:hover{ color:#7297C5; }
-.company--rga:hover{ color:#ffffff; }
-.company--sva:hover{ color:#FF3716; }
-.company--torry:hover{ color:#254695; }
+.company--goldman{ color:#7297C5; }
+.company--rga{ color:#F90201; }
+.company--sva{ color:#EB1000; }
+.company--torry{ color:#2D51A3; }
 
 /* Transitions (5s) */
 @keyframes s1-forward-out{
