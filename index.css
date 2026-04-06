@@ -73,7 +73,7 @@ body{
   line-height:1;
   cursor:pointer;
   transition: opacity .3s ease;
-  animation: fade-in 1.5s linear both;
+  animation: slide-in-top 0.5s linear both;
 }
 .brand__name:hover{ opacity:.85; }
 
@@ -88,7 +88,7 @@ body{
   text-shadow:none;
   cursor:pointer;
   transition: opacity .3s ease;
-  animation: fade-in 1.5s linear 1.5s both;
+  animation: slide-in-top 0.5s linear 0.5s both;
 }
 .product-designer-link:hover{ opacity:.85; }
 .product-designer-link span{ display:block; }
@@ -119,21 +119,21 @@ body{
   will-change: transform, opacity;
 }
 
-.location--coimbatore{ animation: loc-coimbatore 10s cubic-bezier(0.77, 0, 0.175, 1) 3s both; }
-.location--bengaluru{  animation: loc-bengaluru  10s cubic-bezier(0.77, 0, 0.175, 1) 3s both; }
-.location--nyc{        animation: loc-nyc        10s cubic-bezier(0.77, 0, 0.175, 1) 3s both; }
+.location--coimbatore{ animation: loc-coimbatore 10s cubic-bezier(0.77, 0, 0.175, 1) 1s both; }
+.location--bengaluru{  animation: loc-bengaluru  10s cubic-bezier(0.77, 0, 0.175, 1) 1s both; }
+.location--nyc{        animation: loc-nyc        10s cubic-bezier(0.77, 0, 0.175, 1) 1s both; }
 
 @keyframes loc-coimbatore{
   0%{ transform: rotateX(90deg); opacity:0; }
   10%{ transform: rotateX(0deg); opacity:1; }
   30%{ transform: rotateX(0deg); opacity:1; }
-  40%{ transform: rotateX(-90deg); opacity:0; }
+  32.5%{ transform: rotateX(-90deg); opacity:0; }
   100%{ transform: rotateX(-90deg); opacity:0; }
 }
 @keyframes loc-bengaluru{
   0%{ transform: rotateX(90deg); opacity:0; }
   30%{ transform: rotateX(90deg); opacity:0; }
-  40%{ transform: rotateX(0deg); opacity:1; }
+  32.5%{ transform: rotateX(0deg); opacity:1; }
   50%{ transform: rotateX(0deg); opacity:1; }
   60%{ transform: rotateX(-90deg); opacity:0; }
   100%{ transform: rotateX(-90deg); opacity:0; }
@@ -145,9 +145,9 @@ body{
   100%{ transform: rotateX(0deg); opacity:1; }
 }
 
-@keyframes fade-in{
-  from{ opacity:0; }
-  to{ opacity:1; }
+@keyframes slide-in-top{
+  from{ transform: translateY(-10px); opacity:0; }
+  to{   transform: translateY(0);     opacity:1; }
 }
 
 /* ---- Integrated carousel (radio state machine) ---- */
@@ -222,12 +222,11 @@ body{
   font-weight:700;
   letter-spacing:-10px;
   line-height:0.9;
-  color:#fff;
 }
-.company--goldman:hover{ color:#7297C5; }
-.company--rga:hover{ color:#ffffff; }
-.company--sva:hover{ color:#FF3716; }
-.company--torry:hover{ color:#254695; }
+.company--goldman{ color:#7297C5; }
+.company--rga{ color:#F90201; }
+.company--sva{ color:#EB1000; }
+.company--torry{ color:#2D51A3; }
 
 /* Transitions (5s) */
 @keyframes s1-forward-out{
@@ -382,10 +381,10 @@ body{
 }
 
 /* Animate on state */
-#s3_fwd:checked ~ .slides .slide-1{ animation: s1-flip-out       2s cubic-bezier(0.77, 0, 0.175, 1) both; }
-#s3_fwd:checked ~ .slides .slide-3{ animation: s3-flip-in        2s cubic-bezier(0.77, 0, 0.175, 1) both; }
-#s1_from3_bwd:checked ~ .slides .slide-3{ animation: s3-flip-out       2s cubic-bezier(0.77, 0, 0.175, 1) both; }
-#s1_from3_bwd:checked ~ .slides .slide-1{ animation: s1-from3-flip-in  2s cubic-bezier(0.77, 0, 0.175, 1) both; }
+#s3_fwd:checked ~ .slides .slide-1{ animation: s1-flip-out       1s cubic-bezier(0.77, 0, 0.175, 1) both; }
+#s3_fwd:checked ~ .slides .slide-3{ animation: s3-flip-in        1s cubic-bezier(0.77, 0, 0.175, 1) both; }
+#s1_from3_bwd:checked ~ .slides .slide-3{ animation: s3-flip-out       1s cubic-bezier(0.77, 0, 0.175, 1) both; }
+#s1_from3_bwd:checked ~ .slides .slide-1{ animation: s1-from3-flip-in  1s cubic-bezier(0.77, 0, 0.175, 1) both; }
 
 @media (prefers-reduced-motion: reduce){
   .brand__name,
