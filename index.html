@@ -21,6 +21,11 @@
     <input type="radio" name="carousel" id="s2_bwd" aria-label="Slide 2 backward state" />
     <input type="radio" name="carousel" id="s3_fwd" aria-label="Slide 3 forward state" />
     <input type="radio" name="carousel" id="s1_from3_bwd" aria-label="Slide 1 backward from slide 3 state" />
+    <input type="radio" name="carousel" id="s4_fwd" aria-label="Slide 4 forward state" />
+    <input type="radio" name="carousel" id="s3_bwd" aria-label="Slide 3 backward state" />
+
+    <input type="radio" name="blog-post" id="post-1" checked aria-label="Blog post 1" />
+    <input type="radio" name="blog-post" id="post-2" aria-label="Blog post 2" />
 
     <div class="slides" id="slides">
       <!-- Slide 1: Index -->
@@ -76,8 +81,37 @@
           <main class="links-main" aria-label="Links">
             <nav class="links-list" aria-label="External links">
               <a href="./resume.pdf" download class="link-item" aria-label="Download Resume">Resume</a>
-              <a href="#" target="_blank" rel="noreferrer" class="link-item" aria-label="LinkedIn">LinkedIn</a>
+              <a href="https://www.linkedin.com/in/raviseethapathy/" target="_blank" rel="noreferrer" class="link-item link-item--linkedin" aria-label="LinkedIn">LinkedIn</a>
+              <label for="s4_fwd" class="link-item" aria-label="Go to blog">Blog</label>
             </nav>
+          </main>
+        </div>
+      </section>
+      <!-- Slide 4: Blog -->
+      <section class="slide slide-4" aria-label="Blog slide">
+        <label for="s3_bwd" class="back-btn" aria-label="Back to links">
+          <span class="back-btn__arrow" aria-hidden="true">←</span>
+        </label>
+
+        <div class="blog-layout">
+          <aside class="blog-sidebar" aria-label="Blog posts">
+            <label for="post-1" class="blog-nav-link">Post Title One</label>
+            <label for="post-2" class="blog-nav-link">Post Title Two</label>
+          </aside>
+
+          <main class="blog-content" aria-label="Blog post content">
+            <article class="blog-post blog-post--1" aria-label="Post 1">
+              <h2 class="blog-post__title">Post Title One</h2>
+              <div class="blog-post__body">
+                <p>Post content goes here.</p>
+              </div>
+            </article>
+            <article class="blog-post blog-post--2" aria-label="Post 2">
+              <h2 class="blog-post__title">Post Title Two</h2>
+              <div class="blog-post__body">
+                <p>Post content goes here.</p>
+              </div>
+            </article>
           </main>
         </div>
       </section>
