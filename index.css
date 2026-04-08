@@ -75,12 +75,12 @@ body{
   transition: opacity .3s ease;
   animation: slide-in-top 0.5s linear both;
 }
-.brand__name:hover{ opacity:.85; }
+.brand__name:hover{ opacity:.65; }
 
 .product-designer-link{
   display:inline-block;
   margin-top:.8rem;
-  color:var(--white);
+  color:var(--accent);
   font-size:var(--title-size);
   font-weight:700;
   letter-spacing:-10px;
@@ -90,7 +90,7 @@ body{
   transition: opacity .3s ease;
   animation: slide-in-top 0.5s linear 0.5s both;
 }
-.product-designer-link:hover{ opacity:.85; }
+.product-designer-link:hover{ opacity:.65; }
 .product-designer-link span{ display:block; }
 
 /* Location carousel */
@@ -202,11 +202,11 @@ body{
 /* Home button (quarter circle, bottom-left) */
 .home-btn{
   position:absolute;
-  left:-60px;
-  bottom:-60px;
+  left:-80px;
+  bottom:-80px;
   opacity:0;
-  width:120px;
-  height:120px;
+  width:160px;
+  height:160px;
   background:#fff;
   border-radius:50%;
   clip-path: polygon(50% 0%, 100% 0%, 100% 50%, 50% 50%);
@@ -215,8 +215,8 @@ body{
 }
 .home-btn__icon{
   position:absolute;
-  left:90px;
-  top:30px;
+  left:120px;
+  top:40px;
   transform: translate(-50%, -50%);
   color:#000;
   font-size:28px;
@@ -487,17 +487,8 @@ body{
   pointer-events:none;
 }
 
-@keyframes s4-home-out{
-  0%  { transform: translate(0, 0);      opacity:1; }
-  100%{ transform: translate(60%, -60%); opacity:0; }
-}
-@keyframes s1-home-in{
-  0%  { transform: translate(-60%, 60%); opacity:0; }
-  100%{ transform: translate(0, 0);      opacity:1; }
-}
-
-#s1_from4:checked ~ .slides .slide-4{ animation: s4-home-out 0.8s cubic-bezier(0.77, 0, 0.175, 1) both; }
-#s1_from4:checked ~ .slides .slide-1{ animation: s1-home-in  0.8s cubic-bezier(0.77, 0, 0.175, 1) both; }
+#s1_from4:checked ~ .slides .slide-4{ animation: s2-backward-out 5s cubic-bezier(0.77, 0, 0.175, 1) both; }
+#s1_from4:checked ~ .slides .slide-1{ animation: s1-backward-in  5s cubic-bezier(0.77, 0, 0.175, 1) both; }
 
 /* ---- Blog two-panel layout ---- */
 
@@ -505,7 +496,7 @@ body{
   display:flex;
   height:100%;
   padding-top:4%;
-  padding-left:2%;
+  padding-left:3%;
   padding-bottom:2%;
 }
 .blog-sidebar{
