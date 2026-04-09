@@ -211,7 +211,10 @@ body{
   cursor:pointer;
   border:none;
   padding:0;
+  transform-origin: 50% 50%;
+  transition: transform .2s ease;
 }
+.theme-toggle:hover{ transform: scale(1.05); }
 .theme-toggle__icon{
   position:absolute;
   right:22px;
