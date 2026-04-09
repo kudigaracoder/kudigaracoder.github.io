@@ -1,0 +1,9 @@
+{
+  "posts": [
+    {
+      "title": "Hello World",
+      "date": "2026-04-08T10:00:00",
+      "file": "hello-world.md"
+    }
+  ]
+}
