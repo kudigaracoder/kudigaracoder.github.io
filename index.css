@@ -75,12 +75,12 @@ body{
   transition: opacity .3s ease;
   animation: slide-in-top 0.5s linear both;
 }
-.brand__name:hover{ opacity:.85; }
+.brand__name:hover{ opacity:.65; }
 
 .product-designer-link{
   display:inline-block;
   margin-top:.8rem;
-  color:var(--white);
+  color:var(--accent);
   font-size:var(--title-size);
   font-weight:700;
   letter-spacing:-10px;
@@ -90,7 +90,7 @@ body{
   transition: opacity .3s ease;
   animation: slide-in-top 0.5s linear 0.5s both;
 }
-.product-designer-link:hover{ opacity:.85; }
+.product-designer-link:hover{ opacity:.65; }
 .product-designer-link span{ display:block; }
 
 /* Location carousel */
@@ -176,6 +176,7 @@ body{
   position:absolute;
   left:-80px;
   top:-80px;
+  opacity:0;
   width:160px;
   height:160px;
   background:#fff;
@@ -195,6 +196,33 @@ body{
 }
 
 .back-btn:hover .back-btn__arrow{
+  transform: translate(-50%, -50%) scale(1.06);
+}
+
+/* Home button (quarter circle, bottom-left) */
+.home-btn{
+  position:absolute;
+  left:-80px;
+  bottom:-80px;
+  opacity:0;
+  width:160px;
+  height:160px;
+  background:#fff;
+  border-radius:50%;
+  clip-path: polygon(50% 0%, 100% 0%, 100% 50%, 50% 50%);
+  z-index:9999;
+  cursor:pointer;
+}
+.home-btn__icon{
+  position:absolute;
+  left:120px;
+  top:40px;
+  transform: translate(-50%, -50%);
+  color:#000;
+  font-size:28px;
+  line-height:1;
+}
+.home-btn:hover .home-btn__icon{
   transform: translate(-50%, -50%) scale(1.06);
 }
 
@@ -438,12 +466,38 @@ body{
 #s3_bwd:checked ~ .slides .slide-4{ animation: s2-backward-out 5s cubic-bezier(0.77, 0, 0.175, 1) both; }
 #s3_bwd:checked ~ .slides .slide-3{ animation: s1-backward-in  5s cubic-bezier(0.77, 0, 0.175, 1) both; }
 
+/* ---- S4→S1 diagonal home transition ---- */
+
+#s1_from4:checked ~ .slides .slide-1{
+  transform: translateX(0%) scale(1);
+  opacity:1;
+}
+#s1_from4:checked ~ .slides .slide-2{
+  transform: translateX(110%) scale(0.9);
+  opacity:0;
+  pointer-events:none;
+}
+#s1_from4:checked ~ .slides .slide-3{
+  transform: rotateX(90deg);
+  opacity:0;
+  pointer-events:none;
+}
+#s1_from4:checked ~ .slides .slide-4{
+  opacity:0;
+  pointer-events:none;
+}
+
+#s1_from4:checked ~ .slides .slide-4{ animation: s2-backward-out 5s cubic-bezier(0.77, 0, 0.175, 1) both; }
+#s1_from4:checked ~ .slides .slide-1{ animation: s1-backward-in  5s cubic-bezier(0.77, 0, 0.175, 1) both; }
+
 /* ---- Blog two-panel layout ---- */
 
 .blog-layout{
   display:flex;
   height:100%;
   padding-top:4%;
+  padding-left:3%;
+  padding-bottom:2%;
 }
 .blog-sidebar{
   width:280px;
@@ -454,6 +508,8 @@ body{
   gap:1rem;
   border-right:1px solid rgba(255,255,255,0.15);
   overflow-y:auto;
+  border-radius:42px;
+  box-shadow:4px 5px 20px 2px rgba(255,255,255,0.35);
 }
 .blog-content{
   flex:1;
@@ -499,9 +555,44 @@ body{
 .blog-post__body p{ margin:0 0 1em 0; }
 .blog-post__body h3{ font-size:16px; font-weight:600; margin:1.5em 0 .5em; }
 
+/* ---- Quarter-circle button fade-in (after slide entry completes) ---- */
+
+@keyframes btn-fade-in{
+  from{ opacity:0; }
+  to{   opacity:1; }
+}
+
+/* slide-2 back button: s2-forward-in = 5s */
+#s2_fwd:checked ~ .slides .slide-2 .back-btn{
+  animation: btn-fade-in 0.3s ease 5s both;
+}
+
+/* slide-3 back button: s3-flip-in = 1s */
+#s3_fwd:checked ~ .slides .slide-3 .back-btn{
+  animation: btn-fade-in 0.3s ease 1s both;
+}
+
+/* slide-3 back button when returning from blog: s1-backward-in = 5s */
+#s3_bwd:checked ~ .slides .slide-3 .back-btn{
+  animation: btn-fade-in 0.3s ease 5s both;
+}
+
+/* slide-4 back + home buttons: s2-forward-in = 5s */
+#s4_fwd:checked ~ .slides .slide-4 .back-btn,
+#s4_fwd:checked ~ .slides .slide-4 .home-btn{
+  animation: btn-fade-in 0.3s ease 5s both;
+}
+
 @media (prefers-reduced-motion: reduce){
   .brand__name,
   .product-designer-link{
+    animation: none !important;
+    opacity: 1 !important;
+  }
+  .slide-2 .back-btn,
+  .slide-3 .back-btn,
+  .slide-4 .back-btn,
+  .slide-4 .home-btn{
     animation: none !important;
     opacity: 1 !important;
   }
@@ -524,7 +615,9 @@ body{
   #s4_fwd:checked ~ .slides .slide-3,
   #s4_fwd:checked ~ .slides .slide-4,
   #s3_bwd:checked ~ .slides .slide-4,
-  #s3_bwd:checked ~ .slides .slide-3{
+  #s3_bwd:checked ~ .slides .slide-3,
+  #s1_from4:checked ~ .slides .slide-4,
+  #s1_from4:checked ~ .slides .slide-1{
     animation:none !important;
     transition:none !important;
   }
