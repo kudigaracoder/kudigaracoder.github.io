@@ -215,6 +215,7 @@ LinkedIn hover:     #1566C2
 - All interactive elements need ARIA labels, keyboard access, visible focus indicators
 - `prefers-reduced-motion` block in `index.css` covers all animations
 - **`portfolio-plan.md` must be updated in every commit** — update relevant sections and append a version history entry with date and one-line description
+- **Never commit without user verification** — after making changes, prompt the user to verify in the browser before committing; only commit after explicit confirmation
 
 ---
 
