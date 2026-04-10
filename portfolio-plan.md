@@ -58,10 +58,11 @@ All radio inputs are hidden (`display: none`). Navigation is triggered exclusive
 
 #### Slide 2 — Companies
 - Back button: `<label for="s1_bwd">` (quarter-circle, top-left corner)
-- Company list: Goldman Sachs, R/GA, SVA, Torry Harris
-  - 180px, Inter 700, 1.5rem gap
+- Company list: Goldman Sachs, R/GA, SVA, Torry Harris, Other Work
+  - `min(var(--title-size), 16vh)`, Inter 700, 1.5rem gap, `overflow: hidden`
   - Flip-down entry animation on load (rotateX -90deg → 0, 1.2s)
 - Brand color hovers: Goldman `#7297C5`, R/GA `#fff`, SVA `#FF3716`, Torry Harris `#254695`
+- Other Work: no hover color (generic category)
 - Cross-page access: `companies.html` back button links to `./index.html#back`
   - Small JS snippet at bottom of `index.html` detects `#back` hash and triggers two-frame rAF to run backward animation
 
@@ -228,7 +229,10 @@ Blog sidebar:   #4a4a4a
 ### v2.6 — Slide 5 (Favorites) added
 - April 2026 — Added Favorites link to Slide 3; new Slide 5 with S3↔S5 slide+scale transition (5s, reuses S1↔S2 keyframes); full ghost-slide prevention for all states
 
+### v2.7 — Add Other Work to companies slide
+- April 2026 — Added Other Work as 5th company; font-size capped at min(title-size, 16vh) to fit all 5 without scrolling; overflow: hidden on company-main
+
 ---
 
 *Last Updated: April 9, 2026*
-*Version: 2.6*
+*Version: 2.7*
