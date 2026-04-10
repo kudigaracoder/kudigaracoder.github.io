@@ -56,11 +56,12 @@ All radio inputs are hidden (`display: none`). Navigation is triggered exclusive
 
 #### Slide 2 — Companies
 - Back button: `<label for="s1_bwd">` (quarter-circle, top-left corner)
-- Company list: Goldman Sachs, R/GA, SVA, Torry Harris
-  - 180px, Inter 700, 1.5rem gap
+- Company list: Goldman Sachs, R/GA, SVA, Torry Harris, Other Work
+  - `min(var(--title-size), 16vh)`, Inter 700, 1.5rem gap, `overflow: hidden`
   - Default color: `var(--toggle-bg)` (black in light, white in dark)
   - Flip-down entry animation on load (rotateX -90deg → 0, 1.2s)
 - Brand color hovers: Goldman `#7297C5`, R/GA `#fff`, SVA `#FF3716`, Torry Harris `#254695`
+- Other Work: no hover color (generic category)
 - Cross-page access: `companies.html` back button links to `./index.html#back`
   - JS in `index.js` (DOMContentLoaded) detects `#back` hash and triggers two-frame rAF
 
@@ -260,7 +261,10 @@ LinkedIn hover:     #1566C2
 ### v3.1 — Theme toggle hover state
 - April 2026 — Theme toggle hover: scale(1.05), transform-origin: 50% 50% (corner of visible quarter-circle)
 
+### v3.2 — Add Other Work to companies slide
+- April 2026 — Added Other Work as 5th company; font-size capped at min(title-size, 16vh) to fit all 5 without scrolling; overflow: hidden on company-main
+
 ---
 
 *Last Updated: April 9, 2026*
-*Version: 3.1*
+*Version: 3.2*

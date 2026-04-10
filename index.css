@@ -228,6 +228,7 @@ body{
 /* Companies list inside slide 2 */
 .company-main{
   margin-top:0;
+  overflow:hidden;
   transform-origin: top center;
   will-change: transform, opacity;
   animation: companies-flip-down 1.2s cubic-bezier(0.4, 0, 0.2, 1) both;
@@ -242,7 +243,7 @@ body{
   gap:1.5rem;
 }
 .company{
-  font-size:var(--title-size);
+  font-size:min(var(--title-size), 16vh);
   font-weight:700;
   letter-spacing:-10px;
   line-height:0.9;
@@ -251,6 +252,7 @@ body{
 .company--rga{ color:var(--toggle-bg); }
 .company--sva{ color:var(--toggle-bg); }
 .company--torry{ color:var(--toggle-bg); }
+.company--other{ color:var(--toggle-bg); }
 .company--goldman:hover{ color:#7297C5; }
 .company--rga:hover{ color:#F90201; }
 .company--sva:hover{ color:#EB1000; }
