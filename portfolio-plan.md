@@ -9,12 +9,15 @@ A pure CSS, animation-rich portfolio website for a Product Designer. No build sy
 
 ```
 /                               (root — all files at repo root)
-├── index.html                  # Main entry: 3-slide pure-CSS carousel
+├── index.html                  # Main entry: 4-slide pure-CSS carousel
 ├── index.css                   # All styles including carousel state machine
 ├── companies.html              # Standalone companies page (direct-access fallback)
 ├── companies.css               # Styles for standalone companies page
 ├── links.html                  # Standalone links page (legacy, not primary nav)
 ├── links.css                   # Styles for standalone links page
+├── resume.pdf                  # Resume download (referenced, not yet added)
+├── blog/
+│   └── manifest.json           # Blog post list: { posts: [{ title, date, file }] }
 └── portfolio-plan.md           # This document
 ```
 
@@ -22,7 +25,7 @@ A pure CSS, animation-rich portfolio website for a Product Designer. No build sy
 
 ## Carousel Architecture (index.html + index.css)
 
-### State Machine — 6 radio states
+### State Machine — 9 radio states
 
 | Radio ID         | Meaning                                   |
 |------------------|-------------------------------------------|
@@ -32,17 +35,21 @@ A pure CSS, animation-rich portfolio website for a Product Designer. No build sy
 | `s2_bwd`         | Slide 2 visible (intermediate bwd state)  |
 | `s3_fwd`         | Slide 3 (Links) visible, forward nav      |
 | `s1_from3_bwd`   | Slide 1 visible, back from Links          |
+| `s4_fwd`         | Slide 4 (Blog) visible, forward nav       |
+| `s3_bwd`         | Slide 3 visible, back from Blog           |
+| `s1_from4`       | Slide 1 visible, home from Blog           |
 
 All radio inputs are hidden (`display: none`). Navigation is triggered exclusively by `<label>` elements pointing to radio IDs — clicking slide backgrounds does NOT navigate.
 
 ### Slides
 
 #### Slide 1 — Index
-- "Ravishanker" (200px, orange `#ff5b00`, Inter 700, -10px letter-spacing)
+- "Ravishanker" (200px, `#ff5b00`, Inter 700, -10px letter-spacing)
   - Rendered as `<label for="s3_fwd">` — clicking triggers flip to Slide 3
-  - No underline, pointer cursor
-- "Product Designer" (180px, white, two lines)
+  - Hover: `opacity: 0.65`; no underline, pointer cursor
+- "Product Designer" (180px, `#ff5b00`, two lines)
   - Rendered as `<label for="s2_fwd">` — clicking triggers slide to Slide 2
+  - Hover: `opacity: 0.65`
 - Location carousel: Coimbatore → Bengaluru → New York City
   - 3D rotateX flip-in/out, plays once, NYC holds at end
   - 10s total, `cubic-bezier(0.77, 0, 0.175, 1)`, `forwards` fill-mode
@@ -58,9 +65,16 @@ All radio inputs are hidden (`display: none`). Navigation is triggered exclusive
 
 #### Slide 3 — Links
 - Back button: `<label for="s1_from3_bwd">` (same quarter-circle as Slide 2)
-- Links list: Resume (`./resume.pdf`, download), LinkedIn (placeholder `#`)
+- Links list: Resume (`./resume.pdf`, download), LinkedIn, Blog (`<label for="s4_fwd">`)
   - 180px, Inter 700, 1.5rem gap, white → orange on hover
   - Flip-down entry animation on load (rotateX -90deg → 0, 1.2s)
+
+#### Slide 4 — Blog
+- Back button: `<label for="s3_bwd">` (quarter-circle, top-left)
+- Home button: `<label for="s1_from4">` — 160×160px quarter-circle, bottom-left corner, `left: -80px; bottom: -80px`
+- Layout: `padding-left: 3%`
+- Sidebar: `background: #4a4a4a`, `border-radius: 42px`, `width: 280px`, `box-shadow: 4px 5px 20px 2px rgba(255,255,255,0.35)`
+- Posts driven by `blog/manifest.json`: `{ posts: [{ title, date (ISO 8601), file }] }`
 
 ---
 
@@ -81,6 +95,16 @@ All radio inputs are hidden (`display: none`). Navigation is triggered exclusive
 4. 60–100%: Slide 1 scales up to 100%
 
 Easing: `cubic-bezier(0.77, 0, 0.175, 1)`
+
+### S3 ↔ S4 (slide + scale, 5s)
+
+Reuses S1↔S2 keyframes — same staged timing and easing.
+
+**Forward (S3 → S4):** S3 exits left, S4 enters from right
+**Backward (S4 → S3):** S4 exits right, S3 enters from left
+**Home (S4 → S1):** Backward transition — S4 exits right, S1 enters from left
+
+---
 
 ### S1 ↔ S3 (rotateX card flip, 2s)
 
@@ -110,15 +134,18 @@ Easing: `cubic-bezier(0.77, 0, 0.175, 1)`
 
 ### Colors
 ```
-Background:   #000000
-Name accent:  #ff5b00 (orange)
-Text:         #ffffff
+Background:     #000000
+Name/Title:     #ff5b00 (orange — both default and accent)
+Text:           #ffffff
+Hover opacity:  0.65 (name + designation links)
 
 Company hovers:
   Goldman Sachs:  #7297C5
   R/GA:           #ffffff
   SVA:            #FF3716
   Torry Harris:   #254695
+
+Blog sidebar:   #4a4a4a
 ```
 
 ### Spacing
@@ -143,13 +170,15 @@ Company hovers:
 - Semantic HTML5 (`header`, `main`, `nav`, `section`)
 - All interactive elements need ARIA labels, keyboard access, visible focus indicators
 - `prefers-reduced-motion` block in `index.css` covers all animations
+- **`portfolio-plan.md` must be updated in every commit** — update relevant sections and append a version history entry with date and one-line description
 
 ---
 
 ## Pending / Future
 
 - [ ] Add actual LinkedIn URL (currently placeholder `#`)
-- [ ] Add resume PDF to repo and confirm filename
+- [ ] Add `resume.pdf` to repo
+- [ ] Add blog post markdown files (currently `blog/manifest.json` exists but no `.md` files)
 - [ ] Goldman Sachs detail overlay (pure CSS `:target`, partial implementation in `companies.html`)
 - [ ] Expand companies to individual case study slides
 
@@ -180,7 +209,13 @@ Company hovers:
 - Slide 3 with Resume + LinkedIn links, matching company-list typography
 - S1↔S3 flip: rotateX, 2s, `transform-origin: 0 25%`
 
+### v2.4 — Slide 3 updated + Slide 4 (Blog) added
+- April 2026 — Added Blog link to Slide 3; added Slide 4 with home button, blog sidebar (#4a4a4a), S3↔S4 and S4→S1 transitions
+
+### v2.5 — Design polish
+- April 2026 — Name/designation color set to #ff5b00; hover opacity 0.65; home button resized to 160×160px; blog layout padding-left 3%
+
 ---
 
-*Last Updated: April 4, 2026*
-*Version: 2.3*
+*Last Updated: April 9, 2026*
+*Version: 2.5*
