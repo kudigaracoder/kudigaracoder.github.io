@@ -25,7 +25,7 @@ A pure CSS, animation-rich portfolio website for a Product Designer. No build sy
 
 ## Carousel Architecture (index.html + index.css)
 
-### State Machine — 9 radio states
+### State Machine — 11 radio states
 
 | Radio ID         | Meaning                                   |
 |------------------|-------------------------------------------|
@@ -38,6 +38,8 @@ A pure CSS, animation-rich portfolio website for a Product Designer. No build sy
 | `s4_fwd`         | Slide 4 (Blog) visible, forward nav       |
 | `s3_bwd`         | Slide 3 visible, back from Blog           |
 | `s1_from4`       | Slide 1 visible, home from Blog           |
+| `s5_fwd`         | Slide 5 (Favorites) visible, forward nav  |
+| `s3_from5_bwd`   | Slide 3 visible, back from Favorites      |
 
 All radio inputs are hidden (`display: none`). Navigation is triggered exclusively by `<label>` elements pointing to radio IDs — clicking slide backgrounds does NOT navigate.
 
@@ -65,7 +67,7 @@ All radio inputs are hidden (`display: none`). Navigation is triggered exclusive
 
 #### Slide 3 — Links
 - Back button: `<label for="s1_from3_bwd">` (same quarter-circle as Slide 2)
-- Links list: Resume (`./resume.pdf`, download), LinkedIn, Blog (`<label for="s4_fwd">`)
+- Links list: Resume (`./resume.pdf`, download), LinkedIn, Blog (`<label for="s4_fwd">`), Favorites (`<label for="s5_fwd">`)
   - 180px, Inter 700, 1.5rem gap, white → orange on hover
   - Flip-down entry animation on load (rotateX -90deg → 0, 1.2s)
 
@@ -103,6 +105,13 @@ Reuses S1↔S2 keyframes — same staged timing and easing.
 **Forward (S3 → S4):** S3 exits left, S4 enters from right
 **Backward (S4 → S3):** S4 exits right, S3 enters from left
 **Home (S4 → S1):** Backward transition — S4 exits right, S1 enters from left
+
+### S3 ↔ S5 (slide + scale, 5s)
+
+Reuses S1↔S2 keyframes — same staged timing and easing.
+
+**Forward (S3 → S5):** S3 exits left, S5 enters from right
+**Backward (S5 → S3):** S5 exits right, S3 enters from left
 
 ---
 
@@ -215,7 +224,10 @@ Blog sidebar:   #4a4a4a
 ### v2.5 — Design polish
 - April 2026 — Name/designation color set to #ff5b00; hover opacity 0.65; home button resized to 160×160px; blog layout padding-left 3%
 
+### v2.6 — Slide 5 (Favorites) added
+- April 2026 — Added Favorites link to Slide 3; new Slide 5 with S3↔S5 slide+scale transition (5s, reuses S1↔S2 keyframes); full ghost-slide prevention for all states
+
 ---
 
 *Last Updated: April 9, 2026*
-*Version: 2.5*
+*Version: 2.6*

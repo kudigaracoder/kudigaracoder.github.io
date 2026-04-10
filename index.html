@@ -24,6 +24,8 @@
     <input type="radio" name="carousel" id="s4_fwd" aria-label="Slide 4 forward state" />
     <input type="radio" name="carousel" id="s3_bwd" aria-label="Slide 3 backward state" />
     <input type="radio" name="carousel" id="s1_from4" aria-label="Slide 1 from blog state" />
+    <input type="radio" name="carousel" id="s5_fwd" aria-label="Slide 5 forward state" />
+    <input type="radio" name="carousel" id="s3_from5_bwd" aria-label="Slide 3 backward from slide 5 state" />
 
     <input type="radio" name="blog-post" id="post-1" checked aria-label="Blog post 1" />
     <input type="radio" name="blog-post" id="post-2" aria-label="Blog post 2" />
@@ -84,6 +86,7 @@
               <a href="./resume.pdf" download class="link-item" aria-label="Download Resume">Resume</a>
               <a href="https://www.linkedin.com/in/raviseethapathy/" target="_blank" rel="noreferrer" class="link-item link-item--linkedin" aria-label="LinkedIn">LinkedIn</a>
               <label for="s4_fwd" class="link-item" aria-label="Go to blog">Blog</label>
+              <label for="s5_fwd" class="link-item" aria-label="Go to favorites">Favorites</label>
             </nav>
           </main>
         </div>
@@ -117,6 +120,20 @@
                 <p>Post content goes here.</p>
               </div>
             </article>
+          </main>
+        </div>
+      </section>
+      <!-- Slide 5: Favorites -->
+      <section class="slide slide-5" aria-label="Favorites slide">
+        <label for="s3_from5_bwd" class="back-btn" aria-label="Back to links">
+          <span class="back-btn__arrow" aria-hidden="true">←</span>
+        </label>
+
+        <div class="content">
+          <main class="favorites-main" aria-label="Favorites">
+            <nav class="favorites-list" aria-label="Favorite links">
+              <!-- Placeholder content -->
+            </nav>
           </main>
         </div>
       </section>

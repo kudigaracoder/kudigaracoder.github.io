@@ -423,7 +423,24 @@ body{
 #s2_fwd:checked ~ .slides .slide-4,
 #s2_bwd:checked ~ .slides .slide-4,
 #s3_fwd:checked ~ .slides .slide-4,
-#s1_from3_bwd:checked ~ .slides .slide-4{
+#s1_from3_bwd:checked ~ .slides .slide-4,
+#s5_fwd:checked ~ .slides .slide-4,
+#s3_from5_bwd:checked ~ .slides .slide-4{
+  transform: translateX(110%) scale(0.9);
+  opacity:0;
+  pointer-events:none;
+}
+
+/* Hide slide-5 in all non-favorites states */
+#s1_fwd:checked ~ .slides .slide-5,
+#s1_bwd:checked ~ .slides .slide-5,
+#s2_fwd:checked ~ .slides .slide-5,
+#s2_bwd:checked ~ .slides .slide-5,
+#s3_fwd:checked ~ .slides .slide-5,
+#s1_from3_bwd:checked ~ .slides .slide-5,
+#s4_fwd:checked ~ .slides .slide-5,
+#s3_bwd:checked ~ .slides .slide-5,
+#s1_from4:checked ~ .slides .slide-5{
   transform: translateX(110%) scale(0.9);
   opacity:0;
   pointer-events:none;
@@ -434,6 +451,17 @@ body{
 #s4_fwd:checked ~ .slides .slide-2,
 #s3_bwd:checked ~ .slides .slide-1,
 #s3_bwd:checked ~ .slides .slide-2{
+  opacity:0;
+  pointer-events:none;
+}
+
+/* Hide slides 1, 2, 4 during favorites transitions */
+#s5_fwd:checked ~ .slides .slide-1,
+#s5_fwd:checked ~ .slides .slide-2,
+#s5_fwd:checked ~ .slides .slide-4,
+#s3_from5_bwd:checked ~ .slides .slide-1,
+#s3_from5_bwd:checked ~ .slides .slide-2,
+#s3_from5_bwd:checked ~ .slides .slide-4{
   opacity:0;
   pointer-events:none;
 }
@@ -465,6 +493,36 @@ body{
 #s4_fwd:checked ~ .slides .slide-4{ animation: s2-forward-in   5s cubic-bezier(0.77, 0, 0.175, 1) both; }
 #s3_bwd:checked ~ .slides .slide-4{ animation: s2-backward-out 5s cubic-bezier(0.77, 0, 0.175, 1) both; }
 #s3_bwd:checked ~ .slides .slide-3{ animation: s1-backward-in  5s cubic-bezier(0.77, 0, 0.175, 1) both; }
+
+/* ---- S3↔S5 slide (scale+slide, same as S1↔S2) ---- */
+
+/* s5_fwd resting positions */
+#s5_fwd:checked ~ .slides .slide-5{
+  transform: translateX(0%) scale(1);
+  opacity:1;
+}
+#s5_fwd:checked ~ .slides .slide-3{
+  transform: translateX(8%) scale(0.88);
+  opacity:0;
+  pointer-events:none;
+}
+
+/* s3_from5_bwd resting positions */
+#s3_from5_bwd:checked ~ .slides .slide-3{
+  transform: translateX(0%) scale(1);
+  opacity:1;
+}
+#s3_from5_bwd:checked ~ .slides .slide-5{
+  transform: translateX(110%) scale(0.9);
+  opacity:0;
+  pointer-events:none;
+}
+
+/* Animate on state — reuse existing S1↔S2 keyframes */
+#s5_fwd:checked ~ .slides .slide-3    { animation: s1-forward-out  5s cubic-bezier(0.77, 0, 0.175, 1) both; }
+#s5_fwd:checked ~ .slides .slide-5    { animation: s2-forward-in   5s cubic-bezier(0.77, 0, 0.175, 1) both; }
+#s3_from5_bwd:checked ~ .slides .slide-5{ animation: s2-backward-out 5s cubic-bezier(0.77, 0, 0.175, 1) both; }
+#s3_from5_bwd:checked ~ .slides .slide-3{ animation: s1-backward-in  5s cubic-bezier(0.77, 0, 0.175, 1) both; }
 
 /* ---- S4→S1 diagonal home transition ---- */
 
@@ -584,6 +642,16 @@ body{
   animation: btn-fade-in 0.3s ease 5s both;
 }
 
+/* slide-5 back button: s2-forward-in = 5s */
+#s5_fwd:checked ~ .slides .slide-5 .back-btn{
+  animation: btn-fade-in 0.3s ease 5s both;
+}
+
+/* slide-3 back button when returning from favorites: s1-backward-in = 5s */
+#s3_from5_bwd:checked ~ .slides .slide-3 .back-btn{
+  animation: btn-fade-in 0.3s ease 5s both;
+}
+
 @media (prefers-reduced-motion: reduce){
   .brand__name,
   .product-designer-link{
@@ -593,7 +661,8 @@ body{
   .slide-2 .back-btn,
   .slide-3 .back-btn,
   .slide-4 .back-btn,
-  .slide-4 .home-btn{
+  .slide-4 .home-btn,
+  .slide-5 .back-btn{
     animation: none !important;
     opacity: 1 !important;
   }
@@ -618,7 +687,11 @@ body{
   #s3_bwd:checked ~ .slides .slide-4,
   #s3_bwd:checked ~ .slides .slide-3,
   #s1_from4:checked ~ .slides .slide-4,
-  #s1_from4:checked ~ .slides .slide-1{
+  #s1_from4:checked ~ .slides .slide-1,
+  #s5_fwd:checked ~ .slides .slide-3,
+  #s5_fwd:checked ~ .slides .slide-5,
+  #s3_from5_bwd:checked ~ .slides .slide-5,
+  #s3_from5_bwd:checked ~ .slides .slide-3{
     animation:none !important;
     transition:none !important;
   }
