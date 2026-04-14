@@ -61,10 +61,17 @@ All radio inputs are hidden (`display: none`). Navigation is triggered exclusive
 - Company list: Goldman Sachs, R/GA, SVA, Torry Harris, Other Work
   - `min(var(--title-size), 16vh)`, Inter 700, 1.5rem gap, `overflow: hidden`
   - Flip-down entry animation on load (rotateX -90deg → 0, 1.2s)
+  - Goldman Sachs rendered as `<label for="co_goldman">` — clicking triggers detail expand view
 - Brand color hovers: Goldman `#7297C5`, R/GA `#fff`, SVA `#FF3716`, Torry Harris `#254695`
 - Other Work: no hover color (generic category)
 - Cross-page access: `companies.html` back button links to `./index.html#back`
   - Small JS snippet at bottom of `index.html` detects `#back` hash and triggers two-frame rAF to run backward animation
+- **Company detail expand view** (Goldman Sachs, v2.8):
+  - Radios `co_none` (default) and `co_goldman` inside `.slide-2`; CSS `:has()` drives all state
+  - Click Goldman → title appears at top (`#7297C5`), other companies scale 1→0.5 + fade, summary slides down from title (opacity 0→1, 0.35s delay), actions row fades in (0.55s delay)
+  - Detail view: `company-detail__header` + `company-detail__summary` (Lorem Ipsum placeholder) + `company-detail__actions` (rounded "Read More" button + "Hit Esc to go back" hint)
+  - All transitions reverse automatically on `co_none` checked
+  - Escape key resets via JS `keydown` listener (second approved JS exception)
 
 #### Slide 3 — Links
 - Back button: `<label for="s1_from3_bwd">` (same quarter-circle as Slide 2)
@@ -174,7 +181,7 @@ Blog sidebar:   #4a4a4a
 
 ## Hard Constraints
 
-- **No JavaScript** unless CSS cannot achieve the effect (only exception: `#back` hash detection for cross-page backward animation)
+- **No JavaScript** unless CSS cannot achieve the effect (approved exceptions: `#back` hash detection for cross-page backward animation; `keydown` Escape listener for company detail reset)
 - **No inline styles** — all styling in external `.css` files
 - **No `<style>` tags** in HTML
 - Semantic HTML5 (`header`, `main`, `nav`, `section`)
@@ -232,7 +239,10 @@ Blog sidebar:   #4a4a4a
 ### v2.7 — Add Other Work to companies slide
 - April 2026 — Added Other Work as 5th company; font-size capped at min(title-size, 16vh) to fit all 5 without scrolling; overflow: hidden on company-main
 
+### v2.8 — Goldman Sachs company detail expand view
+- April 2026 — Clicking Goldman Sachs expands detail view: title floats to top (brand color), other companies scale+fade, work summary slides in, Read More button + Esc hint appear; Escape resets to list; CSS :has() + company radio group; JS Escape listener
+
 ---
 
-*Last Updated: April 9, 2026*
-*Version: 2.7*
+*Last Updated: April 13, 2026*
+*Version: 2.8*
