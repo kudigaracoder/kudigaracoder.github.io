@@ -258,7 +258,10 @@ Education: MFA Interaction Design, School of Visual Arts, May 2020 · B.Sc Compu
 ### v2.8 — Goldman Sachs company detail expand view
 - April 2026 — Clicking Goldman Sachs expands detail view: title floats to top (brand color), other companies scale+fade, work summary slides in, Read More button + Esc hint appear; Escape resets to list; CSS :has() + company radio group; JS Escape listener
 
+### v2.9 — Company detail expand view for all companies
+- April 2026 — Extended detail expand view to R/GA, SVA, Torry Harris, Other Work; each title floats to top via translateY(-N × --company-item-h); dates from resume; Other Work has no date; all transitions and Esc/back reset work consistently
+
 ---
 
-*Last Updated: April 13, 2026*
-*Version: 2.8*
+*Last Updated: April 15, 2026*
+*Version: 2.9*

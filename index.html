@@ -61,6 +61,10 @@
       <section class="slide slide-2" aria-label="Companies slide">
         <input type="radio" name="company" id="co_none" checked aria-label="No company selected" />
         <input type="radio" name="company" id="co_goldman" aria-label="Goldman Sachs detail" />
+        <input type="radio" name="company" id="co_rga"    aria-label="R/GA detail" />
+        <input type="radio" name="company" id="co_sva"    aria-label="SVA detail" />
+        <input type="radio" name="company" id="co_torry"  aria-label="Torry Harris detail" />
+        <input type="radio" name="company" id="co_other"  aria-label="Other Work detail" />
         <label for="s1_bwd" class="back-btn" aria-label="Back to index">
           <span class="back-btn__arrow" aria-hidden="true">←</span>
         </label>
@@ -69,14 +73,14 @@
           <main class="company-main" aria-label="Company showcase">
             <nav class="company-list" aria-label="Work experience companies">
               <label for="co_goldman" class="company company--goldman" aria-label="Goldman Sachs">Goldman Sachs</label>
-              <div class="company company--rga" aria-label="R/GA">R/GA</div>
-              <div class="company company--sva" aria-label="SVA">SVA</div>
-              <div class="company company--torry" aria-label="Torry Harris">Torry Harris</div>
-              <div class="company company--other" aria-label="Other Work">Other Work</div>
+              <label for="co_rga"   class="company company--rga"   aria-label="R/GA">R/GA</label>
+              <label for="co_sva"   class="company company--sva"   aria-label="SVA">SVA</label>
+              <label for="co_torry" class="company company--torry" aria-label="Torry Harris">Torry Harris</label>
+              <label for="co_other" class="company company--other" aria-label="Other Work">Other Work</label>
             </nav>
           </main>
 
-          <!-- Goldman Sachs detail view -->
+          <!-- Company detail views -->
           <div class="company-detail company-detail--goldman" aria-label="Goldman Sachs work summary">
             <div class="company-detail__header">Goldman Sachs</div>
             <div class="company-detail__date">August 2020 - Present</div>
@@ -85,6 +89,48 @@
             </div>
             <div class="company-detail__actions">
               <a href="#" class="company-detail__read-more" aria-label="Read more about Goldman Sachs work">Read More</a>
+              <span class="company-detail__esc-hint" aria-hidden="true">Hit Esc to go back</span>
+            </div>
+          </div>
+          <div class="company-detail company-detail--rga" aria-label="R/GA work summary">
+            <div class="company-detail__date">June 2019 - Sept 2019</div>
+            <div class="company-detail__summary">
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            </div>
+            <div class="company-detail__actions">
+              <a href="#" class="company-detail__read-more" aria-label="Read more about R/GA work">Read More</a>
+              <span class="company-detail__esc-hint" aria-hidden="true">Hit Esc to go back</span>
+            </div>
+          </div>
+
+          <div class="company-detail company-detail--sva" aria-label="SVA work summary">
+            <div class="company-detail__date">May 2020</div>
+            <div class="company-detail__summary">
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            </div>
+            <div class="company-detail__actions">
+              <a href="#" class="company-detail__read-more" aria-label="Read more about SVA">Read More</a>
+              <span class="company-detail__esc-hint" aria-hidden="true">Hit Esc to go back</span>
+            </div>
+          </div>
+
+          <div class="company-detail company-detail--torry" aria-label="Torry Harris work summary">
+            <div class="company-detail__date">Oct 2015 - Aug 2018</div>
+            <div class="company-detail__summary">
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            </div>
+            <div class="company-detail__actions">
+              <a href="#" class="company-detail__read-more" aria-label="Read more about Torry Harris work">Read More</a>
+              <span class="company-detail__esc-hint" aria-hidden="true">Hit Esc to go back</span>
+            </div>
+          </div>
+
+          <div class="company-detail company-detail--other" aria-label="Other Work summary">
+            <div class="company-detail__summary">
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            </div>
+            <div class="company-detail__actions">
+              <a href="#" class="company-detail__read-more" aria-label="Read more about other work">Read More</a>
               <span class="company-detail__esc-hint" aria-hidden="true">Hit Esc to go back</span>
             </div>
           </div>
