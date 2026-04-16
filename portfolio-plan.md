@@ -217,6 +217,7 @@ LinkedIn hover:     #1566C2
 - `prefers-reduced-motion` block in `index.css` covers all animations
 - **`portfolio-plan.md` must be updated in every commit** — update relevant sections and append a version history entry with date and one-line description
 - **Never commit without user verification** — after making changes, prompt the user to verify in the browser before committing; only commit after explicit confirmation
+- **When copying from another branch, prefer JS if simpler** — if replicating a feature in JS is less complex than pure CSS, use JS. The "no JS unless necessary" rule applies to new features, not cross-branch ports.
 
 ---
 
@@ -264,7 +265,10 @@ LinkedIn hover:     #1566C2
 ### v3.2 — Add Other Work to companies slide
 - April 2026 — Added Other Work as 5th company; font-size capped at min(title-size, 16vh) to fit all 5 without scrolling; overflow: hidden on company-main
 
+### v3.3 — Fix company detail dismiss (Esc + back button reset)
+- April 2026 — Added transition to .company-detail base rule for smooth Esc dismiss; broadened JS carousel-change listeners to cover all states leaving Slide 2; added CSS s1_bwd suppression rules as belt-and-suspenders fallback; added "prefer JS when simpler" hard constraint
+
 ---
 
-*Last Updated: April 9, 2026*
-*Version: 3.2*
+*Last Updated: April 13, 2026*
+*Version: 3.3*

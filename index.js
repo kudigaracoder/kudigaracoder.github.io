@@ -7,6 +7,7 @@
  * 2026-04-08 12:00  Add auto dark/light mode based on local time of day (06:00–18:00 = light)
  * 2026-04-08 14:00  Add blog slide: manifest fetch, sidebar population, markdown rendering
  * 2026-04-08 16:00  Extract all JavaScript from index.html into this file
+ * 2026-04-15 00:00  Port company detail expand view from noJS-rewrite; fix back-button state reset
  */
 
 /* ============================================================
@@ -264,6 +265,20 @@ document.addEventListener('DOMContentLoaded', function () {
    */
   document.getElementById('s4_fwd').addEventListener('change', function () {
     if (this.checked) initBlog();
+  });
+
+  /**
+   * Reset company detail state whenever the user leaves Slide 2, regardless
+   * of which carousel state they navigate to. Covers back button (s1_bwd),
+   * direct home (s1_fwd via #back hash), and all forward paths away from
+   * Slide 2 (s3_fwd, s1_from3_bwd, s4_fwd, s3_from4_bwd).
+   */
+  ['s1_bwd', 's1_fwd', 's3_fwd', 's1_from3_bwd', 's4_fwd', 's3_from4_bwd'].forEach(function (id) {
+    var el = document.getElementById(id);
+    if (el) el.addEventListener('change', function () {
+      var coNone = document.getElementById('co_none');
+      if (coNone) coNone.checked = true;
+    });
   });
 
   /**
