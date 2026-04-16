@@ -126,22 +126,22 @@ body{
 @keyframes loc-coimbatore{
   0%{ transform: rotateX(90deg); opacity:0; }
   10%{ transform: rotateX(0deg); opacity:1; }
-  30%{ transform: rotateX(0deg); opacity:1; }
-  32.5%{ transform: rotateX(-90deg); opacity:0; }
+  20%{ transform: rotateX(0deg); opacity:1; }
+  22.5%{ transform: rotateX(-90deg); opacity:0; }
   100%{ transform: rotateX(-90deg); opacity:0; }
 }
 @keyframes loc-bengaluru{
   0%{ transform: rotateX(90deg); opacity:0; }
-  30%{ transform: rotateX(90deg); opacity:0; }
+  20%{ transform: rotateX(90deg); opacity:0; }
+  22.5%{ transform: rotateX(0deg); opacity:1; }
   32.5%{ transform: rotateX(0deg); opacity:1; }
-  50%{ transform: rotateX(0deg); opacity:1; }
-  60%{ transform: rotateX(-90deg); opacity:0; }
+  35%{ transform: rotateX(-90deg); opacity:0; }
   100%{ transform: rotateX(-90deg); opacity:0; }
 }
 @keyframes loc-nyc{
   0%{ transform: rotateX(90deg); opacity:0; }
-  50%{ transform: rotateX(90deg); opacity:0; }
-  60%{ transform: rotateX(0deg); opacity:1; }
+  32.5%{ transform: rotateX(90deg); opacity:0; }
+  35%{ transform: rotateX(0deg); opacity:1; }
   100%{ transform: rotateX(0deg); opacity:1; }
 }
 

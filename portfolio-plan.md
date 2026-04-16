@@ -179,6 +179,21 @@ Blog sidebar:   #4a4a4a
 
 ---
 
+## Resume Reference (`files/Latest-Resume.pdf`)
+
+| Company | Role | Dates |
+|---|---|---|
+| Goldman Sachs, New York City | UX Designer | Aug 2020 – Present |
+| R/GA, Portland, Oregon | Experience Design Intern | June 2019 – Sept 2019 |
+| Torry Harris, Bengaluru | Product Design Lead | Oct 2015 – Aug 2018 |
+| Torry Harris, Bengaluru | Product Designer, Nucleus | Aug 2016 – Aug 2018 |
+| Torry Harris, Bengaluru | Mobility Lead, CoE | Jan 2012 – Oct 2015 |
+| Everything Everywhere, Bristol/Bengaluru | Team Lead / Software Analyst | July 2005 – Dec 2011 |
+
+Education: MFA Interaction Design, School of Visual Arts, May 2020 · B.Sc Computer Science, PSG College of Technology, 2005
+
+---
+
 ## Hard Constraints
 
 - **No JavaScript** unless CSS cannot achieve the effect (approved exceptions: `#back` hash detection for cross-page backward animation; `keydown` Escape listener for company detail reset)
@@ -189,6 +204,7 @@ Blog sidebar:   #4a4a4a
 - `prefers-reduced-motion` block in `index.css` covers all animations
 - **`portfolio-plan.md` must be updated in every commit** — update relevant sections and append a version history entry with date and one-line description
 - **Never commit without user verification** — after making changes, prompt the user to verify in the browser before committing; only commit after explicit confirmation
+- **Cross-check resume** — when adding dates, roles, or company names to the portfolio, always verify against `files/Latest-Resume.pdf` (resume reference table above); never use user-stated info without confirming it matches the resume
 
 ---
 
