@@ -261,7 +261,10 @@ Education: MFA Interaction Design, School of Visual Arts, May 2020 · B.Sc Compu
 ### v2.9 — Company detail expand view for all companies
 - April 2026 — Extended detail expand view to R/GA, SVA, Torry Harris, Other Work; each title floats to top via translateY(-N × --company-item-h); dates from resume; Other Work has no date; all transitions and Esc/back reset work consistently
 
+### v2.10 — Add designations, spacing, summary right margin
+- April 2026 — Add company-detail__role (90px) with resume-accurate designations for Goldman, R/GA, SVA, Torry; stagger delays shifted (role 1.5s → date 1.7s → summary 1.9s → actions 2.1s); actions margin-top 1rem + margin-bottom 1rem; summary p margin-block-end 0.25rem; date margin-top 1vh; padding-right 5% on .company-detail to keep text off edge
+
 ---
 
-*Last Updated: April 15, 2026*
-*Version: 2.9*
+*Last Updated: April 17, 2026*
+*Version: 2.10*
