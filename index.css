@@ -7,6 +7,7 @@
 
   --name-size:200px;
   --title-size:180px;
+  --company-item-h: calc(min(var(--title-size), 16vh) * 0.9 + 1.5rem);
 }
 
 @media (max-width: 768px){
@@ -126,22 +127,22 @@ body{
 @keyframes loc-coimbatore{
   0%{ transform: rotateX(90deg); opacity:0; }
   10%{ transform: rotateX(0deg); opacity:1; }
-  30%{ transform: rotateX(0deg); opacity:1; }
-  32.5%{ transform: rotateX(-90deg); opacity:0; }
+  20%{ transform: rotateX(0deg); opacity:1; }
+  22.5%{ transform: rotateX(-90deg); opacity:0; }
   100%{ transform: rotateX(-90deg); opacity:0; }
 }
 @keyframes loc-bengaluru{
   0%{ transform: rotateX(90deg); opacity:0; }
-  30%{ transform: rotateX(90deg); opacity:0; }
+  20%{ transform: rotateX(90deg); opacity:0; }
+  22.5%{ transform: rotateX(0deg); opacity:1; }
   32.5%{ transform: rotateX(0deg); opacity:1; }
-  50%{ transform: rotateX(0deg); opacity:1; }
-  60%{ transform: rotateX(-90deg); opacity:0; }
+  35%{ transform: rotateX(-90deg); opacity:0; }
   100%{ transform: rotateX(-90deg); opacity:0; }
 }
 @keyframes loc-nyc{
   0%{ transform: rotateX(90deg); opacity:0; }
-  50%{ transform: rotateX(90deg); opacity:0; }
-  60%{ transform: rotateX(0deg); opacity:1; }
+  32.5%{ transform: rotateX(90deg); opacity:0; }
+  35%{ transform: rotateX(0deg); opacity:1; }
   100%{ transform: rotateX(0deg); opacity:1; }
 }
 
@@ -249,13 +250,262 @@ body{
   letter-spacing:-10px;
   line-height:0.9;
   color:#fff;
-  transition: color .2s ease;
+  transform-origin:20% 90%;
+  transition: color .2s ease, transform 1.5s ease 0.8s, opacity 1.5s ease 0.8s;
 }
+label.company{ cursor:pointer; }
 .company--goldman:hover{ color:#7297C5; }
 .company--rga:hover{ color:#F90201; }
 .company--sva:hover{ color:#EB1000; }
 .company--torry:hover{ color:#2D51A3; }
 .company--other{ color:#fff; }
+
+/* ---- Company detail expand view ---- */
+
+/* Default: detail hidden, positioned below the company title that stays in the list */
+.company-detail{
+  position:absolute;
+  top:calc(min(var(--title-size), 16vh) * 0.9 + 1vh);
+  left:0;
+  padding-right:5%;
+  opacity:0;
+  pointer-events:none;
+}
+
+/* Header is not needed — company title remains visible in the list */
+.company-detail__header{ display:none; }
+
+.company-detail__role{
+  font-size:90px;
+  font-weight:700;
+  letter-spacing:-5px;
+  line-height:0.9;
+  color:#8e8e8e;
+  opacity:0;
+  transform:translateY(-2rem);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.company-detail__date{
+  font-size:90px;
+  font-weight:700;
+  letter-spacing:-5px;
+  line-height:0.9;
+  color:#8e8e8e;
+  margin-top:1vh;
+  opacity:0;
+  transform:translateY(-2rem);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.company-detail__summary{
+  font-size:70px;
+  font-weight:600;
+  letter-spacing:normal;
+  line-height:0.9;
+  color:#8e8e8e;
+  margin-top:0.5rem;
+  opacity:0;
+  transform:translateY(-2rem);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.company-detail__summary p{ margin-block-end:0.25rem; }
+
+.company-detail__actions{
+  display:flex;
+  align-items:center;
+  gap:2rem;
+  margin-top:1rem;
+  margin-bottom:1rem;
+  opacity:0;
+  transform:translateY(-2rem);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.company-detail__read-more{
+  display:inline-block;
+  padding:0.6rem 2rem;
+  border:2px solid #fff;
+  border-radius:50px;
+  color:#fff;
+  font-size:1rem;
+  font-weight:600;
+  font-family:inherit;
+  text-decoration:none;
+  cursor:pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.company-detail__read-more:hover{
+  background:#fff;
+  color:#000;
+}
+
+.company-detail__esc-hint{
+  font-size:0.95rem;
+  font-weight:300;
+  color:rgba(255,255,255,0.5);
+}
+
+/* Goldman selected */
+.slide-2:has(#co_goldman:checked) .company-list .company--goldman{
+  color:#7297C5;
+  transform:translateY(0);
+  transition: color .2s ease, transform 1.5s ease, opacity 1.5s ease;
+}
+.slide-2:has(#co_goldman:checked) .company-list .company:not(.company--goldman){
+  transform:scale(0.75);
+  opacity:0;
+  pointer-events:none;
+  transition: color .2s ease, transform 1.5s ease, opacity 1.5s ease;
+}
+.slide-2:has(#co_goldman:checked) .company-detail--goldman{
+  opacity:1;
+  pointer-events:auto;
+  transition: opacity 0.4s ease 1.5s;
+}
+.slide-2:has(#co_goldman:checked) .company-detail--goldman .company-detail__role{
+  opacity:1; transform:translateY(0);
+  transition: opacity 0.4s ease 1.5s, transform 0.4s ease 1.5s;
+}
+.slide-2:has(#co_goldman:checked) .company-detail--goldman .company-detail__date{
+  opacity:1; transform:translateY(0);
+  transition: opacity 0.4s ease 1.7s, transform 0.4s ease 1.7s;
+}
+.slide-2:has(#co_goldman:checked) .company-detail--goldman .company-detail__summary{
+  opacity:1; transform:translateY(0);
+  transition: opacity 0.4s ease 1.9s, transform 0.4s ease 1.9s;
+}
+.slide-2:has(#co_goldman:checked) .company-detail--goldman .company-detail__actions{
+  opacity:1; transform:translateY(0);
+  transition: opacity 0.4s ease 2.1s, transform 0.4s ease 2.1s;
+}
+
+/* R/GA selected */
+.slide-2:has(#co_rga:checked) .company-list .company--rga{
+  color:#F90201;
+  transform:translateY(calc(-1 * var(--company-item-h)));
+  transition: color .2s ease, transform 1.5s ease, opacity 1.5s ease;
+}
+.slide-2:has(#co_rga:checked) .company-list .company:not(.company--rga){
+  transform:scale(0.75);
+  opacity:0;
+  pointer-events:none;
+  transition: color .2s ease, transform 1.5s ease, opacity 1.5s ease;
+}
+.slide-2:has(#co_rga:checked) .company-detail--rga{
+  opacity:1;
+  pointer-events:auto;
+  transition: opacity 0.4s ease 1.5s;
+}
+.slide-2:has(#co_rga:checked) .company-detail--rga .company-detail__role{
+  opacity:1; transform:translateY(0);
+  transition: opacity 0.4s ease 1.5s, transform 0.4s ease 1.5s;
+}
+.slide-2:has(#co_rga:checked) .company-detail--rga .company-detail__date{
+  opacity:1; transform:translateY(0);
+  transition: opacity 0.4s ease 1.7s, transform 0.4s ease 1.7s;
+}
+.slide-2:has(#co_rga:checked) .company-detail--rga .company-detail__summary{
+  opacity:1; transform:translateY(0);
+  transition: opacity 0.4s ease 1.9s, transform 0.4s ease 1.9s;
+}
+.slide-2:has(#co_rga:checked) .company-detail--rga .company-detail__actions{
+  opacity:1; transform:translateY(0);
+  transition: opacity 0.4s ease 2.1s, transform 0.4s ease 2.1s;
+}
+
+/* SVA selected */
+.slide-2:has(#co_sva:checked) .company-list .company--sva{
+  color:#EB1000;
+  transform:translateY(calc(-2 * var(--company-item-h)));
+  transition: color .2s ease, transform 1.5s ease, opacity 1.5s ease;
+}
+.slide-2:has(#co_sva:checked) .company-list .company:not(.company--sva){
+  transform:scale(0.75);
+  opacity:0;
+  pointer-events:none;
+  transition: color .2s ease, transform 1.5s ease, opacity 1.5s ease;
+}
+.slide-2:has(#co_sva:checked) .company-detail--sva{
+  opacity:1;
+  pointer-events:auto;
+  transition: opacity 0.4s ease 1.5s;
+}
+.slide-2:has(#co_sva:checked) .company-detail--sva .company-detail__role{
+  opacity:1; transform:translateY(0);
+  transition: opacity 0.4s ease 1.5s, transform 0.4s ease 1.5s;
+}
+.slide-2:has(#co_sva:checked) .company-detail--sva .company-detail__date{
+  opacity:1; transform:translateY(0);
+  transition: opacity 0.4s ease 1.7s, transform 0.4s ease 1.7s;
+}
+.slide-2:has(#co_sva:checked) .company-detail--sva .company-detail__summary{
+  opacity:1; transform:translateY(0);
+  transition: opacity 0.4s ease 1.9s, transform 0.4s ease 1.9s;
+}
+.slide-2:has(#co_sva:checked) .company-detail--sva .company-detail__actions{
+  opacity:1; transform:translateY(0);
+  transition: opacity 0.4s ease 2.1s, transform 0.4s ease 2.1s;
+}
+
+/* Torry Harris selected */
+.slide-2:has(#co_torry:checked) .company-list .company--torry{
+  color:#2D51A3;
+  transform:translateY(calc(-3 * var(--company-item-h)));
+  transition: color .2s ease, transform 1.5s ease, opacity 1.5s ease;
+}
+.slide-2:has(#co_torry:checked) .company-list .company:not(.company--torry){
+  transform:scale(0.75);
+  opacity:0;
+  pointer-events:none;
+  transition: color .2s ease, transform 1.5s ease, opacity 1.5s ease;
+}
+.slide-2:has(#co_torry:checked) .company-detail--torry{
+  opacity:1;
+  pointer-events:auto;
+  transition: opacity 0.4s ease 1.5s;
+}
+.slide-2:has(#co_torry:checked) .company-detail--torry .company-detail__role{
+  opacity:1; transform:translateY(0);
+  transition: opacity 0.4s ease 1.5s, transform 0.4s ease 1.5s;
+}
+.slide-2:has(#co_torry:checked) .company-detail--torry .company-detail__date{
+  opacity:1; transform:translateY(0);
+  transition: opacity 0.4s ease 1.7s, transform 0.4s ease 1.7s;
+}
+.slide-2:has(#co_torry:checked) .company-detail--torry .company-detail__summary{
+  opacity:1; transform:translateY(0);
+  transition: opacity 0.4s ease 1.9s, transform 0.4s ease 1.9s;
+}
+.slide-2:has(#co_torry:checked) .company-detail--torry .company-detail__actions{
+  opacity:1; transform:translateY(0);
+  transition: opacity 0.4s ease 2.1s, transform 0.4s ease 2.1s;
+}
+
+/* Other Work selected */
+.slide-2:has(#co_other:checked) .company-list .company--other{
+  color:#fff;
+  transform:translateY(calc(-4 * var(--company-item-h)));
+  transition: color .2s ease, transform 1.5s ease, opacity 1.5s ease;
+}
+.slide-2:has(#co_other:checked) .company-list .company:not(.company--other){
+  transform:scale(0.75);
+  opacity:0;
+  pointer-events:none;
+  transition: color .2s ease, transform 1.5s ease, opacity 1.5s ease;
+}
+.slide-2:has(#co_other:checked) .company-detail--other{
+  opacity:1;
+  pointer-events:auto;
+  transition: opacity 0.4s ease 1.5s;
+}
+.slide-2:has(#co_other:checked) .company-detail--other .company-detail__summary{
+  opacity:1; transform:translateY(0);
+  transition: opacity 0.4s ease 1.5s, transform 0.4s ease 1.5s;
+}
+.slide-2:has(#co_other:checked) .company-detail--other .company-detail__actions{
+  opacity:1; transform:translateY(0);
+  transition: opacity 0.4s ease 1.7s, transform 0.4s ease 1.7s;
+}
 
 /* Transitions (5s) */
 @keyframes s1-forward-out{
@@ -696,6 +946,13 @@ body{
   #s3_from5_bwd:checked ~ .slides .slide-3{
     animation:none !important;
     transition:none !important;
+  }
+  .company-detail__role,
+  .company-detail__date,
+  .company-detail__summary,
+  .company-detail__actions{
+    transition: opacity 0.1s ease !important;
+    transform:none !important;
   }
 }
 
