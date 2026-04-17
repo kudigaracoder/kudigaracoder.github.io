@@ -8,6 +8,7 @@
  * 2026-04-08 14:00  Add blog slide: manifest fetch, sidebar population, markdown rendering
  * 2026-04-08 16:00  Extract all JavaScript from index.html into this file
  * 2026-04-15 00:00  Port company detail expand view from noJS-rewrite; fix back-button state reset
+ * 2026-04-16 00:00  Fix Esc dismiss: move keydown to module level; add keyCode fallback; esc-hint → label; tabindex on labels
  */
 
 /* ============================================================
@@ -255,6 +256,24 @@ function initBlog() {
 /* ============================================================
  * INITIALISATION — deferred until the DOM is fully parsed
  * ============================================================ */
+
+/**
+ * Company detail reset on Escape key.
+ * Registered at module level (not inside DOMContentLoaded) so it is
+ * attached before any user interaction and is not at risk of being
+ * skipped if later init code throws. getElementById is called lazily
+ * inside the handler so it is safe to attach before the DOM is ready.
+ *
+ * CSS :has() drives the expand animation; this resets the radio state
+ * so the CSS reverts. The "Hit Esc to go back" label elements in the
+ * HTML provide a click-based fallback that works purely via CSS.
+ */
+document.addEventListener('keydown', function (e) {
+  if (e.key === 'Escape' || e.key === 'Esc' || e.keyCode === 27) {
+    var coNone = document.getElementById('co_none');
+    if (coNone) coNone.checked = true;
+  }
+});
 
 document.addEventListener('DOMContentLoaded', function () {
 

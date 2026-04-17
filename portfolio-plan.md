@@ -268,7 +268,13 @@ LinkedIn hover:     #1566C2
 ### v3.3 — Fix company detail dismiss (Esc + back button reset)
 - April 2026 — Added transition to .company-detail base rule for smooth Esc dismiss; broadened JS carousel-change listeners to cover all states leaving Slide 2; added CSS s1_bwd suppression rules as belt-and-suspenders fallback; added "prefer JS when simpler" hard constraint
 
+### v3.4 — Esc fix, theme-aware back button, designations, spacing
+- April 2026 — Fix Esc dismiss via module-level keydown + tabindex on labels + clickable esc-hint labels; theme-aware back button (var(--toggle-bg)/var(--bg)); add role/designation from resume to company details; adjust actions margin to 1rem + summary margin-block-end to 0.25rem
+
+### v3.5 (WIP) — Responsive company detail
+- April 2026 — CSS custom properties (--detail-size, --summary-size, --company-gap) with breakpoint scaling at 768px and 480px; element-level responsive overrides for letter-spacing, button padding, gap
+
 ---
 
-*Last Updated: April 13, 2026*
-*Version: 3.3*
+*Last Updated: April 15, 2026*
+*Version: 3.5 (WIP)*
