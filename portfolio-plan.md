@@ -264,7 +264,10 @@ Education: MFA Interaction Design, School of Visual Arts, May 2020 · B.Sc Compu
 ### v2.10 — Add designations, spacing, summary right margin
 - April 2026 — Add company-detail__role (90px) with resume-accurate designations for Goldman, R/GA, SVA, Torry; stagger delays shifted (role 1.5s → date 1.7s → summary 1.9s → actions 2.1s); actions margin-top 1rem + margin-bottom 1rem; summary p margin-block-end 0.25rem; date margin-top 1vh; padding-right 5% on .company-detail to keep text off edge
 
+### v2.11 — Slide 1 title hover fill animation
+- April 2026 — Replace opacity hover with background-clip text fill: default white, hover fills orange left-to-right, drains right-to-left on mouse-out; product-designer-link margin-top 0.8rem → 0.5rem, padding-bottom 1.5rem to prevent bottom clipping; prefers-reduced-motion suppresses transition
+
 ---
 
-*Last Updated: April 17, 2026*
-*Version: 2.10*
+*Last Updated: April 19, 2026*
+*Version: 2.11*
