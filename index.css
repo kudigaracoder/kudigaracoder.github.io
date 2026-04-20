@@ -260,16 +260,56 @@ body{
   font-weight:700;
   letter-spacing:-10px;
   line-height:0.9;
-  color:#fff;
   transform-origin:20% 90%;
-  transition: color .2s ease, transform 1.5s ease 0.8s, opacity 1.5s ease 0.8s;
+  transition: color .2s ease, background-position 0.4s ease, transform 1.5s ease 0.8s, opacity 1.5s ease 0.8s;
 }
 label.company{ cursor:pointer; }
-.company--goldman:hover{ color:#7297C5; }
-.company--rga:hover{ color:#F90201; }
-.company--sva:hover{ color:#EB1000; }
-.company--torry:hover{ color:#2D51A3; }
-.company--other{ color:#fff; }
+.company--goldman{
+  background: linear-gradient(to right, #7297C5 50%, #fff 50%);
+  background-size: 200% 100%;
+  background-position: 100% 50%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.company--goldman:hover{ background-position:0% 50%; }
+.company--rga{
+  background: linear-gradient(to right, #F90201 50%, #fff 50%);
+  background-size: 200% 100%;
+  background-position: 100% 50%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.company--rga:hover{ background-position:0% 50%; }
+.company--sva{
+  background: linear-gradient(to right, #EB1000 50%, #fff 50%);
+  background-size: 200% 100%;
+  background-position: 100% 50%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.company--sva:hover{ background-position:0% 50%; }
+.company--torry{
+  background: linear-gradient(to right, #2D51A3 50%, #fff 50%);
+  background-size: 200% 100%;
+  background-position: 100% 50%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  padding-bottom: 1.2rem;
+}
+.company--torry:hover{ background-position:0% 50%; }
+.company--other{
+  background: linear-gradient(to right, var(--accent) 50%, #fff 50%);
+  background-size: 200% 100%;
+  background-position: 100% 50%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.company--other:hover{ background-position:0% 50%; }
 
 /* ---- Company detail expand view ---- */
 
@@ -588,17 +628,29 @@ label.company{ cursor:pointer; }
   gap:1.5rem;
 }
 .link-item{
+  display:inline-block;
   font-size:var(--title-size);
   font-weight:700;
   letter-spacing:-10px;
   line-height:0.9;
-  color:#fff;
+  padding-bottom:1.5rem;
+  background: linear-gradient(to right, var(--accent) 50%, #fff 50%);
+  background-size: 200% 100%;
+  background-position: 100% 50%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
   text-decoration:none;
-  transition: color .2s ease;
+  transition: background-position 0.4s ease;
 }
-.link-item{ color:#fff; }
-.link-item:hover{ color:var(--accent); }
-.link-item--linkedin:hover{ color:#1566C2; }
+.link-item--linkedin{
+  background: linear-gradient(to right, #1566C2 50%, #fff 50%);
+  background-size: 200% 100%;
+  background-position: 100% 50%;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+.link-item:hover{ background-position:0% 50%; }
 
 /* ---- S1↔S3 flip (rotateX, 2s) ---- */
 
@@ -917,9 +969,19 @@ label.company{ cursor:pointer; }
 
 @media (prefers-reduced-motion: reduce){
   .brand__name,
-  .product-designer-link{
+  .product-designer-link,
+  .link-item{
     animation: none !important;
-    opacity: 1;
+    background-position: 100% 50% !important;
+    transition: none !important;
+  }
+  .company--goldman,
+  .company--rga,
+  .company--sva,
+  .company--torry,
+  .company--other{
+    background-position: 100% 50% !important;
+    transition: none !important;
   }
   .slide-2 .back-btn,
   .slide-3 .back-btn,
