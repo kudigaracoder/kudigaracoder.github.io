@@ -107,7 +107,7 @@ body{
 
 /* Location carousel */
 .locations-outer{
-  margin-top:3rem;
+  margin-top:1rem;
   position:relative;
   width:100%;
   height:var(--title-size);
