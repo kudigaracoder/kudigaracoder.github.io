@@ -59,6 +59,12 @@
 
       <!-- Slide 2: Companies -->
       <section class="slide slide-2" aria-label="Companies slide">
+        <input type="radio" name="company" id="co_none" checked aria-label="No company selected" />
+        <input type="radio" name="company" id="co_goldman" aria-label="Goldman Sachs detail" />
+        <input type="radio" name="company" id="co_rga"    aria-label="R/GA detail" />
+        <input type="radio" name="company" id="co_sva"    aria-label="SVA detail" />
+        <input type="radio" name="company" id="co_torry"  aria-label="Torry Harris detail" />
+        <input type="radio" name="company" id="co_other"  aria-label="Other Work detail" />
         <label for="s1_bwd" class="back-btn" aria-label="Back to index">
           <span class="back-btn__arrow" aria-hidden="true">←</span>
         </label>
@@ -66,13 +72,72 @@
         <div class="content">
           <main class="company-main" aria-label="Company showcase">
             <nav class="company-list" aria-label="Work experience companies">
-              <div class="company company--goldman" aria-label="Goldman Sachs">Goldman Sachs</div>
-              <div class="company company--rga" aria-label="R/GA">R/GA</div>
-              <div class="company company--sva" aria-label="SVA">SVA</div>
-              <div class="company company--torry" aria-label="Torry Harris">Torry Harris</div>
-              <div class="company company--other" aria-label="Other Work">Other Work</div>
+              <label for="co_goldman" class="company company--goldman" aria-label="Goldman Sachs">Goldman Sachs</label>
+              <label for="co_rga"   class="company company--rga"   aria-label="R/GA">R/GA</label>
+              <label for="co_sva"   class="company company--sva"   aria-label="SVA">SVA</label>
+              <label for="co_torry" class="company company--torry" aria-label="Torry Harris">Torry Harris</label>
+              <label for="co_other" class="company company--other" aria-label="Other Work">Other Work</label>
             </nav>
           </main>
+
+          <!-- Company detail views -->
+          <div class="company-detail company-detail--goldman" aria-label="Goldman Sachs work summary">
+            <div class="company-detail__header">Goldman Sachs</div>
+            <div class="company-detail__role">UX Designer</div>
+            <div class="company-detail__date">August 2020 - Present</div>
+            <div class="company-detail__summary">
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            </div>
+            <div class="company-detail__actions">
+              <a href="#" class="company-detail__read-more" aria-label="Read more about Goldman Sachs work">Read More</a>
+              <span class="company-detail__esc-hint" aria-hidden="true">Hit Esc to go back</span>
+            </div>
+          </div>
+          <div class="company-detail company-detail--rga" aria-label="R/GA work summary">
+            <div class="company-detail__role">Experience Design Intern</div>
+            <div class="company-detail__date">June 2019 - Sept 2019</div>
+            <div class="company-detail__summary">
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            </div>
+            <div class="company-detail__actions">
+              <a href="#" class="company-detail__read-more" aria-label="Read more about R/GA work">Read More</a>
+              <span class="company-detail__esc-hint" aria-hidden="true">Hit Esc to go back</span>
+            </div>
+          </div>
+
+          <div class="company-detail company-detail--sva" aria-label="SVA work summary">
+            <div class="company-detail__role">MFA Interaction Design</div>
+            <div class="company-detail__date">May 2020</div>
+            <div class="company-detail__summary">
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            </div>
+            <div class="company-detail__actions">
+              <a href="#" class="company-detail__read-more" aria-label="Read more about SVA">Read More</a>
+              <span class="company-detail__esc-hint" aria-hidden="true">Hit Esc to go back</span>
+            </div>
+          </div>
+
+          <div class="company-detail company-detail--torry" aria-label="Torry Harris work summary">
+            <div class="company-detail__role">Product Design Lead</div>
+            <div class="company-detail__date">Oct 2015 - Aug 2018</div>
+            <div class="company-detail__summary">
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            </div>
+            <div class="company-detail__actions">
+              <a href="#" class="company-detail__read-more" aria-label="Read more about Torry Harris work">Read More</a>
+              <span class="company-detail__esc-hint" aria-hidden="true">Hit Esc to go back</span>
+            </div>
+          </div>
+
+          <div class="company-detail company-detail--other" aria-label="Other Work summary">
+            <div class="company-detail__summary">
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            </div>
+            <div class="company-detail__actions">
+              <a href="#" class="company-detail__read-more" aria-label="Read more about other work">Read More</a>
+              <span class="company-detail__esc-hint" aria-hidden="true">Hit Esc to go back</span>
+            </div>
+          </div>
         </div>
       </section>
       <!-- Slide 3: Links -->
@@ -84,7 +149,7 @@
         <div class="content">
           <main class="links-main" aria-label="Links">
             <nav class="links-list" aria-label="External links">
-              <a href="./resume.pdf" download class="link-item" aria-label="Download Resume">Resume</a>
+              <a href="./files/Latest-Resume.pdf" download class="link-item" aria-label="Download Resume">Resume</a>
               <a href="https://www.linkedin.com/in/raviseethapathy/" target="_blank" rel="noreferrer" class="link-item link-item--linkedin" aria-label="LinkedIn">LinkedIn</a>
               <label for="s4_fwd" class="link-item" aria-label="Go to blog">Blog</label>
               <label for="s5_fwd" class="link-item" aria-label="Go to favorites">Favorites</label>
@@ -151,6 +216,16 @@
         });
       });
     }
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        var coNone = document.getElementById('co_none');
+        if (coNone) coNone.checked = true;
+      }
+    });
+    document.getElementById('s1_bwd').addEventListener('change', function() {
+      var coNone = document.getElementById('co_none');
+      if (coNone) coNone.checked = true;
+    });
   </script>
 </body>
 </html>
