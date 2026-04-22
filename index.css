@@ -865,10 +865,22 @@ label.company{ cursor:pointer; }
 
 /* ---- Blog two-panel layout ---- */
 
+.blog-slide-title{
+  position:absolute;
+  top:-3%;
+  left:90px;
+  font-size:150px;
+  font-weight:700;
+  letter-spacing:-10px;
+  line-height:1;
+  color:#fff;
+  margin:0;
+  pointer-events:none;
+}
 .blog-layout{
   display:flex;
   height:100%;
-  padding-top:4%;
+  padding-top:14%;
   padding-left:3%;
   padding-bottom:2%;
 }
@@ -881,9 +893,6 @@ label.company{ cursor:pointer; }
   gap:1rem;
   border-right:1px solid rgba(255,255,255,0.15);
   overflow-y:auto;
-  border-radius:42px;
-  background:#4a4a4a;
-  box-shadow:4px 5px 20px 2px rgba(255,255,255,0.35);
 }
 .blog-content{
   flex:1;
