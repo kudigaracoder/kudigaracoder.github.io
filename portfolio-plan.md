@@ -267,7 +267,13 @@ Education: MFA Interaction Design, School of Visual Arts, May 2020 · B.Sc Compu
 ### v2.11 — Slide 1 title hover fill animation
 - April 2026 — Replace opacity hover with background-clip text fill: default white, hover fills orange left-to-right, drains right-to-left on mouse-out; product-designer-link margin-top 0.8rem → 0.5rem, padding-bottom 1.5rem to prevent bottom clipping; prefers-reduced-motion suppresses transition
 
+### v2.12 — Extend fill hover to all titles
+- April 2026 — Apply background-clip fill hover to link-items (Slide 3: orange; LinkedIn: brand blue) and company names (Slide 2: each company's brand color; Other Work: orange); fix LinkedIn box-fill bug by re-declaring background-clip after background shorthand; add padding-bottom to link-items (1.5rem) and Torry Harris (1.2rem) to fix descender clipping
+
+### v2.13 — Reduce spacing between Product Designer and location carousel
+- April 2026 — .locations-outer margin-top 3rem → 1rem
+
 ---
 
-*Last Updated: April 19, 2026*
-*Version: 2.11*
+*Last Updated: April 20, 2026*
+*Version: 2.13*
