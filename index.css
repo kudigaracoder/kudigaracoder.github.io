@@ -173,6 +173,8 @@ body{
   perspective:1200px;
 }
 
+.carousel.instant .slide{ animation:none !important; }
+
 .slide{
   position:absolute;
   inset:0;
@@ -625,7 +627,7 @@ label.company{ cursor:pointer; }
 .links-list{
   display:flex;
   flex-direction:column;
-  gap:1.5rem;
+  gap:1rem;
 }
 .link-item{
   display:inline-block;

@@ -206,6 +206,13 @@
     </div>
   </div>
   <script>
+    var hashMap = { '#companies':'s2_fwd', '#about':'s3_fwd', '#blog':'s4_fwd', '#favorites':'s5_fwd' };
+    if (hashMap[location.hash]) {
+      var carousel = document.querySelector('.carousel');
+      carousel.classList.add('instant');
+      document.getElementById(hashMap[location.hash]).checked = true;
+      requestAnimationFrame(function() { carousel.classList.remove('instant'); });
+    }
     if (location.hash === '#back') {
       var s2bwd = document.getElementById('s2_bwd');
       var s1bwd = document.getElementById('s1_bwd');

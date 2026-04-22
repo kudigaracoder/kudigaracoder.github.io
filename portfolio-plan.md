@@ -196,7 +196,7 @@ Education: MFA Interaction Design, School of Visual Arts, May 2020 · B.Sc Compu
 
 ## Hard Constraints
 
-- **No JavaScript** unless CSS cannot achieve the effect (approved exceptions: `#back` hash detection for cross-page backward animation; `keydown` Escape listener for company detail reset)
+- **No JavaScript** unless CSS cannot achieve the effect (approved exceptions: `#back` hash detection for cross-page backward animation; `keydown` Escape listener for company detail reset; hash-based direct slide navigation)
 - **No inline styles** — all styling in external `.css` files
 - **No `<style>` tags** in HTML
 - Semantic HTML5 (`header`, `main`, `nav`, `section`)
@@ -273,7 +273,10 @@ Education: MFA Interaction Design, School of Visual Arts, May 2020 · B.Sc Compu
 ### v2.13 — Reduce spacing between Product Designer and location carousel
 - April 2026 — .locations-outer margin-top 3rem → 1rem
 
+### v2.14 — Hash-based direct slide navigation + links gap reduction
+- April 2026 — Add JS hash map (#companies, #about, #blog, #favorites) to navigate directly to slides on page load; suppress transition animation via .carousel.instant; reduce .links-list gap 1.5rem → 1rem
+
 ---
 
-*Last Updated: April 20, 2026*
-*Version: 2.13*
+*Last Updated: April 22, 2026*
+*Version: 2.14*
