@@ -208,6 +208,7 @@ Education: MFA Interaction Design, School of Visual Arts, May 2020 · B.Sc Compu
 - **`portfolio-plan.md` must be updated in every commit** — update relevant sections and append a version history entry with date and one-line description
 - **Never commit without user verification** — after making changes, prompt the user to verify in the browser before committing; only commit after explicit confirmation
 - **Cross-check resume** — when adding dates, roles, or company names to the portfolio, always verify against `files/Latest-Resume.pdf` (resume reference table above); never use user-stated info without confirming it matches the resume
+- **No direct commits to master** — all changes must go through a feature branch and pull request; never commit directly to `master`
 
 ---
 

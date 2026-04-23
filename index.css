@@ -882,6 +882,18 @@ label.company{ cursor:pointer; }
 
 /* ---- Blog two-panel layout ---- */
 
+.blog-slide-title{
+  position:absolute;
+  top:-3%;
+  left:90px;
+  font-size:150px;
+  font-weight:700;
+  letter-spacing:-10px;
+  line-height:1;
+  color:#fff;
+  margin:0;
+  pointer-events:none;
+}
 .blog-layout{
   display:flex;
   flex-direction:column;
