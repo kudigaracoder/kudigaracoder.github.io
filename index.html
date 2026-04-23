@@ -27,6 +27,9 @@
     <input type="radio" name="carousel" id="s5_fwd" aria-label="Slide 5 forward state" />
     <input type="radio" name="carousel" id="s3_from5_bwd" aria-label="Slide 3 backward from slide 5 state" />
 
+    <input type="radio" name="blog-tab" id="blog_tab_changelog" checked aria-label="Changelog tab" />
+    <input type="radio" name="blog-tab" id="blog_tab_posts" aria-label="Blog Posts tab" />
+
     <input type="radio" name="blog-post" id="post-1" checked aria-label="Blog post 1" />
     <input type="radio" name="blog-post" id="post-2" aria-label="Blog post 2" />
 
@@ -167,26 +170,47 @@
           <span class="home-btn__icon" aria-hidden="true">⌂</span>
         </label>
 
-        <div class="blog-layout">
-          <aside class="blog-sidebar" aria-label="Blog posts">
-            <label for="post-1" class="blog-nav-link">Post Title One</label>
-            <label for="post-2" class="blog-nav-link">Post Title Two</label>
-          </aside>
+        <h2 class="blog-slide-title" aria-label="Blog">Blog</h2>
 
-          <main class="blog-content" aria-label="Blog post content">
-            <article class="blog-post blog-post--1" aria-label="Post 1">
-              <h2 class="blog-post__title">Post Title One</h2>
-              <div class="blog-post__body">
-                <p>Post content goes here.</p>
-              </div>
-            </article>
-            <article class="blog-post blog-post--2" aria-label="Post 2">
-              <h2 class="blog-post__title">Post Title Two</h2>
-              <div class="blog-post__body">
-                <p>Post content goes here.</p>
-              </div>
-            </article>
-          </main>
+        <div class="blog-layout">
+          <nav class="blog-tabs" aria-label="Blog sections">
+            <label for="blog_tab_changelog" class="blog-tab blog-tab--changelog" aria-label="Changelog">Changelog</label>
+            <span class="blog-tab-sep" aria-hidden="true"> / </span>
+            <label for="blog_tab_posts"     class="blog-tab blog-tab--posts"     aria-label="Blog Posts">Blog Posts</label>
+          </nav>
+
+          <!-- Changelog panel -->
+          <div class="blog-panel blog-panel--changelog">
+            <aside class="blog-sidebar" aria-label="Changelog releases">
+              <div class="sidebar-section-title">LATEST RELEASES</div>
+            </aside>
+            <main class="blog-content" aria-label="Changelog detail">
+              <p>Changelog content goes here.</p>
+            </main>
+          </div>
+
+          <!-- Blog posts panel -->
+          <div class="blog-panel blog-panel--posts">
+            <aside class="blog-sidebar" aria-label="Blog posts list">
+              <div class="sidebar-section-title">LATEST RELEASES</div>
+              <label for="post-1" class="blog-nav-link">Post Title One</label>
+              <label for="post-2" class="blog-nav-link">Post Title Two</label>
+            </aside>
+            <main class="blog-content" aria-label="Blog post content">
+              <article class="blog-post blog-post--1" aria-label="Post 1">
+                <h2 class="blog-post__title">Post Title One</h2>
+                <div class="blog-post__body">
+                  <p>Post content goes here.</p>
+                </div>
+              </article>
+              <article class="blog-post blog-post--2" aria-label="Post 2">
+                <h2 class="blog-post__title">Post Title Two</h2>
+                <div class="blog-post__body">
+                  <p>Post content goes here.</p>
+                </div>
+              </article>
+            </main>
+          </div>
         </div>
       </section>
       <!-- Slide 5: Favorites -->

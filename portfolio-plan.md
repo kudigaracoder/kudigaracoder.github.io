@@ -82,8 +82,11 @@ All radio inputs are hidden (`display: none`). Navigation is triggered exclusive
 #### Slide 4 — Blog
 - Back button: `<label for="s3_bwd">` (quarter-circle, top-left)
 - Home button: `<label for="s1_from4">` — 160×160px quarter-circle, bottom-left corner, `left: -80px; bottom: -80px`
-- Layout: `padding-left: 3%`
-- Sidebar: `background: #4a4a4a`, `border-radius: 42px`, `width: 280px`, `box-shadow: 4px 5px 20px 2px rgba(255,255,255,0.35)`
+- Static "Blog" heading: `position: absolute; top: -3%; left: 90px; font-size: 150px; font-weight: 700; letter-spacing: -10px; color: #fff`
+- Tabs: "Changelog / Blog Posts" — 50px Inter 700, fill-animation hover/active, separator `blog-tab-sep` stays white; driven by `blog_tab_changelog` / `blog_tab_posts` radio pair
+- Layout: `flex-direction: column; padding-top: calc(150px - 3vh + 1rem); padding-left: 3%`
+- Two panels (Changelog, Blog Posts): each a flex-row split — sticky sidebar (280px, `border-top: 2px solid #8c8c8c`) + scrollable content (`border-top: 2px solid #8c8c8c`); `gap: 1rem` between panels
+- Sidebar: "LATEST RELEASES" header at 16px Inter Regular; no background, no right border
 - Posts driven by `blog/manifest.json`: `{ posts: [{ title, date (ISO 8601), file }] }`
 
 ---
@@ -276,7 +279,10 @@ Education: MFA Interaction Design, School of Visual Arts, May 2020 · B.Sc Compu
 ### v2.14 — Hash-based direct slide navigation + links gap reduction
 - April 2026 — Add JS hash map (#companies, #about, #blog, #favorites) to navigate directly to slides on page load; suppress transition animation via .carousel.instant; reduce .links-list gap 1.5rem → 1rem
 
+### v2.15 — Blog slide: tabs + static title + split panels
+- April 2026 — Add "Changelog / Blog Posts" tab bar (50px bold, fill-animation, static separator); add "Blog" static heading (150px, position:absolute); restructure blog-layout to flex column with two switchable panels; sticky sidebar; 2px #8c8c8c top border on sidebar + content; "LATEST RELEASES" label 16px; remove sidebar background
+
 ---
 
 *Last Updated: April 22, 2026*
-*Version: 2.14*
+*Version: 2.15*

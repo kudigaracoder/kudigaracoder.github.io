@@ -865,32 +865,105 @@ label.company{ cursor:pointer; }
 #s1_from4:checked ~ .slides .slide-4{ animation: s2-backward-out 5s cubic-bezier(0.77, 0, 0.175, 1) both; }
 #s1_from4:checked ~ .slides .slide-1{ animation: s1-backward-in  5s cubic-bezier(0.77, 0, 0.175, 1) both; }
 
+/* ---- Blog slide title ---- */
+
+.blog-slide-title{
+  position:absolute;
+  top:-3%;
+  left:90px;
+  font-size:150px;
+  font-weight:700;
+  letter-spacing:-10px;
+  line-height:1;
+  color:#fff;
+  margin:0;
+  pointer-events:none;
+}
+
 /* ---- Blog two-panel layout ---- */
 
 .blog-layout{
   display:flex;
+  flex-direction:column;
   height:100%;
-  padding-top:4%;
+  padding-top:calc(150px - 3vh + 1rem);
   padding-left:3%;
   padding-bottom:2%;
 }
+
+/* Tab bar */
+.blog-tabs{
+  display:flex;
+  align-items:baseline;
+  padding-bottom:0.5rem;
+  flex-shrink:0;
+}
+.blog-tab-sep{
+  font-size:50px;
+  font-weight:700;
+  letter-spacing:-2px;
+  line-height:1;
+  color:#fff;
+  padding:0 1.2rem;
+}
+.blog-tab{
+  display:inline-block;
+  font-size:50px;
+  font-weight:700;
+  letter-spacing:-2px;
+  line-height:1.2;
+  cursor:pointer;
+  background:linear-gradient(to right, var(--accent) 50%, #fff 50%);
+  background-size:200% 100%;
+  background-position:100% 50%;
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+  transition:background-position 0.4s ease;
+}
+.blog-tab:hover{ background-position:0% 50%; }
+
+/* Active tab */
+#blog_tab_changelog:checked ~ .slides .blog-tab--changelog,
+#blog_tab_posts:checked     ~ .slides .blog-tab--posts{
+  background-position:0% 50%;
+}
+
+/* Panels */
+.blog-panel{
+  display:none;
+  flex:1;
+  gap:1rem;
+}
+#blog_tab_changelog:checked ~ .slides .blog-panel--changelog{ display:flex; }
+#blog_tab_posts:checked     ~ .slides .blog-panel--posts{     display:flex; }
+
 .blog-sidebar{
   width:280px;
   flex-shrink:0;
-  padding:0 2%;
+  padding:0;
   display:flex;
   flex-direction:column;
   gap:1rem;
-  border-right:1px solid rgba(255,255,255,0.15);
-  overflow-y:auto;
-  border-radius:42px;
-  background:#4a4a4a;
-  box-shadow:4px 5px 20px 2px rgba(255,255,255,0.35);
+  border-top:2px solid #8c8c8c;
+  position:sticky;
+  top:0;
+  align-self:flex-start;
 }
 .blog-content{
   flex:1;
-  padding:0 3%;
+  padding:0;
   overflow-y:auto;
+  border-top:2px solid #8c8c8c;
+}
+
+.sidebar-section-title{
+  font-size:16px;
+  font-weight:400;
+  color:#fff;
+  letter-spacing:0;
+  padding-top:0.75rem;
+  margin-bottom:0.5rem;
 }
 
 .blog-nav-link{
@@ -972,7 +1045,8 @@ label.company{ cursor:pointer; }
 @media (prefers-reduced-motion: reduce){
   .brand__name,
   .product-designer-link,
-  .link-item{
+  .link-item,
+  .blog-tab{
     animation: none !important;
     background-position: 100% 50% !important;
     transition: none !important;
