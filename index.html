@@ -86,7 +86,7 @@
           <!-- Company detail views -->
           <div class="company-detail company-detail--goldman" aria-label="Goldman Sachs work summary">
             <div class="company-detail__header">Goldman Sachs</div>
-            <div class="company-detail__role">UX Designer</div>
+            <div class="company-detail__role">Vice President, User Experience</div>
             <div class="company-detail__date">August 2020 - Present</div>
             <div class="company-detail__summary">
               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
@@ -167,7 +167,7 @@
         </label>
 
         <label for="s1_from4" class="home-btn" aria-label="Go to home">
-          <span class="home-btn__icon" aria-hidden="true">⌂</span>
+          <img src="./icons/home.svg" class="home-btn__icon" alt="" aria-hidden="true" />
         </label>
 
         <h2 class="blog-slide-title" aria-label="Blog">Blog</h2>
@@ -183,9 +183,30 @@
           <div class="blog-panel blog-panel--changelog">
             <aside class="blog-sidebar" aria-label="Changelog releases">
               <div class="sidebar-section-title">LATEST RELEASES</div>
+              <a href="#" class="changelog-nav-link">
+                <span class="changelog-nav-link__num">1</span>
+                <span class="changelog-nav-link__title">Blog Slide: Tabs + Static Title</span>
+              </a>
             </aside>
             <main class="blog-content" aria-label="Changelog detail">
-              <p>Changelog content goes here.</p>
+              <article class="changelog-entry">
+                <div class="changelog-entry__num">1</div>
+                <div class="changelog-entry__body">
+                  <div class="changelog-entry__meta">
+                    <span class="changelog-entry__date">April 2026</span>
+                    <span class="changelog-entry__sep">/</span>
+                    <span class="changelog-entry__feature">Design</span>
+                  </div>
+                  <h2 class="changelog-entry__title">Blog Slide: Tabs + Static Title</h2>
+                  <p class="changelog-entry__description">Add Changelog / Blog Posts tab bar with fill-animation hover, sticky sidebar, 2px border separators, and LATEST RELEASES label.</p>
+                  <!-- image: optional — include only when there is an image
+                  <div class="changelog-entry__image-wrap">
+                    <img src="./path/to/image.png" alt="description" class="changelog-entry__image" />
+                    <span class="changelog-entry__image-caption">Caption text here</span>
+                  </div>
+                  -->
+                </div>
+              </article>
             </main>
           </div>
 
@@ -256,6 +277,20 @@
     document.getElementById('s1_bwd').addEventListener('change', function() {
       var coNone = document.getElementById('co_none');
       if (coNone) coNone.checked = true;
+    });
+    var radioHashMap = {
+      's2_fwd':'#companies', 's2_bwd':'#companies',
+      's3_fwd':'#about', 's3_bwd':'#about', 's3_from5_bwd':'#about',
+      's4_fwd':'#blog',
+      's5_fwd':'#favorites'
+    };
+    Object.keys(radioHashMap).concat(['s1_fwd','s1_bwd','s1_from3_bwd','s1_from4']).forEach(function(id) {
+      var el = document.getElementById(id);
+      if (!el) return;
+      el.addEventListener('change', function() {
+        var hash = radioHashMap[id] || '';
+        history.replaceState(null, '', hash || window.location.pathname);
+      });
     });
   </script>
 </body>

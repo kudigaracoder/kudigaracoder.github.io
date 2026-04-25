@@ -186,7 +186,7 @@ Blog sidebar:   #4a4a4a
 
 | Company | Role | Dates |
 |---|---|---|
-| Goldman Sachs, New York City | UX Designer | Aug 2020 – Present |
+| Goldman Sachs, New York City | Vice President, User Experience | Aug 2020 – Present |
 | R/GA, Portland, Oregon | Experience Design Intern | June 2019 – Sept 2019 |
 | Torry Harris, Bengaluru | Product Design Lead | Oct 2015 – Aug 2018 |
 | Torry Harris, Bengaluru | Product Designer, Nucleus | Aug 2016 – Aug 2018 |
@@ -283,7 +283,16 @@ Education: MFA Interaction Design, School of Visual Arts, May 2020 · B.Sc Compu
 ### v2.15 — Blog slide: tabs + static title + split panels
 - April 2026 — Add "Changelog / Blog Posts" tab bar (50px bold, fill-animation, static separator); add "Blog" static heading (150px, position:absolute); restructure blog-layout to flex column with two switchable panels; sticky sidebar; 2px #8c8c8c top border on sidebar + content; "LATEST RELEASES" label 16px; remove sidebar background
 
+### v2.16 — Home button SVG + Goldman title update
+- April 2026 — Replace ⌂ Unicode character with icons/home.svg; reposition home-btn__icon to left:110px, top:50px; update Goldman Sachs role to "Vice President, User Experience"
+
+### v2.17 — Dynamic URL hash on slide navigation
+- April 2026 — Add JS radioHashMap listeners to update URL hash via history.replaceState on every slide radio change; clears hash on Slide 1
+
+### v2.18 — Changelog entry template (Subframe BlogTitle port)
+- April 2026 — Add changelog-entry HTML/CSS template mirroring Subframe BlogTitle component; properties: __num (48px entry number), __feature (accent label, maps to Subframe version), __date, __sep, __title, __description, __image (optional, 192px); sidebar changelog-nav-link; font-weight 500 + letter-spacing 0.2em on meta row
+
 ---
 
-*Last Updated: April 22, 2026*
-*Version: 2.15*
+*Last Updated: April 24, 2026*
+*Version: 2.18*
