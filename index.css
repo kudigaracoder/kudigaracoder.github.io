@@ -229,12 +229,11 @@ body{
 }
 .home-btn__icon{
   position:absolute;
-  left:120px;
-  top:40px;
+  left:110px;
+  top:50px;
   transform: translate(-50%, -50%);
-  color:#000;
-  font-size:28px;
-  line-height:1;
+  width:24px;
+  height:24px;
 }
 .home-btn:hover .home-btn__icon{
   transform: translate(-50%, -50%) scale(1.06);
@@ -1015,6 +1014,108 @@ label.company{ cursor:pointer; }
 }
 .blog-post__body p{ margin:0 0 1em 0; }
 .blog-post__body h3{ font-size:16px; font-weight:600; margin:1.5em 0 .5em; }
+
+/* ---- Changelog entries ---- */
+
+.changelog-entry{
+  display:flex;
+  gap:2rem;
+  padding:1.5rem 0;
+  border-bottom:1px solid rgba(255,255,255,0.1);
+}
+.changelog-entry__num{
+  font-size:48px;
+  font-weight:700;
+  line-height:1;
+  color:#fff;
+  flex-shrink:0;
+  width:5rem;
+}
+.changelog-entry__body{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  gap:0.5rem;
+}
+.changelog-entry__meta{
+  display:flex;
+  gap:1rem;
+  align-items:center;
+}
+.changelog-entry__date{
+  font-size:10px;
+  font-weight:500;
+  color:rgba(255,255,255,0.6);
+  text-transform:uppercase;
+  letter-spacing:0.2em;
+}
+.changelog-entry__sep{
+  font-size:10px;
+  font-weight:500;
+  color:rgba(255,255,255,0.6);
+}
+.changelog-entry__feature{
+  font-size:10px;
+  font-weight:500;
+  color:var(--accent);
+  text-transform:uppercase;
+  letter-spacing:0.2em;
+}
+.changelog-entry__title{
+  font-size:20px;
+  font-weight:700;
+  color:#fff;
+  margin:0;
+  line-height:1.2;
+}
+.changelog-entry__description{
+  font-size:14px;
+  font-weight:400;
+  color:rgba(255,255,255,0.75);
+  line-height:1.6;
+  max-width:448px;
+  margin:0;
+}
+.changelog-entry__image-wrap{
+  display:flex;
+  flex-direction:column;
+  gap:0.4rem;
+  max-width:448px;
+}
+.changelog-entry__image{
+  height:192px;
+  width:100%;
+  border-radius:4px;
+  object-fit:cover;
+}
+.changelog-entry__image-caption{
+  font-size:11px;
+  font-style:italic;
+  color:rgba(255,255,255,0.5);
+}
+
+/* Changelog sidebar nav */
+.changelog-nav-link{
+  display:flex;
+  flex-direction:row;
+  gap:1rem;
+  padding:0.5rem 0;
+  text-decoration:none;
+  border-bottom:1px solid rgba(255,255,255,0.08);
+  cursor:pointer;
+}
+.changelog-nav-link__num{
+  font-size:12px;
+  font-weight:700;
+  color:var(--accent);
+}
+.changelog-nav-link__title{
+  font-size:12px;
+  font-weight:400;
+  color:#fff;
+  line-height:1.3;
+}
+.changelog-nav-link:hover .changelog-nav-link__title{ color:var(--accent); }
 
 /* ---- Quarter-circle button fade-in (after slide entry completes) ---- */
 
