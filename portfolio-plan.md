@@ -209,6 +209,7 @@ Education: MFA Interaction Design, School of Visual Arts, May 2020 · B.Sc Compu
 - **Never commit without user verification** — after making changes, prompt the user to verify in the browser before committing; only commit after explicit confirmation
 - **Cross-check resume** — when adding dates, roles, or company names to the portfolio, always verify against `files/Latest-Resume.pdf` (resume reference table above); never use user-stated info without confirming it matches the resume
 - **No direct commits to master** — all changes must go through a feature branch and pull request; never commit directly to `master`
+- **Changelog update discipline** — Only update the changelog HTML in `index.html` after committing the code changes it describes; never pre-populate future entries
 
 ---
 
@@ -224,78 +225,81 @@ Education: MFA Interaction Design, School of Visual Arts, May 2020 · B.Sc Compu
 
 ## Version History
 
-### v1.0 — Standalone pages
+### [1] v1.0 — Standalone pages
 - index.html, companies.html, links.html with individual CSS files
 - Location carousel, company hover colors, back buttons
 
-### v2.0 — Carousel integration
+### [2] v2.0 — Carousel integration
 - Carousel embedded in index.html (4-state radio machine)
 - 5s staged slide+scale transitions (forward and backward)
 - Location animation plays once, holds NYC
 
-### v2.1 — Root restructure + cross-page animation
+### [3] v2.1 — Root restructure + cross-page animation
 - All files moved from `portfolio/` to repo root
 - Back button on `companies.html` triggers backward carousel animation via `#back` hash + rAF
 
-### v2.2 — Layout polish
+### [4] v2.2 — Layout polish
 - `margin-left: 2%` on content
 - Back button: 160×160px, positioned at (-80, -80), `z-index: 9999`
 
-### v2.3 — Links as Slide 3
+### [5] v2.3 — Links as Slide 3
 - Added `s3_fwd` and `s1_from3_bwd` radio states
 - "Ravishanker" name → `<label for="s3_fwd">` trigger
 - Slide 3 with Resume + LinkedIn links, matching company-list typography
 - S1↔S3 flip: rotateX, 2s, `transform-origin: 0 25%`
 
-### v2.4 — Slide 3 updated + Slide 4 (Blog) added
+### [6] v2.4 — Slide 3 updated + Slide 4 (Blog) added
 - April 2026 — Added Blog link to Slide 3; added Slide 4 with home button, blog sidebar (#4a4a4a), S3↔S4 and S4→S1 transitions
 
-### v2.5 — Design polish
+### [7] v2.5 — Design polish
 - April 2026 — Name/designation color set to #ff5b00; hover opacity 0.65; home button resized to 160×160px; blog layout padding-left 3%
 
-### v2.6 — Slide 5 (Favorites) added
+### [8] v2.6 — Slide 5 (Favorites) added
 - April 2026 — Added Favorites link to Slide 3; new Slide 5 with S3↔S5 slide+scale transition (5s, reuses S1↔S2 keyframes); full ghost-slide prevention for all states
 
-### v2.7 — Add Other Work to companies slide
+### [9] v2.7 — Add Other Work to companies slide
 - April 2026 — Added Other Work as 5th company; font-size capped at min(title-size, 16vh) to fit all 5 without scrolling; overflow: hidden on company-main
 
-### v2.8 — Goldman Sachs company detail expand view
+### [10] v2.8 — Goldman Sachs company detail expand view
 - April 2026 — Clicking Goldman Sachs expands detail view: title floats to top (brand color), other companies scale+fade, work summary slides in, Read More button + Esc hint appear; Escape resets to list; CSS :has() + company radio group; JS Escape listener
 
-### v2.9 — Company detail expand view for all companies
+### [11] v2.9 — Company detail expand view for all companies
 - April 2026 — Extended detail expand view to R/GA, SVA, Torry Harris, Other Work; each title floats to top via translateY(-N × --company-item-h); dates from resume; Other Work has no date; all transitions and Esc/back reset work consistently
 
-### v2.10 — Add designations, spacing, summary right margin
+### [12] v2.10 — Add designations, spacing, summary right margin
 - April 2026 — Add company-detail__role (90px) with resume-accurate designations for Goldman, R/GA, SVA, Torry; stagger delays shifted (role 1.5s → date 1.7s → summary 1.9s → actions 2.1s); actions margin-top 1rem + margin-bottom 1rem; summary p margin-block-end 0.25rem; date margin-top 1vh; padding-right 5% on .company-detail to keep text off edge
 
-### v2.11 — Slide 1 title hover fill animation
+### [13] v2.11 — Slide 1 title hover fill animation
 - April 2026 — Replace opacity hover with background-clip text fill: default white, hover fills orange left-to-right, drains right-to-left on mouse-out; product-designer-link margin-top 0.8rem → 0.5rem, padding-bottom 1.5rem to prevent bottom clipping; prefers-reduced-motion suppresses transition
 
-### v2.12 — Extend fill hover to all titles
+### [14] v2.12 — Extend fill hover to all titles
 - April 2026 — Apply background-clip fill hover to link-items (Slide 3: orange; LinkedIn: brand blue) and company names (Slide 2: each company's brand color; Other Work: orange); fix LinkedIn box-fill bug by re-declaring background-clip after background shorthand; add padding-bottom to link-items (1.5rem) and Torry Harris (1.2rem) to fix descender clipping
 
-### v2.13 — Reduce spacing between Product Designer and location carousel
+### [15] v2.13 — Reduce spacing between Product Designer and location carousel
 - April 2026 — .locations-outer margin-top 3rem → 1rem
 
-### v2.14 — Hash-based direct slide navigation + links gap reduction
+### [16] v2.14 — Hash-based direct slide navigation + links gap reduction
 - April 2026 — Add JS hash map (#companies, #about, #blog, #favorites) to navigate directly to slides on page load; suppress transition animation via .carousel.instant; reduce .links-list gap 1.5rem → 1rem
 
-### v2.15 — Blog slide: tabs + static title + split panels
+### [17] v2.15 — Blog slide: tabs + static title + split panels
 - April 2026 — Add "Changelog / Blog Posts" tab bar (50px bold, fill-animation, static separator); add "Blog" static heading (150px, position:absolute); restructure blog-layout to flex column with two switchable panels; sticky sidebar; 2px #8c8c8c top border on sidebar + content; "LATEST RELEASES" label 16px; remove sidebar background
 
-### v2.16 — Home button SVG + Goldman title update
+### [18] v2.16 — Home button SVG + Goldman title update
 - April 2026 — Replace ⌂ Unicode character with icons/home.svg; reposition home-btn__icon to left:110px, top:50px; update Goldman Sachs role to "Vice President, User Experience"
 
-### v2.17 — Dynamic URL hash on slide navigation
+### [19] v2.17 — Dynamic URL hash on slide navigation
 - April 2026 — Add JS radioHashMap listeners to update URL hash via history.replaceState on every slide radio change; clears hash on Slide 1
 
-### v2.18 — Changelog entry template (Subframe BlogTitle port)
+### [20] v2.18 — Changelog entry template (Subframe BlogTitle port)
 - April 2026 — Add changelog-entry HTML/CSS template mirroring Subframe BlogTitle component; properties: __num (48px entry number), __feature (accent label, maps to Subframe version), __date, __sep, __title, __description, __image (optional, 192px); sidebar changelog-nav-link; font-weight 500 + letter-spacing 0.2em on meta row
 
-### v2.19 — Changelog nav link layout: row with 1rem gap
+### [21] v2.19 — Changelog nav link layout: row with 1rem gap
 - April 2026 — changelog-nav-link flex-direction column → row; gap 0.15rem → 1rem
+
+### v2.20 — Map version history to changelog; add sequence numbers
+- April 2026 — Populate Changelog panel with all 21 version history entries (reverse chronological); prefix portfolio-plan version headings with [N] sequence numbers; add changelog update discipline hard constraint
 
 ---
 
-*Last Updated: April 25, 2026*
-*Version: 2.19*
+*Last Updated: April 2026*
+*Version: 2.20*
