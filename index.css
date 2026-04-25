@@ -1097,8 +1097,8 @@ label.company{ cursor:pointer; }
 /* Changelog sidebar nav */
 .changelog-nav-link{
   display:flex;
-  flex-direction:column;
-  gap:0.15rem;
+  flex-direction:row;
+  gap:1rem;
   padding:0.5rem 0;
   text-decoration:none;
   border-bottom:1px solid rgba(255,255,255,0.08);

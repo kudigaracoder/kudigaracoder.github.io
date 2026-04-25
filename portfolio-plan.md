@@ -292,7 +292,10 @@ Education: MFA Interaction Design, School of Visual Arts, May 2020 · B.Sc Compu
 ### v2.18 — Changelog entry template (Subframe BlogTitle port)
 - April 2026 — Add changelog-entry HTML/CSS template mirroring Subframe BlogTitle component; properties: __num (48px entry number), __feature (accent label, maps to Subframe version), __date, __sep, __title, __description, __image (optional, 192px); sidebar changelog-nav-link; font-weight 500 + letter-spacing 0.2em on meta row
 
+### v2.19 — Changelog nav link layout: row with 1rem gap
+- April 2026 — changelog-nav-link flex-direction column → row; gap 0.15rem → 1rem
+
 ---
 
-*Last Updated: April 24, 2026*
-*Version: 2.18*
+*Last Updated: April 25, 2026*
+*Version: 2.19*
