@@ -296,10 +296,13 @@ Education: MFA Interaction Design, School of Visual Arts, May 2020 · B.Sc Compu
 ### [21] v2.19 — Changelog nav link layout: row with 1rem gap
 - April 2026 — changelog-nav-link flex-direction column → row; gap 0.15rem → 1rem
 
-### v2.20 — Map version history to changelog; add sequence numbers
+### [22] v2.20 — Map version history to changelog; add sequence numbers
 - April 2026 — Populate Changelog panel with all 21 version history entries (reverse chronological); prefix portfolio-plan version headings with [N] sequence numbers; add changelog update discipline hard constraint
+
+### v2.21 — Changelog panel: scroll, DateItem/SectionHeader, anchor nav, scrollbar reveal
+- April 2026 — Both sidebar and content scroll independently (min-height:0, overflow-y:auto); replace changelog-nav-link with Subframe DateItem; group entries by month under SectionHeader (April 2026 / Earlier); anchor clicks scroll .blog-content via JS (prevents carousel layout break); scrollbars hidden by default, revealed 800ms on scroll via .is-scrolling; panel gap 1rem → 2.5rem; JS comments added
 
 ---
 
 *Last Updated: April 2026*
-*Version: 2.20*
+*Version: 2.21*
