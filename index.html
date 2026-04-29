@@ -92,7 +92,7 @@
               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
             </div>
             <div class="company-detail__actions">
-              <a href="#" class="company-detail__read-more" aria-label="Read more about Goldman Sachs work">Read More</a>
+              <a class="company-detail__read-more company-detail__read-more--disabled" aria-disabled="true" tabindex="-1" aria-label="Goldman Sachs case study coming soon">Coming Soon</a>
               <span class="company-detail__esc-hint" aria-hidden="true">Hit Esc to go back</span>
             </div>
           </div>
@@ -100,10 +100,10 @@
             <div class="company-detail__role">Experience Design Intern</div>
             <div class="company-detail__date">June 2019 - Sept 2019</div>
             <div class="company-detail__summary">
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+              <p>Over Summer 2019, I had the opportunity to work with the wonderful team at R/GA Portland. I interned with the Experience Design team, collaborating with designers, producers, strategists on a variety of projects and pitches.</p>
             </div>
             <div class="company-detail__actions">
-              <a href="#" class="company-detail__read-more" aria-label="Read more about R/GA work">Read More</a>
+              <a class="company-detail__read-more company-detail__read-more--disabled" aria-disabled="true" tabindex="-1" aria-label="R/GA case study coming soon">Coming Soon</a>
               <span class="company-detail__esc-hint" aria-hidden="true">Hit Esc to go back</span>
             </div>
           </div>
@@ -112,10 +112,10 @@
             <div class="company-detail__role">MFA Interaction Design</div>
             <div class="company-detail__date">May 2020</div>
             <div class="company-detail__summary">
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+              <p>I worked with FJORD, New York on their brief - Building a new experience for freelancers. Alongside a team of designers, I worked on multiple aspects of the projects ranging from - Market Research to project estimations.</p>
             </div>
             <div class="company-detail__actions">
-              <a href="#" class="company-detail__read-more" aria-label="Read more about SVA">Read More</a>
+              <a class="company-detail__read-more company-detail__read-more--disabled" aria-disabled="true" tabindex="-1" aria-label="SVA case study coming soon">Coming Soon</a>
               <span class="company-detail__esc-hint" aria-hidden="true">Hit Esc to go back</span>
             </div>
           </div>
@@ -124,10 +124,10 @@
             <div class="company-detail__role">Product Design Lead</div>
             <div class="company-detail__date">Oct 2015 - Aug 2018</div>
             <div class="company-detail__summary">
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+              <p>I helped form and lead the User Experience Team at Torry Harris, Bengaluru, India. I was the Product Designer in-charge of revamping the organization's internal Project &amp; Resource Management Tool, Nucleus.</p>
             </div>
             <div class="company-detail__actions">
-              <a href="#" class="company-detail__read-more" aria-label="Read more about Torry Harris work">Read More</a>
+              <a class="company-detail__read-more company-detail__read-more--disabled" aria-disabled="true" tabindex="-1" aria-label="Torry Harris case study coming soon">Coming Soon</a>
               <span class="company-detail__esc-hint" aria-hidden="true">Hit Esc to go back</span>
             </div>
           </div>
@@ -302,6 +302,10 @@
             setupScrollReveal('.blog-panel--changelog .blog-sidebar');
             setupScrollReveal('.blog-panel--changelog .blog-content');
             setupChangelogNav();
+          }
+          if (panel.classList.contains('blog-panel--posts')) {
+            setupScrollReveal('.blog-panel--posts .blog-sidebar');
+            setupScrollReveal('.blog-panel--posts .blog-content');
           }
         });
     });

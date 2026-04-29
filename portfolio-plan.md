@@ -305,7 +305,19 @@ Education: MFA Interaction Design, School of Visual Arts, May 2020 · B.Sc Compu
 ### [24] v2.22 — Extract changelog and blog posts into HTML fragment files
 - April 2026 — Move blog panel content into changelog.html and blog-posts.html (fragment files, no boilerplate); index.html panel divs become empty shells with data-src attributes; JS fetch() loads and injects each fragment at runtime; IIFE and inline click handler refactored into named functions setupScrollReveal and setupChangelogNav called after fetch resolves; hard constraint updated to require portfolio-plan version entry in same commit as code change
 
+### [25] v2.23 — R/GA detail: real copy, typography polish, Coming Soon button
+- April 2026 — Replace lorem ipsum in R/GA summary with real copy; company-detail__summary line-height 0.9→1.1, color #8e8e8e→#ffffff (global); margin-block-start 1em→0.4em on summary p (global); R/GA Read More→Coming Soon, disabled (aria-disabled, tabindex=-1, pointer-events:none, opacity:0.35)
+
+### [26] v2.24 — SVA detail: real copy, Coming Soon button
+- April 2026 — Replace lorem ipsum in SVA summary with FJORD/freelancer brief copy; SVA Read More→Coming Soon, disabled (same pattern as R/GA)
+
+### [27] v2.25 — Torry Harris detail: real copy, Coming Soon button
+- April 2026 — Replace lorem ipsum in Torry Harris summary with UX team/Nucleus copy; Torry Harris Read More→Coming Soon, disabled (same pattern as R/GA)
+
+### [28] v2.26 — Blog Posts sidebar: scroll reveal, DateItem/SectionHeader; cursor pointer fixes
+- April 2026 — Wire setupScrollReveal to blog-panel--posts sidebar and content; update blog-posts.html sidebar to use section-header and date-item components matching changelog; add cursor:pointer to .link-item (Blog/Favorites labels) and .blog-tab
+
 ---
 
 *Last Updated: April 2026*
-*Version: 2.22*
+*Version: 2.26*
