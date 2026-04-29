@@ -205,7 +205,7 @@ Education: MFA Interaction Design, School of Visual Arts, May 2020 · B.Sc Compu
 - Semantic HTML5 (`header`, `main`, `nav`, `section`)
 - All interactive elements need ARIA labels, keyboard access, visible focus indicators
 - `prefers-reduced-motion` block in `index.css` covers all animations
-- **`portfolio-plan.md` must be updated in every commit** — update relevant sections and append a version history entry with date and one-line description
+- **`portfolio-plan.md` must be committed alongside every code change** — include a version history entry (with sequence number, version, date, and description) in the same commit, never as a follow-up; the changelog HTML entry for that version goes in the next commit after the code change is committed (per changelog update discipline)
 - **Never commit without user verification** — after making changes, prompt the user to verify in the browser before committing; only commit after explicit confirmation
 - **Cross-check resume** — when adding dates, roles, or company names to the portfolio, always verify against `files/Latest-Resume.pdf` (resume reference table above); never use user-stated info without confirming it matches the resume
 - **No direct commits to master** — all changes must go through a feature branch and pull request; never commit directly to `master`
@@ -299,10 +299,13 @@ Education: MFA Interaction Design, School of Visual Arts, May 2020 · B.Sc Compu
 ### [22] v2.20 — Map version history to changelog; add sequence numbers
 - April 2026 — Populate Changelog panel with all 21 version history entries (reverse chronological); prefix portfolio-plan version headings with [N] sequence numbers; add changelog update discipline hard constraint
 
-### v2.21 — Changelog panel: scroll, DateItem/SectionHeader, anchor nav, scrollbar reveal
+### [23] v2.21 — Changelog panel: scroll, DateItem/SectionHeader, anchor nav, scrollbar reveal
 - April 2026 — Both sidebar and content scroll independently (min-height:0, overflow-y:auto); replace changelog-nav-link with Subframe DateItem; group entries by month under SectionHeader (April 2026 / Earlier); anchor clicks scroll .blog-content via JS (prevents carousel layout break); scrollbars hidden by default, revealed 800ms on scroll via .is-scrolling; panel gap 1rem → 2.5rem; JS comments added
+
+### [24] v2.22 — Extract changelog and blog posts into HTML fragment files
+- April 2026 — Move blog panel content into changelog.html and blog-posts.html (fragment files, no boilerplate); index.html panel divs become empty shells with data-src attributes; JS fetch() loads and injects each fragment at runtime; IIFE and inline click handler refactored into named functions setupScrollReveal and setupChangelogNav called after fetch resolves; hard constraint updated to require portfolio-plan version entry in same commit as code change
 
 ---
 
 *Last Updated: April 2026*
-*Version: 2.21*
+*Version: 2.22*
