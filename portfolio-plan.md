@@ -317,7 +317,10 @@ Education: MFA Interaction Design, School of Visual Arts, May 2020 · B.Sc Compu
 ### [28] v2.26 — Blog Posts sidebar: scroll reveal, DateItem/SectionHeader; cursor pointer fixes
 - April 2026 — Wire setupScrollReveal to blog-panel--posts sidebar and content; update blog-posts.html sidebar to use section-header and date-item components matching changelog; add cursor:pointer to .link-item (Blog/Favorites labels) and .blog-tab
 
+### [29] v2.27 — Goldman Sachs detail: real summary copy
+- April 2026 — Replace lorem ipsum in Goldman Sachs summary with real copy
+
 ---
 
 *Last Updated: April 2026*
-*Version: 2.26*
+*Version: 2.27*
