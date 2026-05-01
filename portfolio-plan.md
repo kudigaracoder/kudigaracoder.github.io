@@ -205,11 +205,10 @@ Education: MFA Interaction Design, School of Visual Arts, May 2020 · B.Sc Compu
 - Semantic HTML5 (`header`, `main`, `nav`, `section`)
 - All interactive elements need ARIA labels, keyboard access, visible focus indicators
 - `prefers-reduced-motion` block in `index.css` covers all animations
-- **`portfolio-plan.md` must be committed alongside every code change** — include a version history entry (with sequence number, version, date, and description) in the same commit, never as a follow-up; the changelog HTML entry for that version goes in the next commit after the code change is committed (per changelog update discipline)
+- **`portfolio-plan.md` and `changelog.html` must be committed alongside every code change** — include a version history entry (sequence number, version, date, description) and the corresponding `changelog.html` entry in the same commit, never as a follow-up
 - **Never commit without user verification** — after making changes, prompt the user to verify in the browser before committing; only commit after explicit confirmation
 - **Cross-check resume** — when adding dates, roles, or company names to the portfolio, always verify against `files/Latest-Resume.pdf` (resume reference table above); never use user-stated info without confirming it matches the resume
 - **No direct commits to master** — all changes must go through a feature branch and pull request; never commit directly to `master`
-- **Changelog update discipline** — Only update the changelog HTML in `index.html` after committing the code changes it describes; never pre-populate future entries
 
 ---
 
@@ -317,7 +316,13 @@ Education: MFA Interaction Design, School of Visual Arts, May 2020 · B.Sc Compu
 ### [28] v2.26 — Blog Posts sidebar: scroll reveal, DateItem/SectionHeader; cursor pointer fixes
 - April 2026 — Wire setupScrollReveal to blog-panel--posts sidebar and content; update blog-posts.html sidebar to use section-header and date-item components matching changelog; add cursor:pointer to .link-item (Blog/Favorites labels) and .blog-tab
 
+### [29] v2.27 — Goldman Sachs detail: real summary copy
+- April 2026 — Replace lorem ipsum in Goldman Sachs summary with real copy
+
+### [30] v2.28 — Hard constraint: changelog.html in same commit as code changes
+- April 2026 — Merge changelog update discipline into the portfolio-plan commit rule; changelog.html and portfolio-plan.md must now ship in the same commit as the code change, never as a follow-up
+
 ---
 
 *Last Updated: April 2026*
-*Version: 2.26*
+*Version: 2.28*
