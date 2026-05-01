@@ -271,10 +271,13 @@ LinkedIn hover:     #1566C2
 ### v3.4 — Esc fix, theme-aware back button, designations, spacing
 - April 2026 — Fix Esc dismiss via module-level keydown + tabindex on labels + clickable esc-hint labels; theme-aware back button (var(--toggle-bg)/var(--bg)); add role/designation from resume to company details; adjust actions margin to 1rem + summary margin-block-end to 0.25rem
 
-### v3.5 (WIP) — Responsive company detail
+### v3.5 — Responsive company detail
 - April 2026 — CSS custom properties (--detail-size, --summary-size, --company-gap) with breakpoint scaling at 768px and 480px; element-level responsive overrides for letter-spacing, button padding, gap
+
+### v3.6 — Goldman Sachs: new expand animation (swivel out, slide-in from left)
+- May 2026 — Replace scale/translateY company animation with: clicked company swivels out (rotateY(-90deg), transform-origin 0% 50%, opacity 0→1); other companies fade out without scaling; company header floats to top-left (top:-42%, left:40px, var(--name-size)); role/date/summary/actions slide in from left (translateX) with staggered 0.1s delays starting at 0.5s; Goldman Sachs implemented first
 
 ---
 
-*Last Updated: April 15, 2026*
-*Version: 3.5 (WIP)*
+*Last Updated: May 2026*
+*Version: 3.6*

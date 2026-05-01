@@ -274,8 +274,8 @@ body{
   font-weight:700;
   letter-spacing:-10px;
   line-height:0.9;
-  transform-origin:20% 90%;
-  transition: color .2s ease, transform 1.5s ease 0.8s, opacity 1.5s ease 0.8s;
+  transform-origin: 0% 50%;
+  transition: color .2s ease, transform 0.4s ease, opacity 0.4s ease;
 }
 label.company{ cursor:pointer; }
 label.company:focus{ outline:none; }
@@ -299,7 +299,20 @@ label.company:focus{ outline:none; }
   pointer-events:none;
   transition: opacity 0.4s ease;
 }
-.company-detail__header{ display:none; }
+.company-detail__header{
+  position:absolute;
+  top:-42%;
+  left:40px;
+  font-size:var(--name-size);
+  font-weight:700;
+  letter-spacing:-10px;
+  line-height:1;
+  opacity:0;
+  transform:translateY(-2rem);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  pointer-events:none;
+  user-select:none;
+}
 
 .company-detail__role{
   font-size:var(--detail-size);
@@ -308,8 +321,8 @@ label.company:focus{ outline:none; }
   line-height:0.9;
   color:#8e8e8e;
   opacity:0;
-  transform:translateY(-2rem);
-  transition: opacity 0.8s ease, transform 0.8s ease;
+  transform:translateX(-2rem);
+  transition: opacity 0.4s ease, transform 0.4s ease;
 }
 .company-detail__date{
   font-size:var(--detail-size);
@@ -319,8 +332,8 @@ label.company:focus{ outline:none; }
   color:#8e8e8e;
   margin-top:1vh;
   opacity:0;
-  transform:translateY(-2rem);
-  transition: opacity 0.8s ease, transform 0.8s ease;
+  transform:translateX(-2rem);
+  transition: opacity 0.4s ease, transform 0.4s ease;
 }
 .company-detail__summary{
   font-size:var(--summary-size);
@@ -330,8 +343,8 @@ label.company:focus{ outline:none; }
   color:#8e8e8e;
   margin-top:0.5rem;
   opacity:0;
-  transform:translateY(-2rem);
-  transition: opacity 0.8s ease, transform 0.8s ease;
+  transform:translateX(-2rem);
+  transition: opacity 0.4s ease, transform 0.4s ease;
 }
 .company-detail__summary p{ margin-block-end:0.25rem; }
 .company-detail__actions{
@@ -341,8 +354,8 @@ label.company:focus{ outline:none; }
   margin-top:1rem;
   margin-bottom:1rem;
   opacity:0;
-  transform:translateY(-2rem);
-  transition: opacity 0.8s ease, transform 0.8s ease;
+  transform:translateX(-2rem);
+  transition: opacity 0.4s ease, transform 0.4s ease;
 }
 .company-detail__read-more{
   display:inline-block;
@@ -370,19 +383,22 @@ label.company:focus{ outline:none; }
 
 /* Goldman selected */
 .slide-2:has(#co_goldman:checked) .company-list .company--goldman{
-  color:#7297C5;
-  transform:translateY(0);
-  transition: color .2s ease, transform 1.5s ease, opacity 1.5s ease;
+  transform: rotateY(-90deg);
+  opacity: 0;
+  pointer-events: none;
+  transition: color .2s ease, transform 0.4s ease, opacity 0.4s ease;
 }
 .slide-2:has(#co_goldman:checked) .company-list .company:not(.company--goldman){
-  transform:scale(0.75); opacity:0; pointer-events:none;
-  transition: color .2s ease, transform 1.5s ease, opacity 1.5s ease;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
 }
-.slide-2:has(#co_goldman:checked) .company-detail--goldman{ opacity:1; pointer-events:auto; transition: opacity 0.4s ease 1.5s; }
-.slide-2:has(#co_goldman:checked) .company-detail--goldman .company-detail__role{ opacity:1; transform:translateY(0); transition: opacity 0.4s ease 1.5s, transform 0.4s ease 1.5s; }
-.slide-2:has(#co_goldman:checked) .company-detail--goldman .company-detail__date{ opacity:1; transform:translateY(0); transition: opacity 0.4s ease 1.7s, transform 0.4s ease 1.7s; }
-.slide-2:has(#co_goldman:checked) .company-detail--goldman .company-detail__summary{ opacity:1; transform:translateY(0); transition: opacity 0.4s ease 1.9s, transform 0.4s ease 1.9s; }
-.slide-2:has(#co_goldman:checked) .company-detail--goldman .company-detail__actions{ opacity:1; transform:translateY(0); transition: opacity 0.4s ease 2.1s, transform 0.4s ease 2.1s; }
+.slide-2:has(#co_goldman:checked) .company-detail--goldman{ opacity:1; pointer-events:auto; transition: opacity 0.1s ease; }
+.slide-2:has(#co_goldman:checked) .company-detail--goldman .company-detail__header{ opacity:1; transform:translateY(0); color:#7297C5; transition: opacity 0.4s ease 0.4s, transform 0.4s ease 0.4s; }
+.slide-2:has(#co_goldman:checked) .company-detail--goldman .company-detail__role{ opacity:1; transform:translateX(0); transition: opacity 0.4s ease 0.5s, transform 0.4s ease 0.5s; }
+.slide-2:has(#co_goldman:checked) .company-detail--goldman .company-detail__date{ opacity:1; transform:translateX(0); transition: opacity 0.4s ease 0.6s, transform 0.4s ease 0.6s; }
+.slide-2:has(#co_goldman:checked) .company-detail--goldman .company-detail__summary{ opacity:1; transform:translateX(0); transition: opacity 0.4s ease 0.7s, transform 0.4s ease 0.7s; }
+.slide-2:has(#co_goldman:checked) .company-detail--goldman .company-detail__actions{ opacity:1; transform:translateX(0); transition: opacity 0.4s ease 0.8s, transform 0.4s ease 0.8s; }
 
 /* R/GA selected */
 .slide-2:has(#co_rga:checked) .company-list .company--rga{
@@ -452,11 +468,12 @@ label.company:focus{ outline:none; }
   pointer-events:none !important;
   transition:none !important;
 }
+#s1_bwd:checked ~ .slides .slide-2 .company-detail__header,
 #s1_bwd:checked ~ .slides .slide-2 .company-detail__date,
 #s1_bwd:checked ~ .slides .slide-2 .company-detail__summary,
 #s1_bwd:checked ~ .slides .slide-2 .company-detail__actions{
   opacity:0 !important;
-  transform:translateY(-2rem) !important;
+  transform:translateX(-2rem) !important;
   transition:none !important;
 }
 #s1_bwd:checked ~ .slides .slide-2 .company-list .company{
