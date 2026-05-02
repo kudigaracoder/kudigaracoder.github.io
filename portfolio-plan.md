@@ -218,6 +218,7 @@ LinkedIn hover:     #1566C2
 - **`portfolio-plan.md` must be updated in every commit** — update relevant sections and append a version history entry with date and one-line description
 - **Never commit without user verification** — after making changes, prompt the user to verify in the browser before committing; only commit after explicit confirmation
 - **When copying from another branch, prefer JS if simpler** — if replicating a feature in JS is less complex than pure CSS, use JS. The "no JS unless necessary" rule applies to new features, not cross-branch ports.
+- **`metro-rewrite` branch: all animations must follow the Metro Design Language** — Turnstile (rotateY, `transform-origin` at hinge edge) for navigation; staggered cascade (`item-enter`, `fill-mode: backwards`, 50ms per item) for list entrances; exponential ease-out (`--ease-metro`) for all motion; directional semantics (forward=swing left, back=swing right, expand=swivel from left hinge). No bounce, no overshoot, no arbitrary easing. Guidelines saved in memory at `reference_metro_guidelines.md`.
 
 ---
 
