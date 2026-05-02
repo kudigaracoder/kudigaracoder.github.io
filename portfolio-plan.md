@@ -277,7 +277,10 @@ LinkedIn hover:     #1566C2
 ### v3.6 — Goldman Sachs: new expand animation (swivel out, slide-in from left)
 - May 2026 — Replace scale/translateY company animation with: clicked company swivels out (rotateY(-90deg), transform-origin 0% 50%, opacity 0→1); other companies fade out without scaling; company header floats to top-left (top:-42%, left:40px, var(--name-size)); role/date/summary/actions slide in from left (translateX) with staggered 0.1s delays starting at 0.5s; Goldman Sachs implemented first
 
+### v3.7 — Metro Motion System
+- May 2026 — Full Metro motion language across all transitions: Turnstile (rotateY door-swing, 600ms) replaces 5s scale+slide for S1↔S2 and S3↔S4; S1↔S3 rotateX flip updated to 600ms; Metro CSS custom properties added (--dur-micro/element/page, --cascade-step, --ease-metro); per-item staggered cascade (item-enter, 350ms, 50ms delay per item) scoped to radio state for companies and links — re-fires on each navigation; Goldman pattern (swivel + slide-in) applied to R/GA, SVA, Torry Harris, Other Work with correct brand header colors; company-detail__header added to all four in HTML; backface-visibility:hidden on .slide; transform-style:preserve-3d on .slides; location carousel easing updated to --ease-metro; prefers-reduced-motion covers all new keyframes
+
 ---
 
 *Last Updated: May 2026*
-*Version: 3.6*
+*Version: 3.7*
