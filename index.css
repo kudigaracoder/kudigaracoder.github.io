@@ -11,10 +11,22 @@
 }
 
 @media (max-width: 768px){
-  :root{ --name-size:80px; --title-size:72px; }
-}
-@media (max-width: 480px){
-  :root{ --name-size:48px; --title-size:42px; }
+  .slide-1{
+    --name-size: 130px;
+    --title-size: 130px;
+  }
+
+  .slide-1 .brand__name{ white-space:nowrap; }
+
+  .slide-1 .location--nyc{ width: min-content; }
+
+  .slide-1 .content{ overflow:hidden; }
+  .slide-1 .brand{ overflow:hidden; }
+
+  .slide-1 .locations-outer,
+  .slide-1 .locations{
+    height: calc(var(--title-size) * 0.9 * 3);
+  }
 }
 
 *{ box-sizing:border-box; }
