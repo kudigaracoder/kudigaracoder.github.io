@@ -149,8 +149,8 @@ Easing: `cubic-bezier(0.77, 0, 0.175, 1)`
 - Large display: 700 weight, `-10px` letter-spacing, `0.9` line-height
 - Breakpoints:
   - `>768px`: `--name-size: 200px`, `--title-size: 180px`
-  - `≤768px`: `80px / 72px`
-  - `≤480px`: `48px / 42px`
+  - `≤768px` (slide-1 only): `130px / 130px`, brand name `white-space:nowrap` + clipped, `.location--nyc` `width:min-content` wraps each word
+  - `≤768px` (slides 2–5): inherits desktop sizing (no mobile override)
 
 ### Colors
 ```
@@ -322,7 +322,10 @@ Education: MFA Interaction Design, School of Visual Arts, May 2020 · B.Sc Compu
 ### [30] v2.28 — Hard constraint: changelog.html in same commit as code changes
 - April 2026 — Merge changelog update discipline into the portfolio-plan commit rule; changelog.html and portfolio-plan.md must now ship in the same commit as the code change, never as a follow-up
 
+### [31] v2.29 — Slide-1 mobile typography: 130px, NYC word-stacked
+- May 2026 — Replace `:root` mobile sizing (80/72px at ≤768px, 48/42px at ≤480px) with a single `.slide-1`-scoped `@media (max-width: 768px)` block at `--name-size: 130px` / `--title-size: 130px`; `.brand__name` gets `white-space:nowrap` and `.slide-1 .brand` / `.slide-1 .content` get `overflow:hidden` so the name clips at the viewport edge; `.location--nyc` uses `width:min-content` to wrap "New York City" as one word per line; `.locations-outer`/`.locations` height grows to `calc(var(--title-size) * 0.9 * 3)` to fit the 3-line entry
+
 ---
 
-*Last Updated: April 2026*
-*Version: 2.28*
+*Last Updated: May 2026*
+*Version: 2.29*
