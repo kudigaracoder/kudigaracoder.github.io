@@ -24,6 +24,8 @@
     <input type="radio" name="carousel" id="s1_from3_bwd" aria-label="Slide 1 backward from slide 3 state" />
     <input type="radio" name="carousel" id="s4_fwd" aria-label="Slide 4 forward state" />
     <input type="radio" name="carousel" id="s3_from4_bwd" aria-label="Slide 3 backward from blog state" />
+    <input type="radio" name="carousel" id="s5_fwd" aria-label="Slide 5 project details forward state" />
+    <input type="radio" name="carousel" id="s2_from5_bwd" aria-label="Slide 2 backward from project details state" />
 
     <button class="theme-toggle" aria-label="Toggle light/dark mode" onclick="toggleTheme()">
       <span class="theme-toggle__icon" aria-hidden="true">◐</span>
@@ -101,7 +103,7 @@
               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
             </div>
             <div class="company-detail__actions">
-              <a href="#" class="company-detail__read-more" aria-label="Read more about R/GA work">Read More</a>
+              <label for="s5_fwd" class="company-detail__read-more" data-project="rga" aria-label="Read more about R/GA work">Read More</label>
               <label for="co_none" class="company-detail__esc-hint">Hit Esc to go back</label>
             </div>
           </div>
@@ -175,6 +177,19 @@
           <main class="blog-content" id="blog-content" aria-label="Blog post content">
             <p class="blog-empty">Select a post to read.</p>
           </main>
+        </div>
+      </section>
+
+      <!-- Slide 5: Project details (content rendered from projects/<slug>.md) -->
+      <section class="slide slide-5" aria-label="Project details">
+        <label for="s2_from5_bwd" class="back-btn" aria-label="Back to work summary">
+          <span class="back-btn__arrow" aria-hidden="true">←</span>
+        </label>
+
+        <div class="project-detail" id="project-detail" aria-label="Project case study">
+          <div class="project-detail__scroll" id="project-detail-content">
+            <p class="project-detail__empty">Loading…</p>
+          </div>
         </div>
       </section>
     </div>

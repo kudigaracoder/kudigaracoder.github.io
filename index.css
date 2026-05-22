@@ -20,7 +20,7 @@
   --ease-metro: cubic-bezier(0.1, 0.9, 0.2, 1);
 }
 
-body[data-theme="dark"]{
+:root[data-theme="dark"]{
   --bg:#000000;
   --toggle-bg:#ffffff;
 }
@@ -744,6 +744,158 @@ label.company:focus{ outline:none; }
   padding:1rem 0;
 }
 
+/* ============================================================
+ * Slide 5 — Project details (markdown-driven)
+ * Reached via a company "Read More" action. Forward Turnstile from
+ * the work-summary slide. Content is fetched from projects/<slug>.md,
+ * rendered by marked.js into #project-detail-content, and each
+ * rendered block shares one staggered cascade entrance.
+ * ============================================================ */
+
+/* Hide slide-5 in all non-S5 states */
+#s1_fwd:checked ~ .slides .slide-5,
+#s2_fwd:checked ~ .slides .slide-5,
+#s1_bwd:checked ~ .slides .slide-5,
+#s2_bwd:checked ~ .slides .slide-5,
+#s3_fwd:checked ~ .slides .slide-5,
+#s1_from3_bwd:checked ~ .slides .slide-5,
+#s4_fwd:checked ~ .slides .slide-5,
+#s3_from4_bwd:checked ~ .slides .slide-5{
+  opacity:0;
+  pointer-events:none;
+}
+
+/* Hide unrelated slides while S2↔S5 is active */
+#s5_fwd:checked ~ .slides .slide-1,
+#s5_fwd:checked ~ .slides .slide-3,
+#s5_fwd:checked ~ .slides .slide-4,
+#s2_from5_bwd:checked ~ .slides .slide-1,
+#s2_from5_bwd:checked ~ .slides .slide-3,
+#s2_from5_bwd:checked ~ .slides .slide-4{
+  opacity:0;
+  pointer-events:none;
+}
+
+/* S2↔S5 resting positions */
+#s5_fwd:checked ~ .slides .slide-5{ opacity:1; }
+#s5_fwd:checked ~ .slides .slide-2{ opacity:0; pointer-events:none; }
+#s2_from5_bwd:checked ~ .slides .slide-2{ opacity:1; }
+#s2_from5_bwd:checked ~ .slides .slide-5{ opacity:0; pointer-events:none; }
+
+/* S2↔S5 Turnstile transform origins — exiting hinges at entry edge */
+#s5_fwd:checked ~ .slides .slide-2{ transform-origin:0% 50%; }
+#s5_fwd:checked ~ .slides .slide-5{ transform-origin:100% 50%; }
+#s2_from5_bwd:checked ~ .slides .slide-5{ transform-origin:100% 50%; }
+#s2_from5_bwd:checked ~ .slides .slide-2{ transform-origin:0% 50%; }
+
+/* S2↔S5 Turnstile animations */
+#s5_fwd:checked ~ .slides .slide-2{ animation:turnstile-out-forward var(--dur-page) var(--ease-metro) both; }
+#s5_fwd:checked ~ .slides .slide-5{ animation:turnstile-in-forward  var(--dur-page) var(--ease-metro) both; }
+#s2_from5_bwd:checked ~ .slides .slide-5{ animation:turnstile-out-back var(--dur-page) var(--ease-metro) both; }
+#s2_from5_bwd:checked ~ .slides .slide-2{ animation:turnstile-in-back  var(--dur-page) var(--ease-metro) both; }
+
+/* Scrolling case-study layout */
+.project-detail{
+  position:absolute;
+  inset:0;
+}
+.project-detail__scroll{
+  height:100%;
+  overflow-y:auto;
+  display:flex;
+  flex-direction:column;
+  gap:1.5rem;
+  padding:8rem 6% 4rem;
+}
+
+/* Rendered markdown blocks — tagged .project-detail__item by index.js */
+.project-detail__item{ max-width:860px; }
+
+.project-detail__scroll h1{
+  margin:0;
+  font-size:var(--detail-size);
+  font-weight:700;
+  letter-spacing:-5px;
+  line-height:0.9;
+  color:var(--toggle-bg);
+}
+.project-detail__scroll h2{
+  margin:1.5rem 0 0;
+  font-size:2.5rem;
+  font-weight:700;
+  letter-spacing:-2px;
+  line-height:1;
+  color:var(--toggle-bg);
+}
+.project-detail__scroll h3{
+  margin:1rem 0 0;
+  font-size:1.8rem;
+  font-weight:700;
+  letter-spacing:-1px;
+  line-height:1.05;
+  color:var(--toggle-bg);
+}
+.project-detail__scroll p{
+  margin:0;
+  font-size:1.3rem;
+  font-weight:400;
+  line-height:1.6;
+  color:var(--toggle-bg);
+}
+.project-detail__scroll ul,
+.project-detail__scroll ol{
+  margin:0;
+  padding-left:1.5rem;
+  font-size:1.3rem;
+  line-height:1.6;
+  color:var(--toggle-bg);
+}
+.project-detail__scroll a{ color:var(--accent); }
+.project-detail__scroll img{
+  display:block;
+  width:100%;
+  height:auto;
+}
+
+/* Per-company title colour — class set on .project-detail by index.js */
+.project-detail--goldman .project-detail__scroll h1{ color:#7297C5; }
+.project-detail--rga     .project-detail__scroll h1{ color:#F90201; }
+.project-detail--sva     .project-detail__scroll h1{ color:#EB1000; }
+.project-detail--torry   .project-detail__scroll h1{ color:#2D51A3; }
+
+.project-detail__empty{
+  font-size:1.1rem;
+  font-weight:400;
+  color:#8e8e8e;
+}
+
+/* Staggered cascade entrance — scoped to S5 so it re-fires each visit */
+#s5_fwd:checked ~ .slides .project-detail__item:nth-child(1) { animation:item-enter var(--dur-element) var(--ease-metro) 0ms   backwards; }
+#s5_fwd:checked ~ .slides .project-detail__item:nth-child(2) { animation:item-enter var(--dur-element) var(--ease-metro) 50ms  backwards; }
+#s5_fwd:checked ~ .slides .project-detail__item:nth-child(3) { animation:item-enter var(--dur-element) var(--ease-metro) 100ms backwards; }
+#s5_fwd:checked ~ .slides .project-detail__item:nth-child(4) { animation:item-enter var(--dur-element) var(--ease-metro) 150ms backwards; }
+#s5_fwd:checked ~ .slides .project-detail__item:nth-child(5) { animation:item-enter var(--dur-element) var(--ease-metro) 200ms backwards; }
+#s5_fwd:checked ~ .slides .project-detail__item:nth-child(6) { animation:item-enter var(--dur-element) var(--ease-metro) 250ms backwards; }
+#s5_fwd:checked ~ .slides .project-detail__item:nth-child(7) { animation:item-enter var(--dur-element) var(--ease-metro) 300ms backwards; }
+#s5_fwd:checked ~ .slides .project-detail__item:nth-child(8) { animation:item-enter var(--dur-element) var(--ease-metro) 350ms backwards; }
+#s5_fwd:checked ~ .slides .project-detail__item:nth-child(9) { animation:item-enter var(--dur-element) var(--ease-metro) 400ms backwards; }
+#s5_fwd:checked ~ .slides .project-detail__item:nth-child(10){ animation:item-enter var(--dur-element) var(--ease-metro) 450ms backwards; }
+#s5_fwd:checked ~ .slides .project-detail__item:nth-child(11){ animation:item-enter var(--dur-element) var(--ease-metro) 500ms backwards; }
+#s5_fwd:checked ~ .slides .project-detail__item:nth-child(12){ animation:item-enter var(--dur-element) var(--ease-metro) 550ms backwards; }
+#s5_fwd:checked ~ .slides .project-detail__item:nth-child(13){ animation:item-enter var(--dur-element) var(--ease-metro) 600ms backwards; }
+#s5_fwd:checked ~ .slides .project-detail__item:nth-child(14){ animation:item-enter var(--dur-element) var(--ease-metro) 650ms backwards; }
+#s5_fwd:checked ~ .slides .project-detail__item:nth-child(15){ animation:item-enter var(--dur-element) var(--ease-metro) 700ms backwards; }
+#s5_fwd:checked ~ .slides .project-detail__item:nth-child(16){ animation:item-enter var(--dur-element) var(--ease-metro) 750ms backwards; }
+
+@media (max-width:768px){
+  .project-detail__scroll{ padding:6rem 6% 3rem; }
+  .project-detail__scroll h2{ font-size:1.75rem; }
+  .project-detail__scroll h3{ font-size:1.4rem; }
+  .project-detail__scroll p,
+  .project-detail__scroll ul,
+  .project-detail__scroll ol{ font-size:1.05rem; }
+}
+
 @media (prefers-reduced-motion: reduce){
   .location--coimbatore,
   .location--bengaluru,
@@ -767,7 +919,12 @@ label.company:focus{ outline:none; }
   #s4_fwd:checked ~ .slides .slide-3,
   #s4_fwd:checked ~ .slides .slide-4,
   #s3_from4_bwd:checked ~ .slides .slide-4,
-  #s3_from4_bwd:checked ~ .slides .slide-3{
+  #s3_from4_bwd:checked ~ .slides .slide-3,
+  #s5_fwd:checked ~ .slides .slide-2,
+  #s5_fwd:checked ~ .slides .slide-5,
+  #s2_from5_bwd:checked ~ .slides .slide-5,
+  #s2_from5_bwd:checked ~ .slides .slide-2,
+  .project-detail__item{
     animation:none !important;
     transition:none !important;
   }

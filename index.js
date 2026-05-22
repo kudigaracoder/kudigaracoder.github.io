@@ -9,6 +9,8 @@
  * 2026-04-08 16:00  Extract all JavaScript from index.html into this file
  * 2026-04-15 00:00  Port company detail expand view from noJS-rewrite; fix back-button state reset
  * 2026-04-16 00:00  Fix Esc dismiss: move keydown to module level; add keyCode fallback; esc-hint → label; tabindex on labels
+ * 2026-05-21 00:00  Add Slide 5 markdown-driven project details (projects/<slug>.md, rendered via marked.js); Esc returns to work summary when the project view is open
+ * 2026-05-21 00:00  Vendor marked.js locally (vendor/marked.min.js) — no CDN dependency; add load-failure handling
  */
 
 /* ============================================================
@@ -20,15 +22,19 @@
  * ============================================================ */
 
 /**
- * Reads the user's local hour and sets body[data-theme] before
- * paint so the correct colour scheme is applied on the very first
- * frame — no flash of the wrong theme.
+ * Reads the user's local hour and sets data-theme on the <html>
+ * element before paint so the correct colour scheme is applied on
+ * the very first frame — no flash of the wrong theme.
+ *
+ * The attribute goes on <html> (document.documentElement), not
+ * <body>: this script runs in <head> before <body> is parsed, so
+ * document.body is still null at this point.
  *
  * Rule: 06:00–17:59 local time → 'light'; 18:00–05:59 → 'dark'.
  */
 (function () {
   var h = new Date().getHours();
-  document.body.dataset.theme = (h >= 6 && h < 18) ? 'light' : 'dark';
+  document.documentElement.dataset.theme = (h >= 6 && h < 18) ? 'light' : 'dark';
 }());
 
 /* ============================================================
@@ -42,7 +48,7 @@
  * Phase 1 — A fixed overlay div expands its clip-path from
  *            circle(0%) to circle(150%), covering the entire
  *            viewport over 0.6 s.
- * Phase 2 — Once fully covered, body[data-theme] is switched.
+ * Phase 2 — Once fully covered, the <html> data-theme is switched.
  *            The overlay then contracts back to circle(0%),
  *            revealing the newly-themed page beneath it.
  *
@@ -54,13 +60,13 @@
  * in index.html via onclick="toggleTheme()".
  */
 function toggleTheme() {
-  var isDark      = document.body.dataset.theme === 'dark';
+  var isDark      = document.documentElement.dataset.theme === 'dark';
   var targetTheme = isDark ? 'light' : 'dark';
   var targetBg    = isDark ? '#ffffff' : '#000000';
 
   /* Instant fallback for reduced-motion preference. */
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    document.body.dataset.theme = targetTheme;
+    document.documentElement.dataset.theme = targetTheme;
     return;
   }
 
@@ -82,7 +88,7 @@ function toggleTheme() {
     overlay.removeEventListener('transitionend', onExpand);
 
     /* Apply the theme while the screen is fully covered. */
-    document.body.dataset.theme = targetTheme;
+    document.documentElement.dataset.theme = targetTheme;
 
     /* Phase 2: contract overlay to reveal the new theme. */
     requestAnimationFrame(function () {
@@ -109,27 +115,32 @@ function toggleTheme() {
 var blogManifest = null;
 
 /**
- * Flag that tracks whether marked.js has been loaded from CDN.
- * Avoids appending a second <script> tag on subsequent post loads.
+ * Flag that tracks whether marked.js has been loaded.
+ * Avoids appending a second <script> tag on subsequent loads.
  * @type {boolean}
  */
 var markedReady = false;
 
 /**
- * Lazily loads the marked.js Markdown-to-HTML parser from jsDelivr CDN.
+ * Lazily loads the marked.js Markdown-to-HTML parser.
  *
- * On the first call a <script> tag is injected into <head>. Once the
- * script fires its onload event, markedReady is set to true and the
- * callback is invoked. Subsequent calls skip the injection and invoke
- * the callback immediately.
+ * marked is vendored locally at vendor/marked.min.js so the site has
+ * no runtime CDN dependency — it works offline and on GitHub Pages
+ * regardless of network. On the first call a <script> tag is injected;
+ * once it loads, markedReady is set and cb runs. Subsequent calls
+ * invoke cb immediately. If the script fails to load, onErr (when
+ * supplied) is invoked so callers can surface an error instead of
+ * waiting forever.
  *
- * @param {Function} cb - Function to call once marked.js is available.
+ * @param {Function} cb - Called once marked.js is available.
+ * @param {Function} [onErr] - Called if the script fails to load.
  */
-function loadMarked(cb) {
+function loadMarked(cb, onErr) {
   if (markedReady) { cb(); return; }
   var s = document.createElement('script');
-  s.src = 'https://cdn.jsdelivr.net/npm/marked/marked.min.js';
+  s.src = './vendor/marked.min.js';
   s.onload = function () { markedReady = true; cb(); };
+  s.onerror = function () { if (onErr) onErr(); };
   document.head.appendChild(s);
 }
 
@@ -254,6 +265,107 @@ function initBlog() {
 }
 
 /* ============================================================
+ * PROJECT DETAILS — Slide 5
+ *
+ * Each company "Read More" label carries a data-project slug and
+ * triggers the s5_fwd carousel state. The matching markdown file
+ * (projects/<slug>.md) is fetched, rendered with marked.js, and
+ * injected into #project-detail-content. Rendered blocks are tagged
+ * .project-detail__item so the CSS cascade entrance applies to them.
+ * ============================================================ */
+
+/**
+ * Rendered-HTML cache keyed by project slug. Avoids re-fetching and
+ * re-parsing markdown when a project is revisited.
+ * @type {Object<string,string>}
+ */
+var projectCache = {};
+
+/**
+ * Slug of the project currently being shown. Used to discard a stale
+ * fetch result if the user opens a different project before the
+ * previous markdown request resolves.
+ * @type {string|null}
+ */
+var currentProject = null;
+
+/**
+ * Injects rendered markdown into the content container: rewrites
+ * relative image paths so markdown can reference files relative to
+ * the projects/ directory, then tags each top-level block with
+ * .project-detail__item so the staggered cascade entrance applies.
+ *
+ * @param {HTMLElement} container - The #project-detail-content element.
+ * @param {string} html - HTML produced by marked.parse().
+ */
+function renderProjectContent(container, html) {
+  container.innerHTML = html;
+
+  container.querySelectorAll('img').forEach(function (img) {
+    var src = img.getAttribute('src') || '';
+    if (src && !/^(https?:)?\/\//.test(src) && src.charAt(0) !== '/') {
+      img.setAttribute('src', 'projects/' + src.replace(/^\.\//, ''));
+    }
+  });
+
+  var kids = container.children;
+  for (var i = 0; i < kids.length; i++) {
+    kids[i].classList.add('project-detail__item');
+  }
+}
+
+/**
+ * Loads and displays a company's project case study on Slide 5.
+ *
+ * Sets the per-company modifier class (which drives the title
+ * colour), serves cached HTML when available, otherwise fetches the
+ * markdown, loads marked.js, parses, caches, and renders it. A
+ * stale-result guard prevents a slow fetch from overwriting a newer
+ * selection.
+ *
+ * @param {string} slug - Project slug, e.g. "rga".
+ */
+function loadProjectDetail(slug) {
+  currentProject = slug;
+
+  document.getElementById('project-detail').className =
+    'project-detail project-detail--' + slug;
+
+  var content = document.getElementById('project-detail-content');
+
+  if (projectCache[slug]) {
+    renderProjectContent(content, projectCache[slug]);
+    return;
+  }
+
+  content.innerHTML = '<p class="project-detail__empty">Loading…</p>';
+
+  function fail(message) {
+    if (currentProject === slug) {
+      content.innerHTML = '<p class="project-detail__empty">' + message + '</p>';
+    }
+  }
+
+  fetch('./projects/' + slug + '.md')
+    .then(function (r) {
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      return r.text();
+    })
+    .then(function (md) {
+      loadMarked(function () {
+        var html = marked.parse(md);
+        projectCache[slug] = html;
+        if (currentProject === slug) renderProjectContent(content, html);
+      }, function () {
+        fail('Could not load the page renderer.');
+      });
+    })
+    .catch(function () {
+      fail('Could not load this project.');
+    });
+}
+
+/* ============================================================
  * INITIALISATION — deferred until the DOM is fully parsed
  * ============================================================ */
 
@@ -267,9 +379,19 @@ function initBlog() {
  * CSS :has() drives the expand animation; this resets the radio state
  * so the CSS reverts. The "Hit Esc to go back" label elements in the
  * HTML provide a click-based fallback that works purely via CSS.
+ *
+ * When the project-details slide (Slide 5) is open, Escape instead
+ * steps back to the work-summary slide via the s2_from5_bwd state,
+ * leaving the company detail expanded.
  */
 document.addEventListener('keydown', function (e) {
   if (e.key === 'Escape' || e.key === 'Esc' || e.keyCode === 27) {
+    var s5 = document.getElementById('s5_fwd');
+    if (s5 && s5.checked) {
+      var s5back = document.getElementById('s2_from5_bwd');
+      if (s5back) s5back.checked = true;
+      return;
+    }
     var coNone = document.getElementById('co_none');
     if (coNone) coNone.checked = true;
   }
@@ -284,6 +406,17 @@ document.addEventListener('DOMContentLoaded', function () {
    */
   document.getElementById('s4_fwd').addEventListener('change', function () {
     if (this.checked) initBlog();
+  });
+
+  /**
+   * Wire each company "Read More" label to load its project markdown.
+   * The label's `for` attribute drives the s5_fwd turnstile state;
+   * this listener loads the matching case study in parallel.
+   */
+  document.querySelectorAll('.company-detail__read-more[data-project]').forEach(function (el) {
+    el.addEventListener('click', function () {
+      loadProjectDetail(this.dataset.project);
+    });
   });
 
   /**
