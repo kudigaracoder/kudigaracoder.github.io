@@ -857,6 +857,97 @@ label.company:focus{ outline:none; }
   height:auto;
 }
 
+.project-detail__scroll h4{
+  margin:1rem 0 0;
+  font-size:1.45rem;
+  font-weight:700;
+  line-height:1.1;
+  color:var(--toggle-bg);
+}
+.project-detail__scroll h5{
+  margin:1rem 0 0;
+  font-size:1.2rem;
+  font-weight:700;
+  line-height:1.15;
+  color:var(--toggle-bg);
+}
+.project-detail__scroll h6{
+  margin:1rem 0 0;
+  font-size:1rem;
+  font-weight:700;
+  line-height:1.2;
+  text-transform:uppercase;
+  letter-spacing:1px;
+  color:var(--toggle-bg);
+}
+
+.project-detail__scroll blockquote{
+  margin:0;
+  padding-left:1.25rem;
+  border-left:3px solid var(--accent);
+  color:#8e8e8e;
+}
+.project-detail__scroll blockquote p{ color:inherit; }
+
+.project-detail__scroll table{
+  display:block;
+  width:100%;
+  overflow-x:auto;
+  border-collapse:collapse;
+  font-size:1rem;
+  color:var(--toggle-bg);
+}
+.project-detail__scroll th,
+.project-detail__scroll td{
+  padding:0.6rem 0.9rem;
+  text-align:left;
+}
+.project-detail__scroll th{
+  font-weight:700;
+  font-size:0.9rem;
+  text-transform:uppercase;
+  letter-spacing:1px;
+  border-bottom:1px solid rgba(128,128,128,0.35);
+}
+.project-detail__scroll td{
+  border-bottom:1px solid rgba(128,128,128,0.2);
+}
+
+.project-detail__scroll code{
+  font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size:0.95em;
+  background:rgba(128,128,128,0.15);
+  padding:0.1em 0.35em;
+}
+.project-detail__scroll pre{
+  margin:0;
+  padding:1rem 1.25rem;
+  background:rgba(128,128,128,0.15);
+  overflow-x:auto;
+  font-size:0.95rem;
+  line-height:1.5;
+  color:var(--toggle-bg);
+}
+.project-detail__scroll pre code{
+  background:none;
+  padding:0;
+  font-size:inherit;
+}
+
+.project-detail__scroll hr{
+  border:0;
+  border-top:1px solid rgba(128,128,128,0.3);
+  margin:1.5rem 0;
+}
+
+.project-detail__scroll ul.contains-task-list{
+  list-style:none;
+  padding-left:0;
+}
+.project-detail__scroll .task-list-item input[type="checkbox"]{
+  margin-right:0.5rem;
+}
+
 /* Per-company title colour — class set on .project-detail by index.js */
 .project-detail--goldman .project-detail__scroll h1{ color:#7297C5; }
 .project-detail--rga     .project-detail__scroll h1{ color:#F90201; }
@@ -891,9 +982,16 @@ label.company:focus{ outline:none; }
   .project-detail__scroll{ padding:6rem 6% 3rem; }
   .project-detail__scroll h2{ font-size:1.75rem; }
   .project-detail__scroll h3{ font-size:1.4rem; }
+  .project-detail__scroll h4{ font-size:1.25rem; }
+  .project-detail__scroll h5{ font-size:1.05rem; }
+  .project-detail__scroll h6{ font-size:0.85rem; }
   .project-detail__scroll p,
   .project-detail__scroll ul,
   .project-detail__scroll ol{ font-size:1.05rem; }
+  .project-detail__scroll code,
+  .project-detail__scroll pre{ font-size:0.85rem; }
+  .project-detail__scroll th{ font-size:0.8rem; }
+  .project-detail__scroll td{ font-size:0.9rem; }
 }
 
 @media (prefers-reduced-motion: reduce){
