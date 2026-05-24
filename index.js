@@ -275,6 +275,25 @@ function initBlog() {
  * ============================================================ */
 
 /**
+ * Ordered project slugs — defines pivot ordering and direction for
+ * switchProject and keyboard navigation.
+ * @type {string[]}
+ */
+var PIVOT_SLUGS = ['goldman', 'rga', 'sva', 'torry', 'other'];
+
+/**
+ * Display labels for each slug, used when building the pivot header.
+ * @type {Object<string,string>}
+ */
+var PIVOT_LABELS = {
+  goldman: 'Goldman Sachs',
+  rga:     'R/GA',
+  sva:     'SVA',
+  torry:   'Torry Harris',
+  other:   'Other Work'
+};
+
+/**
  * Rendered-HTML cache keyed by project slug. Avoids re-fetching and
  * re-parsing markdown when a project is revisited.
  * @type {Object<string,string>}
@@ -288,6 +307,14 @@ var projectCache = {};
  * @type {string|null}
  */
 var currentProject = null;
+
+/**
+ * True while a pivot slide animation is in progress. Prevents a second
+ * switchProject call from starting until the pivot has settled and the
+ * focus colour has been applied (~500 ms after a click).
+ * @type {boolean}
+ */
+var pivotAnimating = false;
 
 /**
  * Injects rendered markdown into the content container: rewrites
@@ -315,6 +342,116 @@ function renderProjectContent(container, html) {
 }
 
 /**
+ * Returns how far the active item sits from the track's left edge (in px),
+ * accounting for any existing transform already applied to the track.
+ * Uses getBoundingClientRect so the existing transform cancels out in
+ * the difference (itemRect.left − trackRect.left = natural offset).
+ *
+ * @param {HTMLElement} track - The .project-detail__pivot-track element.
+ * @param {string}      slug  - The slug of the item to measure.
+ * @returns {number} Pixels to translateX(-n) to pin slug at the left edge.
+ */
+function computePivotOffset(track, slug) {
+  var idx = PIVOT_SLUGS.indexOf(slug);
+  if (idx <= 0) return 0;
+  var items = track.querySelectorAll('.project-detail__pivot-item');
+  if (!items[idx]) return 0;
+  var trackRect = track.getBoundingClientRect();
+  var itemRect  = items[idx].getBoundingClientRect();
+  return itemRect.left - trackRect.left;
+}
+
+/**
+ * Ensures the pivot track exists (creates it on the first call) then
+ * updates the active class and snaps the track offset — no animation,
+ * no DOM reorder. Buttons are created once in canonical PIVOT_SLUGS
+ * order and never moved.
+ *
+ * @param {string} slug - The currently active project slug.
+ */
+function buildPivotHeader(slug) {
+  var header = document.getElementById('project-pivot-header');
+  if (!header) return;
+
+  var track = header.querySelector('.project-detail__pivot-track');
+  if (!track) {
+    track = document.createElement('div');
+    track.className = 'project-detail__pivot-track';
+    track.innerHTML = PIVOT_SLUGS.map(function (s) {
+      return '<button class="project-detail__pivot-item" data-project="' + s +
+             '" role="tab" aria-selected="false">' + escapeHtml(PIVOT_LABELS[s]) + '</button>';
+    }).join('');
+    header.appendChild(track);
+    track.querySelectorAll('.project-detail__pivot-item').forEach(function (btn) {
+      btn.addEventListener('click', function () { switchProject(this.dataset.project); });
+    });
+  }
+
+  track.querySelectorAll('.project-detail__pivot-item').forEach(function (btn) {
+    var active = btn.dataset.project === slug;
+    btn.classList.toggle('project-detail__pivot-item--active', active);
+    btn.setAttribute('aria-selected', String(active));
+  });
+
+  var offset = computePivotOffset(track, slug);
+  track.style.transform = 'translateX(' + (-offset) + 'px)';
+}
+
+/**
+ * Slides the pivot track so the target item reaches the left edge,
+ * then applies the focus colour, then invokes onFocused.
+ *
+ * Sequence:
+ *  1. Remove --active from all items (muted during slide).
+ *  2. Compute the translateX needed to bring slug to position 0.
+ *  3. Animate the track with a CSS transition (350 ms).
+ *  4. After the slide, add --active to slug (colour appears, 150 ms).
+ *  5. Invoke onFocused.
+ *
+ * The track DOM order never changes — items always stay in canonical
+ * PIVOT_SLUGS order. Only the track's translateX changes.
+ *
+ * @param {string}   slug      - The new active project slug.
+ * @param {Function} onFocused - Called once the focus colour has settled.
+ */
+function slidePivotToFocus(slug, onFocused) {
+  var header = document.getElementById('project-pivot-header');
+  if (!header) { onFocused(); return; }
+
+  var track = header.querySelector('.project-detail__pivot-track');
+  if (!track) { buildPivotHeader(slug); onFocused(); return; }
+
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    buildPivotHeader(slug);
+    onFocused();
+    return;
+  }
+
+  /* Step 1: mute all items while sliding */
+  track.querySelectorAll('.project-detail__pivot-item').forEach(function (btn) {
+    btn.classList.remove('project-detail__pivot-item--active');
+    btn.setAttribute('aria-selected', 'false');
+  });
+
+  /* Steps 2–3: compute offset and animate the track */
+  var offset = computePivotOffset(track, slug);
+  track.style.transition = 'transform 350ms var(--ease-metro)';
+  track.style.transform  = 'translateX(' + (-offset) + 'px)';
+
+  /* Step 4: after slide — activate focus colour */
+  setTimeout(function () {
+    track.style.transition = '';
+    var slugBtn = track.querySelector('[data-project="' + slug + '"]');
+    if (slugBtn) {
+      slugBtn.classList.add('project-detail__pivot-item--active');
+      slugBtn.setAttribute('aria-selected', 'true');
+    }
+    /* Step 5: after colour transition (150 ms) — signal content ready */
+    setTimeout(onFocused, 150);
+  }, 350);
+}
+
+/**
  * Loads and displays a company's project case study on Slide 5.
  *
  * Sets the per-company modifier class (which drives the title
@@ -330,6 +467,8 @@ function loadProjectDetail(slug) {
 
   document.getElementById('project-detail').className =
     'project-detail project-detail--' + slug;
+
+  buildPivotHeader(slug);
 
   var content = document.getElementById('project-detail-content');
 
@@ -365,6 +504,65 @@ function loadProjectDetail(slug) {
     });
 }
 
+/**
+ * Switches to a new project with a three-phase animation:
+ *
+ *  Phase 1 — FLIP slide (350 ms): pivot items slide to new positions,
+ *             target item moves to the far left.
+ *  Phase 2 — Focus colour (150 ms): target item's brand colour appears.
+ *  Phase 3 — Content swap (250 + 250 ms): scroll container leaves,
+ *             new markdown loads, scroll container enters.
+ *
+ * Guarded by pivotAnimating so rapid clicks / arrow keys during phase 1+2
+ * are ignored. Guard releases at the start of phase 3 so a subsequent
+ * switch can begin once the pivot has settled.
+ *
+ * No-op if the requested project is already active.
+ *
+ * @param {string} slug - Project slug to switch to.
+ */
+function switchProject(slug) {
+  if (slug === currentProject || pivotAnimating) return;
+
+  var oldIndex = PIVOT_SLUGS.indexOf(currentProject);
+  var newIndex = PIVOT_SLUGS.indexOf(slug);
+  var forward  = newIndex > oldIndex;
+
+  pivotAnimating = true;
+  currentProject = slug;
+  document.getElementById('project-detail').className =
+    'project-detail project-detail--' + slug;
+
+  /* Phase 1+2: track slides left, then focus colour */
+  slidePivotToFocus(slug, function () {
+    pivotAnimating = false;
+
+    /* Phase 3: content swap */
+    var content = document.getElementById('project-detail-content');
+    content.classList.remove(
+      'project-detail__scroll--leaving-left',
+      'project-detail__scroll--leaving-right',
+      'project-detail__scroll--entering-from-right',
+      'project-detail__scroll--entering-from-left'
+    );
+
+    var leavingClass  = forward ? 'project-detail__scroll--leaving-left'
+                                : 'project-detail__scroll--leaving-right';
+    var enteringClass = forward ? 'project-detail__scroll--entering-from-right'
+                                : 'project-detail__scroll--entering-from-left';
+
+    content.classList.add(leavingClass);
+    setTimeout(function () {
+      content.classList.remove(leavingClass);
+      loadProjectDetail(slug);
+      content.classList.add(enteringClass);
+      setTimeout(function () {
+        content.classList.remove(enteringClass);
+      }, 250);
+    }, 250);
+  });
+}
+
 /* ============================================================
  * INITIALISATION — deferred until the DOM is fully parsed
  * ============================================================ */
@@ -385,15 +583,31 @@ function loadProjectDetail(slug) {
  * leaving the company detail expanded.
  */
 document.addEventListener('keydown', function (e) {
+  var s5 = document.getElementById('s5_fwd');
+  var onSlide5 = s5 && s5.checked;
+
   if (e.key === 'Escape' || e.key === 'Esc' || e.keyCode === 27) {
-    var s5 = document.getElementById('s5_fwd');
-    if (s5 && s5.checked) {
+    if (onSlide5) {
+      if (currentProject) {
+        var coLast = document.getElementById('co_' + currentProject);
+        if (coLast) coLast.checked = true;
+      }
       var s5back = document.getElementById('s2_from5_bwd');
       if (s5back) s5back.checked = true;
       return;
     }
     var coNone = document.getElementById('co_none');
     if (coNone) coNone.checked = true;
+    return;
+  }
+
+  /* Arrow keys on Slide 5 step through the pivot sections (clamp, no wrap). */
+  if (onSlide5 && (e.key === 'ArrowRight' || e.key === 'ArrowLeft')) {
+    var idx     = PIVOT_SLUGS.indexOf(currentProject);
+    var nextIdx = idx + (e.key === 'ArrowRight' ? 1 : -1);
+    if (nextIdx < 0 || nextIdx >= PIVOT_SLUGS.length) return;
+    e.preventDefault();
+    switchProject(PIVOT_SLUGS[nextIdx]);
   }
 });
 
@@ -418,6 +632,21 @@ document.addEventListener('DOMContentLoaded', function () {
       loadProjectDetail(this.dataset.project);
     });
   });
+
+  /**
+   * Persist the last-viewed company when returning via the slide-5
+   * back button so the work-summary opens with that company
+   * expanded rather than the originally clicked one.
+   */
+  var s5BackBtn = document.querySelector('.slide-5 .back-btn');
+  if (s5BackBtn) {
+    s5BackBtn.addEventListener('click', function () {
+      if (currentProject) {
+        var coLast = document.getElementById('co_' + currentProject);
+        if (coLast) coLast.checked = true;
+      }
+    });
+  }
 
   /**
    * Reset company detail state whenever the user leaves Slide 2, regardless

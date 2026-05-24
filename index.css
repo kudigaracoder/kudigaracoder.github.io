@@ -798,27 +798,55 @@ label.company:focus{ outline:none; }
 .project-detail{
   position:absolute;
   inset:0;
+  display:grid;
+  grid-template-rows:auto 1fr;
 }
+.project-detail__pivot-header{
+  padding:2rem 6% 0.5rem 6rem;
+  overflow:hidden; /* clips items that slide beyond left/right edges */
+}
+.project-detail__pivot-track{
+  display:flex;
+  align-items:baseline;
+  gap:2rem;
+}
+.project-detail__pivot-item{
+  flex-shrink:0;
+  appearance:none;
+  background:none;
+  border:0;
+  padding:0;
+  margin:0;
+  font-family:inherit;
+  font-weight:700;
+  font-size:var(--detail-size);
+  letter-spacing:-5px;
+  line-height:0.9;
+  color:#8e8e8e;
+  cursor:pointer;
+  white-space:nowrap;
+  transition:color var(--dur-micro) ease;
+}
+.project-detail__pivot-item:hover{ color:var(--toggle-bg); }
+.project-detail__pivot-item--active{ color:var(--toggle-bg); }
+.project-detail--goldman .project-detail__pivot-item--active{ color:#7297C5; }
+.project-detail--rga     .project-detail__pivot-item--active{ color:#F90201; }
+.project-detail--sva     .project-detail__pivot-item--active{ color:#EB1000; }
+.project-detail--torry   .project-detail__pivot-item--active{ color:#2D51A3; }
+
 .project-detail__scroll{
-  height:100%;
   overflow-y:auto;
   display:flex;
   flex-direction:column;
   gap:1.5rem;
-  padding:8rem 6% 4rem;
+  padding:0 6% 4rem;
 }
 
 /* Rendered markdown blocks — tagged .project-detail__item by index.js */
 .project-detail__item{ max-width:860px; }
 
-.project-detail__scroll h1{
-  margin:0;
-  font-size:var(--detail-size);
-  font-weight:700;
-  letter-spacing:-5px;
-  line-height:0.9;
-  color:var(--toggle-bg);
-}
+/* h1 is shown in the pivot header above the scroll; suppress it here */
+.project-detail__scroll h1{ display:none; }
 .project-detail__scroll h2{
   margin:1.5rem 0 0;
   font-size:2.5rem;
@@ -948,11 +976,16 @@ label.company:focus{ outline:none; }
   margin-right:0.5rem;
 }
 
-/* Per-company title colour — class set on .project-detail by index.js */
-.project-detail--goldman .project-detail__scroll h1{ color:#7297C5; }
-.project-detail--rga     .project-detail__scroll h1{ color:#F90201; }
-.project-detail--sva     .project-detail__scroll h1{ color:#EB1000; }
-.project-detail--torry   .project-detail__scroll h1{ color:#2D51A3; }
+
+/* Section-swap motion — pivot click slides content out then in */
+@keyframes pivot-leave-forward { from { transform:translateX(0);    opacity:1; } to { transform:translateX(-2rem); opacity:0; } }
+@keyframes pivot-leave-back    { from { transform:translateX(0);    opacity:1; } to { transform:translateX(2rem);  opacity:0; } }
+@keyframes pivot-enter-forward { from { transform:translateX(2rem); opacity:0; } to { transform:translateX(0);     opacity:1; } }
+@keyframes pivot-enter-back    { from { transform:translateX(-2rem);opacity:0; } to { transform:translateX(0);     opacity:1; } }
+.project-detail__scroll--leaving-left        { animation: pivot-leave-forward 250ms var(--ease-metro) forwards; }
+.project-detail__scroll--leaving-right       { animation: pivot-leave-back    250ms var(--ease-metro) forwards; }
+.project-detail__scroll--entering-from-right { animation: pivot-enter-forward 250ms var(--ease-metro); }
+.project-detail__scroll--entering-from-left  { animation: pivot-enter-back    250ms var(--ease-metro); }
 
 .project-detail__empty{
   font-size:1.1rem;
@@ -979,7 +1012,8 @@ label.company:focus{ outline:none; }
 #s5_fwd:checked ~ .slides .project-detail__item:nth-child(16){ animation:item-enter var(--dur-element) var(--ease-metro) 750ms backwards; }
 
 @media (max-width:768px){
-  .project-detail__scroll{ padding:6rem 6% 3rem; }
+  .project-detail__pivot-header{ padding:1.5rem 6% 0.5rem 6rem; gap:1.25rem; }
+  .project-detail__scroll{ padding:0 6% 3rem; }
   .project-detail__scroll h2{ font-size:1.75rem; }
   .project-detail__scroll h3{ font-size:1.4rem; }
   .project-detail__scroll h4{ font-size:1.25rem; }
@@ -1022,6 +1056,11 @@ label.company:focus{ outline:none; }
   #s5_fwd:checked ~ .slides .slide-5,
   #s2_from5_bwd:checked ~ .slides .slide-5,
   #s2_from5_bwd:checked ~ .slides .slide-2,
+  .project-detail__scroll--leaving-left,
+  .project-detail__scroll--leaving-right,
+  .project-detail__scroll--entering-from-right,
+  .project-detail__scroll--entering-from-left,
+  .project-detail__pivot-item,
   .project-detail__item{
     animation:none !important;
     transition:none !important;
