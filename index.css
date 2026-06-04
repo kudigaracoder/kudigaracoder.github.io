@@ -66,12 +66,16 @@ body{
 }
 
 .content{
+  display:flex;
+  flex-direction:column;
   margin-top:4%;
   margin-left:2%;
 }
 
 /* Typography blocks */
 .brand{
+  display:flex;
+  flex-direction:column;
   position:relative;
   margin:0;
   user-select:none;
@@ -253,6 +257,8 @@ body{
 
 /* Companies list inside slide 2 */
 .company-main{
+  display:flex;
+  flex-direction:column;
   margin-top:0;
   overflow:hidden;
   transform-origin: top center;
@@ -631,6 +637,8 @@ label.company{ cursor:pointer; }
 
 /* Links list inside slide 3 */
 .links-main{
+  display:flex;
+  flex-direction:column;
   margin-top:0;
   transform-origin: top center;
   will-change: transform, opacity;
